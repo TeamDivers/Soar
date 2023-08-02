@@ -1,12 +1,7 @@
 import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import Error from '@routes/error';
-import Home from '@routes/home';
-import Log from '@routes/log';
-import Login from '@routes/login';
-import Portfolio from '@routes/portfolio';
-import Profile from '@routes/profile';
+import { Error, Home, Log, Login, Portfolio, Profile } from '@routes/index';
 
 import Layout from '@components/layout';
 
