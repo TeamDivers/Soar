@@ -5,6 +5,8 @@ import Error from "./routes/error";
 import Login from "./routes/login";
 import Layout from "./components/layout";
 import Portfolio from "./routes/portfolio";
+import Log from "./routes/log";
+import Profile from "./routes/profile";
 
 function App() {
   const router = createBrowserRouter([
@@ -15,6 +17,8 @@ function App() {
       children: [
         { index: true, element: <Home /> },
         { path: "/portfolio", element: <Portfolio /> },
+        { path: "/log", element: <Log /> },
+        { path: "/profile", element: <Profile /> },
       ],
     },
     {
