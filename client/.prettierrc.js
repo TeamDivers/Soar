@@ -6,9 +6,5 @@ module.exports = {
     useTabs: false,
     trailingComma: 'none',
     bracketSpacing: true,
-    semi: true,
-    plugins: [require.resolve('@trivago/prettier-plugin-sort-imports')],
-    importOrder: ['^@routes/(.*)$', '^@components/(.*)$', '^[./]'],
-    importOrderSeparation: true,
-    importOrderSortSpecifiers: true
+    semi: true
 };
