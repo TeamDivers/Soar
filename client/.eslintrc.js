@@ -12,7 +12,13 @@ module.exports = {
     },
     plugins: ['react', '@typescript-eslint', 'prettier', 'import'],
     rules: {
-        'prettier/prettier': 'warn',
-        'import/no-unresolved': 'off'
+        'prettier/prettier': 'error',
+        'import/no-unresolved': 'off',
+        'import/order': [
+            'error',
+            {
+                groups: ['builtin', 'external', 'internal']
+            }
+        ]
     }
 };
