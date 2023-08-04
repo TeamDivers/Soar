@@ -25,7 +25,8 @@ const Router = () => {
         },
         {
             path: '/login',
-            element: <Login />
+            element: <Layout />,
+            children: [{ index: true, element: <Login /> }]
         }
     ]);
 
