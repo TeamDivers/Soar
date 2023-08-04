@@ -1,4 +1,3 @@
-import { queryClient } from '@configs/reactQuery';
 import React from 'react';
 import { QueryClientProvider } from 'react-query';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
@@ -6,6 +5,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Error, Home, Log, Login, Portfolio, Profile } from '@routes/index';
 
 import Layout from '@components/layout';
+
+import { queryClient } from '@configs/reactQuery';
 
 function App() {
     const router = createBrowserRouter([
