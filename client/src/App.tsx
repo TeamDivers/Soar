@@ -1,4 +1,6 @@
+import { queryClient } from '@configs/reactQuery';
 import React from 'react';
+import { QueryClientProvider } from 'react-query';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { Error, Home, Log, Login, Portfolio, Profile } from '@routes/index';
@@ -24,7 +26,11 @@ function App() {
         }
     ]);
 
-    return <RouterProvider router={router} />;
+    return (
+        <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router} />
+        </QueryClientProvider>
+    );
 }
 
 export default App;
