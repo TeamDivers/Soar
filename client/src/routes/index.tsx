@@ -9,6 +9,8 @@ import Log from './log';
 import Login from './login';
 import Portfolio from './portfolio';
 import Profile from './profile';
+import Ranking from './ranking';
+import Search from './search';
 
 const Router = () => {
     const router = createBrowserRouter([
@@ -20,7 +22,9 @@ const Router = () => {
                 { index: true, element: <Home /> },
                 { path: '/portfolio', element: <Portfolio /> },
                 { path: '/log', element: <Log /> },
-                { path: '/profile', element: <Profile /> }
+                { path: '/profile', element: <Profile /> },
+                { path: '/ranking', element: <Ranking /> },
+                { path: '/search', element: <Search /> }
             ]
         },
         {
