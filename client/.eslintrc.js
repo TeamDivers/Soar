@@ -1,3 +1,5 @@
+const aliases = require('./tsconfig.paths.json').compilerOptions.paths;
+
 module.exports = {
     env: {
         browser: true,
@@ -34,21 +36,13 @@ module.exports = {
                         group: 'external',
                         position: 'before'
                     },
-                    {
-                        pattern: '@routes/*',
-                        group: 'internal',
-                        position: 'after'
-                    },
-                    {
-                        pattern: '@configs/*',
-                        group: 'internal',
-                        position: 'after'
-                    },
-                    {
-                        pattern: '@components/*',
-                        group: 'internal',
-                        position: 'after'
-                    }
+                    ...Object.keys(aliases).map((key) => {
+                        return {
+                            pattern: key,
+                            group: 'internal',
+                            position: 'after'
+                        };
+                    })
                 ],
                 alphabetize: {
                     order: 'asc',
