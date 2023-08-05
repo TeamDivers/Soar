@@ -18,14 +18,31 @@ const Router = () => {
             path: '/',
             element: <Layout />,
             errorElement: <Error />,
-            children: [
-                { index: true, element: <Home /> },
-                { path: '/portfolio', element: <Portfolio /> },
-                { path: '/record', element: <Record /> },
-                { path: '/profile', element: <Profile /> },
-                { path: '/ranking', element: <Ranking /> },
-                { path: '/search', element: <Search /> }
-            ]
+            children: [{ index: true, element: <Home /> }]
+        },
+        {
+            path: '/portfolio',
+            element: <Layout />,
+            errorElement: <Error />,
+            children: [{ index: true, element: <Portfolio /> }]
+        },
+        {
+            path: '/profile',
+            element: <Layout />,
+            errorElement: <Error />,
+            children: [{ index: true, element: <Profile /> }]
+        },
+        {
+            path: '/record',
+            element: <Layout />,
+            errorElement: <Error />,
+            children: [{ index: true, element: <Record /> }]
+        },
+        {
+            path: '/ranking',
+            element: <Layout />,
+            errorElement: <Error />,
+            children: [{ index: true, element: <Ranking /> }, { element: <Search /> }]
         },
         {
             path: '/login',
