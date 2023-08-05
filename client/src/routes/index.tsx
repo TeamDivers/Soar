@@ -42,7 +42,10 @@ const Router = () => {
             path: '/ranking',
             element: <Layout />,
             errorElement: <Error />,
-            children: [{ index: true, element: <Ranking /> }, { element: <Search /> }]
+            children: [
+                { index: true, element: <Ranking /> },
+                { path: 'search', element: <Search /> }
+            ]
         },
         {
             path: '/login',
