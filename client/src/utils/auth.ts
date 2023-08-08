@@ -1,3 +1,5 @@
+import { REFRESH_TOKEN_KEY } from 'src/constants';
+
 let inMemoryAccessToken: string | undefined;
 
 export const setAccessToken = (accessToken: string) => {
@@ -10,6 +12,14 @@ export const getAccessToken = (): string | undefined => {
 
 export const deleteAccessToken = () => {
     inMemoryAccessToken = '';
+};
+
+export const getRefreshToken = () => {
+    return getCookie(REFRESH_TOKEN_KEY);
+};
+
+export const setRefreshToken = (refreshToken: string) => {
+    setCookie(REFRESH_TOKEN_KEY, refreshToken);
 };
 
 export const setCookie = (name: string, value: string, days: number = 14) => {
