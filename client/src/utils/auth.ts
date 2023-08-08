@@ -15,7 +15,9 @@ export const deleteAccessToken = () => {
 export const setCookie = (name: string, value: string, days: number = 14) => {
     const expires = new Date();
     expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-    const cookieValue = encodeURIComponent(value) + (days ? `; expires=${expires.toUTCString()}` : '');
+    const cookieValue =
+        encodeURIComponent(value) +
+        (days ? `; expires=${expires.toUTCString()}` : '');
     document.cookie = `${name}=${cookieValue}; path=/; HttpOnly; Secure; SameSite=None`;
 };
 
