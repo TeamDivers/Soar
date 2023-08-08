@@ -1,0 +1,9 @@
+.react-modal-sheet-header {
+    .react-modal-sheet-drag-indicator {
+        width: 44px !important;
+    }
+}
+
+.react-modal-sheet-backdrop {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
