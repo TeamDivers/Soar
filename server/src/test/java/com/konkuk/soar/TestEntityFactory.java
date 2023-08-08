@@ -1,11 +1,11 @@
 package com.konkuk.soar;
 
-import com.konkuk.soar.domain.common.File;
-import com.konkuk.soar.domain.common.Tag;
-import com.konkuk.soar.domain.member.Member;
-import com.konkuk.soar.domain.portfolio.Portfolio;
-import com.konkuk.soar.domain.portfolio.project.Project;
-import com.konkuk.soar.domain.studyhistory.StudyHistory;
+import com.konkuk.soar.common.domain.File;
+import com.konkuk.soar.common.domain.Tag;
+import com.konkuk.soar.member.domain.Member;
+import com.konkuk.soar.portfolio.domain.Portfolio;
+import com.konkuk.soar.portfolio.domain.project.Project;
+import com.konkuk.soar.studyhistory.domain.StudyHistory;
 
 import java.time.LocalDateTime;
 
