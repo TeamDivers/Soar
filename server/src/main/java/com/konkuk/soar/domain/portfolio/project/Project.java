@@ -70,17 +70,6 @@ public class Project {
     @Setter(AccessLevel.NONE)
     private List<ProjectStudyHistory> studyHistoryList = new ArrayList<>();
 
-    //    @Builder
-    public Project(String title, String category, String role, String description, LocalDateTime startDate, LocalDateTime endDate, String designBackground) {
-        this.title = title;
-        this.category = category;
-        this.role = role;
-        this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.designBackground = designBackground;
-    }
-
     @Builder
     public Project(String title, String category, String role, String description, LocalDateTime startDate, LocalDateTime endDate, String designBackground, Portfolio portfolio) {
         this.title = title;
