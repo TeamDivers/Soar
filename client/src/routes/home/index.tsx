@@ -1,10 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import BottomSheet from '@components/BottomSheet';
+
+import useBottomSheet from '@hooks/useBottomSheet';
+
 const Home = () => {
+    const { isOpen, toggle, close } = useBottomSheet();
+
     return (
         <div>
             <h1 className="text-3xl font-bold underline">Home</h1>
+            <button onClick={toggle}>toggle</button>
+            <BottomSheet isOpen={isOpen} onClose={close} toggle={toggle}>
+                Hello
+            </BottomSheet>
             <div>
                 <Link to={'/portfolio'}>portfolio</Link>
             </div>
