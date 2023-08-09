@@ -12,12 +12,12 @@ import lombok.*;
 @IdClass(ProjectAndFileId.class)
 public class ProjectFile {
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pf_project_id")
     private Project project;
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pf_file_id")
     private File file;
 
@@ -31,19 +31,6 @@ public class ProjectFile {
         this.file = file;
         if (!file.getProjectFileList().contains(this)) {
             file.getProjectFileList().add(this);
-        }
-    }
-
-    @PreRemove
-    private void preRemove() {
-        if (this.project != null) {
-            project.getProjectFiles().remove(this);
-            this.project = null;
-        }
-
-        if (this.file != null) {
-            file.getProjectFileList().remove(this);
-            this.file = null;
         }
     }
 }

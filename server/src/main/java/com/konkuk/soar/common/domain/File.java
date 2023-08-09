@@ -42,17 +42,16 @@ public class File {
     @Column(name = "file_url")
     private String url;
 
-    @OneToMany(mappedBy = "file", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "file", fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
     List<ProjectFile> projectFileList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "file", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "file", fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
     List<StudyHistoryFile> studyHistoryFileList = new ArrayList<>();
 
     @Builder
     public File(String type, String originalName, String savedName, String url) {
-
         this.type = type;
         this.originalName = originalName;
         this.savedName = savedName;

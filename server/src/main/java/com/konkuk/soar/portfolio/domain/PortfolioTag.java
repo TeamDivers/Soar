@@ -15,12 +15,12 @@ import lombok.NoArgsConstructor;
 @IdClass(PortfolioAndTagId.class)
 public class PortfolioTag {
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pt_portfolio_id")
     private Portfolio portfolio;
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pt_tag_id")
     private Tag tag;
 
@@ -34,19 +34,6 @@ public class PortfolioTag {
         this.tag = tag;
         if (!tag.getPortfolioTagList().contains(this)) {
             tag.getPortfolioTagList().add(this);
-        }
-    }
-
-    @PreRemove
-    private void preRemove() {
-        if (portfolio != null) {
-            portfolio.getTagList().remove(this);
-            portfolio = null;
-        }
-
-        if (tag != null) {
-            tag.getPortfolioTagList().remove(this);
-            tag = null;
         }
     }
 }

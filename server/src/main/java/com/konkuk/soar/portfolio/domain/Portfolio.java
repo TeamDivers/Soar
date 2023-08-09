@@ -41,25 +41,25 @@ public class Portfolio {
     @Column(name = "portfolio_is_public")
     private boolean isPublic;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolio_member_id")
     @Setter(AccessLevel.NONE)
     private Member member;
 
-    @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
     private List<Project> projectList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
     private List<PortfolioBookmark> bookmarkList = new ArrayList<>();
 
     // TODO : REVIEW 살릴지?
-    @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
     private List<PortfolioReview> reviewList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
     @Setter(AccessLevel.NONE)
     private List<PortfolioTag> tagList = new ArrayList<>();
 
@@ -73,14 +73,6 @@ public class Portfolio {
         this.member = member;
         if (!member.getPortfolioList().contains(this)) {
             member.getPortfolioList().add(this);
-        }
-    }
-
-    @PreRemove
-    private void preRemove() {
-        if (member != null) {
-            member.getPortfolioList().remove(this);
-            member = null;
         }
     }
 }

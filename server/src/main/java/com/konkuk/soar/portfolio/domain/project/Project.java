@@ -57,16 +57,16 @@ public class Project {
     @Column(name = "project_design_background")
     private String designBackground;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_portfolio_id")
     @Setter(AccessLevel.NONE)
     private Portfolio portfolio;
 
-    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
     private List<ProjectFile> projectFiles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
     private List<ProjectStudyHistory> studyHistoryList = new ArrayList<>();
 
@@ -83,14 +83,6 @@ public class Project {
         this.portfolio = portfolio;
         if (!portfolio.getProjectList().contains(this)) {
             portfolio.getProjectList().add(this);
-        }
-    }
-
-    @PreRemove
-    private void preRemove() {
-        if (this.portfolio != null) {
-            this.portfolio.getProjectList().remove(this);
-            this.portfolio = null;
         }
     }
 }

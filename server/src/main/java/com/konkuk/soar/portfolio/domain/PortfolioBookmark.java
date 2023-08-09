@@ -12,12 +12,12 @@ import lombok.*;
 @IdClass(PortfolioAndMemberId.class)
 public class PortfolioBookmark {
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pb_portfolio_id")
     private Portfolio portfolio;
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pb_member_id")
     private Member member;
 
@@ -31,19 +31,6 @@ public class PortfolioBookmark {
         this.member = member;
         if (!member.getBookmarkList().contains(this)) {
             member.getBookmarkList().add(this);
-        }
-    }
-
-    @PreRemove
-    private void preRemove() {
-        if (portfolio != null) {
-            portfolio.getBookmarkList().remove(this);
-            portfolio = null;
-        }
-
-        if (member != null) {
-            member.getBookmarkList().remove(this);
-            member = null;
         }
     }
 }

@@ -53,20 +53,20 @@ public class StudyHistory {
     @Column(name = "study_history_end_date")
     private LocalDateTime endDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "study_history_member_id")
     @Setter(AccessLevel.NONE)
     private Member member;
 
-    @OneToMany(mappedBy = "studyHistory", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "studyHistory", fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
     private List<ProjectStudyHistory> projectStudyHistoryList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "studyHistory", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "studyHistory", fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
     private List<StudyHistoryFile> fileList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "studyHistory", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "studyHistory", fetch = FetchType.EAGER)
     @Setter(AccessLevel.NONE)
     private List<StudyHistoryTag> tagList = new ArrayList<>();
 
@@ -82,14 +82,6 @@ public class StudyHistory {
         this.member = member;
         if (!member.getStudyHistoryList().contains(this)) {
             member.getStudyHistoryList().add(this);
-        }
-    }
-
-    @PreRemove
-    private void preRemove() {
-        if (member != null) {
-            member.getStudyHistoryList().remove(this);
-            member = null;
         }
     }
 }

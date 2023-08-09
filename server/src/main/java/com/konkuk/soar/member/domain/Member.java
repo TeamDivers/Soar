@@ -28,11 +28,11 @@ public class Member {
     @Column(name = "member_name")
     private String name;
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
     private List<Portfolio> portfolioList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
     private List<PortfolioBookmark> bookmarkList = new ArrayList<>();
 
@@ -40,13 +40,12 @@ public class Member {
     @Setter(AccessLevel.NONE)
     private List<PortfolioReview> reviewList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
     private List<StudyHistory> studyHistoryList = new ArrayList<>();
 
     @Builder
     public Member(String name) {
-
         this.name = name;
     }
 }

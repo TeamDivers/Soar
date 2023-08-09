@@ -12,12 +12,12 @@ import lombok.*;
 @IdClass(StudyHistoryAndFileId.class)
 public class StudyHistoryFile {
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shf_study_history_id")
     private StudyHistory studyHistory;
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shf_file_id")
     private File file;
 
@@ -34,16 +34,4 @@ public class StudyHistoryFile {
         }
     }
 
-    @PreRemove
-    private void preRemove() {
-        if (studyHistory != null) {
-            studyHistory.getFileList().remove(this);
-            studyHistory = null;
-        }
-
-        if (file != null) {
-            file.getStudyHistoryFileList().remove(this);
-            file = null;
-        }
-    }
 }

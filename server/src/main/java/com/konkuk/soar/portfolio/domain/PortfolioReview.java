@@ -18,13 +18,13 @@ import org.hibernate.validator.constraints.Range;
 public class PortfolioReview {
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pr_portfolio_id")
     @Setter(AccessLevel.NONE)
     private Portfolio portfolio;
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pr_member_id")
     @Setter(AccessLevel.NONE)
     private Member member;
@@ -63,19 +63,6 @@ public class PortfolioReview {
         this.member = member;
         if (!member.getReviewList().contains(this)) {
             member.getReviewList().add(this);
-        }
-    }
-
-    @PreRemove
-    private void preRemove() {
-        if (portfolio != null) {
-            portfolio.getReviewList().remove(this);
-            portfolio = null;
-        }
-
-        if (member != null) {
-            member.getReviewList().remove(this);
-            member = null;
         }
     }
 }

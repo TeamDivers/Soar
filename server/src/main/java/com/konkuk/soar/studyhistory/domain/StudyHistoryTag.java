@@ -12,12 +12,12 @@ import lombok.*;
 @IdClass(StudyHistoryAndTagId.class)
 public class StudyHistoryTag {
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sht_study_history_id")
     private StudyHistory studyHistory;
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sht_tag_id")
     private Tag tag;
 
@@ -31,19 +31,6 @@ public class StudyHistoryTag {
         this.tag = tag;
         if (!tag.getStudyHistoryTagList().contains(this)) {
             tag.getStudyHistoryTagList().add(this);
-        }
-    }
-
-    @PreRemove
-    private void preRemove() {
-        if (studyHistory != null) {
-            studyHistory.getTagList().remove(this);
-            studyHistory = null;
-        }
-
-        if (tag != null) {
-            tag.getStudyHistoryTagList().remove(this);
-            tag = null;
         }
     }
 }
