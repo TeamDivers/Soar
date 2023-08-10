@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Getter
 @EqualsAndHashCode
 public class PortfolioAndTagId implements Serializable {
+
     private Portfolio portfolio;
     private Tag tag;
 }

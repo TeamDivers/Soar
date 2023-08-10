@@ -5,4 +5,5 @@ import com.konkuk.soar.studyhistory.domain.id.StudyHistoryAndTagId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StudyHistoryTagRepository extends JpaRepository<StudyHistoryTag, StudyHistoryAndTagId> {
+
 }

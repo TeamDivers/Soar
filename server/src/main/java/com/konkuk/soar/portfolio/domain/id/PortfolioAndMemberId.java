@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Getter
 @EqualsAndHashCode
 public class PortfolioAndMemberId implements Serializable {
+
     private Member member;
     private Portfolio portfolio;
 }

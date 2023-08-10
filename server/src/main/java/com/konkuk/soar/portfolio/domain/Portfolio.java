@@ -17,6 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "portfolios")
 public class Portfolio {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "portfolio_id")

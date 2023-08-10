@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Getter
 @EqualsAndHashCode
 public class StudyHistoryAndTagId implements Serializable {
+
     private StudyHistory studyHistory;
     private Tag tag;
 }

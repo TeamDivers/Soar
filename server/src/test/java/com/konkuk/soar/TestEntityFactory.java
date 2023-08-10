@@ -37,7 +37,7 @@ public class TestEntityFactory {
                 .build();
     }
 
-    public static PortfolioReview portfolioReview(Member member,Portfolio portfolio) {
+    public static PortfolioReview portfolioReview(Member member, Portfolio portfolio) {
         return PortfolioReview.builder()
                 .comment("comment")
                 .differenceScore(4.0F)

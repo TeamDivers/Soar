@@ -11,6 +11,7 @@ import lombok.*;
 @Table(name = "project_files")
 @IdClass(ProjectAndFileId.class)
 public class ProjectFile {
+
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pf_project_id")

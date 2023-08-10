@@ -28,6 +28,7 @@ import static com.konkuk.soar.TestEntityFactory.*;
 @SpringBootTest
 @ActiveProfiles("test")
 class StudyHistoryResponseDtoTest {
+
     @Autowired
     ObjectMapper objectMapper;
 
@@ -51,6 +52,7 @@ class StudyHistoryResponseDtoTest {
 
 
     static class ClassBundle {
+
         Member member;
         StudyHistory studyHistory;
         List<File> fileList;

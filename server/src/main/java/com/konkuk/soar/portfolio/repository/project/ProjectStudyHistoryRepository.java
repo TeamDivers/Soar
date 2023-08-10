@@ -5,4 +5,5 @@ import com.konkuk.soar.portfolio.domain.project.ProjectStudyHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProjectStudyHistoryRepository extends JpaRepository<ProjectStudyHistory, ProjectAndStudyHistoryId> {
+
 }

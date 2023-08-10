@@ -50,7 +50,8 @@ public class PortfolioReview {
     private String comment;
 
     @Builder
-    public PortfolioReview(Portfolio portfolio, Member member, Float expertiseScore, Float differenceScore, Float perfectionScore, String comment) {
+    public PortfolioReview(Portfolio portfolio, Member member, Float expertiseScore, Float differenceScore, Float perfectionScore,
+            String comment) {
         this.expertiseScore = expertiseScore;
         this.differenceScore = differenceScore;
         this.perfectionScore = perfectionScore;

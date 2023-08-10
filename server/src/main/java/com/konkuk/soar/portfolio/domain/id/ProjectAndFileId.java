@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Getter
 @EqualsAndHashCode
 public class ProjectAndFileId implements Serializable {
+
     private Project project;
     private File file;
 }

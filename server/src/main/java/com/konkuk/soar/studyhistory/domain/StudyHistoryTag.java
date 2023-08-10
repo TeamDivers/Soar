@@ -11,6 +11,7 @@ import lombok.*;
 @Table(name = "study_history_tags")
 @IdClass(StudyHistoryAndTagId.class)
 public class StudyHistoryTag {
+
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sht_study_history_id")

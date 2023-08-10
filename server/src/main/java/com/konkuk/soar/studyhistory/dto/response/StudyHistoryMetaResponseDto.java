@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class StudyHistoryMetaResponseDto {
+
     private Long id;
     private String type;
     private String content;

@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "portfolio_tags")
 @IdClass(PortfolioAndTagId.class)
 public class PortfolioTag {
+
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pt_portfolio_id")

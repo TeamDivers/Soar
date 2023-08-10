@@ -11,6 +11,7 @@ import lombok.*;
 @Table(name = "portfolio_bookmarks")
 @IdClass(PortfolioAndMemberId.class)
 public class PortfolioBookmark {
+
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pb_portfolio_id")

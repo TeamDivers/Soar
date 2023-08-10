@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Getter
 @EqualsAndHashCode
 public class StudyHistoryAndFileId implements Serializable {
+
     private StudyHistory studyHistory;
     private File file;
 }

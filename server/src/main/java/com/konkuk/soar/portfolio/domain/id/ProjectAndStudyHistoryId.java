@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Getter
 @EqualsAndHashCode
 public class ProjectAndStudyHistoryId implements Serializable {
+
     private Project project;
     private StudyHistory studyHistory;
 }

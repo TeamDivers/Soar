@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 @Getter
 public class StudyHistoryResponseDto {
+
     private Long id;
     private String type;
     private String content;
@@ -29,7 +30,8 @@ public class StudyHistoryResponseDto {
     private List<String> tags;
 
     @Builder
-    public StudyHistoryResponseDto(StudyHistory history, Member member, File timelapseFile, List<File> fileList, List<Tag> tagList) {
+    public StudyHistoryResponseDto(StudyHistory history, Member member, File timelapseFile, List<File> fileList,
+            List<Tag> tagList) {
         this.id = history.getId();
         this.type = history.getType();
         this.content = history.getContent();

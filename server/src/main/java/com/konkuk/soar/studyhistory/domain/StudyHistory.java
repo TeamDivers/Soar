@@ -19,6 +19,7 @@ import java.util.List;
 @Entity
 @Table(name = "study_histories")
 public class StudyHistory {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "study_history_id")
@@ -71,7 +72,8 @@ public class StudyHistory {
     private List<StudyHistoryTag> tagList = new ArrayList<>();
 
     @Builder
-    public StudyHistory(String type, String content, Boolean isPublic, String category, LocalDateTime startDate, LocalDateTime endDate, Member member) {
+    public StudyHistory(String type, String content, Boolean isPublic, String category, LocalDateTime startDate,
+            LocalDateTime endDate, Member member) {
         this.type = type;
         this.content = content;
         this.isPublic = isPublic;

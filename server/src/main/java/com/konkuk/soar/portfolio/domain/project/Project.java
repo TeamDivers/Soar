@@ -18,6 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "projects")
 public class Project {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "project_id")
@@ -71,7 +72,8 @@ public class Project {
     private List<ProjectStudyHistory> studyHistoryList = new ArrayList<>();
 
     @Builder
-    public Project(String title, String category, String role, String description, LocalDateTime startDate, LocalDateTime endDate, String designBackground, Portfolio portfolio) {
+    public Project(String title, String category, String role, String description, LocalDateTime startDate, LocalDateTime endDate,
+            String designBackground, Portfolio portfolio) {
         this.title = title;
         this.category = category;
         this.role = role;
