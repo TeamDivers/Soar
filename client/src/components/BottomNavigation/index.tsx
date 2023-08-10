@@ -14,21 +14,22 @@ const BottomNavigation = () => {
     };
 
     return (
-        <div className="fixed bottom-0 w-full max-w-md p-2 mx-auto bg-gray-900 border-t border-gray-800">
-            <div className="flex justify-around">
+        <div className="fixed bottom-0 w-full max-w-md mx-auto bg-white drop-shadow">
+            <div className="flex justify-between pt-[14px] pb-[34px] px-[52px]">
                 {menus.map((menu) => {
                     return (
-                        <button
+                        <div
                             key={menu.title}
-                            className={`p-2 ${
+                            className={`text-center text-xs font-medium ${
                                 activeTab === menu.title
-                                    ? 'text-blue-500'
-                                    : 'text-gray-400'
+                                    ? 'text-primary'
+                                    : 'text-gray-500'
                             }`}
                             onClick={() => handleTabChange(menu.title)}
                         >
-                            {menu.title}
-                        </button>
+                            {menu.icon('#1D5CFF')}
+                            <span>{menu.title}</span>
+                        </div>
                     );
                 })}
             </div>
