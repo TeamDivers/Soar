@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Divider from '@components/Divider';
 import RoundButton from '@components/RoundButton';
 
-import { Pencil } from '../../assets/images';
+import { Pencil } from '@images/index';
 
 const Home = () => {
     return (
