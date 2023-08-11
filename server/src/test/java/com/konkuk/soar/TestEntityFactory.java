@@ -3,10 +3,10 @@ package com.konkuk.soar;
 import com.konkuk.soar.common.domain.File;
 import com.konkuk.soar.common.domain.Tag;
 import com.konkuk.soar.member.domain.Member;
-import com.konkuk.soar.portfolio.domain.Portfolio;
-import com.konkuk.soar.portfolio.domain.PortfolioBookmark;
-import com.konkuk.soar.portfolio.domain.PortfolioReview;
-import com.konkuk.soar.portfolio.domain.PortfolioTag;
+import com.konkuk.soar.portfolio.domain.portfolio.Portfolio;
+import com.konkuk.soar.portfolio.domain.portfolio.PortfolioBookmark;
+import com.konkuk.soar.portfolio.domain.portfolio.PortfolioReview;
+import com.konkuk.soar.portfolio.domain.portfolio.PortfolioTag;
 import com.konkuk.soar.portfolio.domain.project.Project;
 import com.konkuk.soar.studyhistory.domain.StudyHistory;
 

@@ -1,4 +1,4 @@
-package com.konkuk.soar.portfolio.domain;
+package com.konkuk.soar.portfolio.domain.portfolio;
 
 import com.konkuk.soar.member.domain.Member;
 import com.konkuk.soar.portfolio.domain.id.PortfolioAndMemberId;

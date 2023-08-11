@@ -1,7 +1,7 @@
 package com.konkuk.soar.portfolio.domain.id;
 
 import com.konkuk.soar.common.domain.Tag;
-import com.konkuk.soar.portfolio.domain.Portfolio;
+import com.konkuk.soar.portfolio.domain.portfolio.Portfolio;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
