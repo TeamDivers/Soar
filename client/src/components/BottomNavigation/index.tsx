@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { menus } from '@constants/menus';
 
 const BottomNavigation = () => {
+    const navigate = useNavigate();
+
     const [activeTab, setActiveTab] = useState(menus[0].title);
 
-    const handleTabChange = (tab: string) => {
-        setActiveTab(tab);
-
-        /**
-         * TODO: Link to tab
-         * */
+    const handleTabChange = (menu: (typeof menus)[number]) => {
+        setActiveTab(menu.title);
+        navigate(menu.route);
     };
 
     return (
@@ -22,7 +22,7 @@ const BottomNavigation = () => {
                         <div
                             key={menu.title}
                             className="flex flex-col gap-[6px] items-center justify-center"
-                            onClick={() => handleTabChange(menu.title)}
+                            onClick={() => handleTabChange(menu)}
                         >
                             <Icon
                                 color={
