@@ -18,7 +18,13 @@ const Home = () => {
                             <br />
                             4개 이상이에요!
                         </div>
-                        <RoundButton>포트폴리오 만들기</RoundButton>
+                        <RoundButton
+                            onClick={function (): void {
+                                throw new Error('Function not implemented.');
+                            }}
+                        >
+                            포트폴리오 만들기
+                        </RoundButton>
                     </div>
                     <Pencil className="w-[100px]" />
                     {/* TODO: size of pencil logo will be change!! */}
