@@ -17,18 +17,30 @@ const BottomNavigation = () => {
         <div className="fixed bottom-0 w-full max-w-md mx-auto bg-white drop-shadow">
             <div className="flex justify-between pt-[14px] pb-[34px] px-[52px]">
                 {menus.map((menu) => {
+                    const Icon = menu.Icon;
                     return (
                         <div
                             key={menu.title}
-                            className={`text-center text-xs font-medium ${
-                                activeTab === menu.title
-                                    ? 'text-primary'
-                                    : 'text-gray-500'
-                            }`}
+                            className="flex flex-col gap-[6px] items-center justify-center"
                             onClick={() => handleTabChange(menu.title)}
                         >
-                            {menu.icon('#1D5CFF')}
-                            <span>{menu.title}</span>
+                            <Icon
+                                color={
+                                    activeTab === menu.title
+                                        ? '#1D5CFF'
+                                        : 'gray'
+                                }
+                            />
+
+                            <span
+                                className={`text-center text-xs font-medium ${
+                                    activeTab === menu.title
+                                        ? 'text-primary'
+                                        : 'text-gray-500'
+                                }`}
+                            >
+                                {menu.title}
+                            </span>
                         </div>
                     );
                 })}
