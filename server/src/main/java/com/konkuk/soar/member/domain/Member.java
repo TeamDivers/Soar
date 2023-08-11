@@ -29,6 +29,11 @@ public class Member {
     @Column(name = "member_name")
     private String name;
 
+    @NotBlank
+    @Length(max = 300)
+    @Column(name = "member_email")
+    private String email;
+
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     @Setter(AccessLevel.NONE)
     private List<Portfolio> portfolioList = new ArrayList<>();
@@ -46,7 +51,8 @@ public class Member {
     private List<StudyHistory> studyHistoryList = new ArrayList<>();
 
     @Builder
-    public Member(String name) {
+    public Member(String name, String email) {
         this.name = name;
+        this.email = email;
     }
 }
