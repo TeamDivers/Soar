@@ -1,6 +1,6 @@
 package com.konkuk.soar.common.domain;
 
-import com.konkuk.soar.portfolio.domain.PortfolioTag;
+import com.konkuk.soar.portfolio.domain.portfolio.PortfolioTag;
 import com.konkuk.soar.studyhistory.domain.StudyHistoryTag;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

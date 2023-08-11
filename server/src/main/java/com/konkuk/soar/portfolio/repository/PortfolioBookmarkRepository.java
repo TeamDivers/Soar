@@ -1,6 +1,6 @@
 package com.konkuk.soar.portfolio.repository;
 
-import com.konkuk.soar.portfolio.domain.PortfolioBookmark;
+import com.konkuk.soar.portfolio.domain.portfolio.PortfolioBookmark;
 import com.konkuk.soar.portfolio.domain.id.PortfolioAndMemberId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

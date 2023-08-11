@@ -1,7 +1,7 @@
 package com.konkuk.soar.portfolio.domain.project;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.konkuk.soar.portfolio.domain.Portfolio;
+import com.konkuk.soar.portfolio.domain.portfolio.Portfolio;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
