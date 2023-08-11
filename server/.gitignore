@@ -1,6 +1,7 @@
 *#
 .idea
 *.yml
+*.yaml
 *.iml
 *.ipr
 *.iws
