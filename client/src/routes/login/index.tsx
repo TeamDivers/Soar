@@ -2,7 +2,7 @@ import React from 'react';
 
 import RoundButton from '@components/RoundButton';
 
-import { Logo } from '@images/index';
+import { Google, Kakao, Logo } from '@images/index';
 
 const Login = () => {
     return (
@@ -13,8 +13,28 @@ const Login = () => {
                 </h1>
                 <Logo />
             </div>
-            <div className="fixed bottom-[80px] w-full px-4">
-                <RoundButton>카카오톡으로 로그인</RoundButton>
+            <div className="fixed bottom-[80px] w-full px-4 flex flex-col gap-[10px]">
+                <RoundButton
+                    backgroundColor="#FEE500"
+                    textColor="#181600"
+                    onClick={function (): void {
+                        throw new Error('Function not implemented.');
+                    }}
+                >
+                    <Kakao />
+                    카카오톡으로 로그인
+                </RoundButton>
+                <RoundButton
+                    backgroundColor="white"
+                    textColor="#242832"
+                    hasBorder
+                    onClick={function (): void {
+                        throw new Error('Function not implemented.');
+                    }}
+                >
+                    <Google />
+                    구글계정으로 로그인
+                </RoundButton>
             </div>
         </div>
     );
