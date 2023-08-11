@@ -49,7 +49,18 @@ const Router = () => {
         },
         {
             path: '/login',
-            element: <Login />
+            element: (
+                <Layout
+                    hasNavigation={false}
+                    hasLogo={false}
+                    hasPadding={false}
+                />
+            ),
+            errorElement: <Error />,
+            children: [
+                { index: true, element: <Login /> },
+                { path: 'search', element: <Search /> }
+            ]
         }
     ]);
 

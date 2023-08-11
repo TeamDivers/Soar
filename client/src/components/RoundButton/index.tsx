@@ -6,7 +6,7 @@ interface RoundButtonProps {
 
 const RoundButton = ({ children }: RoundButtonProps) => {
     return (
-        <div className="bg-primary rounded-[50px] flex justify-center items-center py-3">
+        <div className="bg-primary rounded-[50px] flex justify-center items-center py-[14px]">
             <span className="text-base font-bold text-white">{children}</span>
         </div>
     );
