@@ -10,18 +10,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PortfolioCreateDto {
 
-    private String title;
-    private String description;
-    private String category;
-    private boolean isPublic;
-    private Long memberId;
+  private String title;
+  private String description;
+  private String category;
+  private boolean isPublic;
+  private Long memberId;
 
-    @Builder
-    public PortfolioCreateDto(Portfolio portfolio, Member member) {
-        this.title = portfolio.getTitle();
-        this.description = portfolio.getDescription();
-        this.category = portfolio.getCategory();
-        this.isPublic = portfolio.isPublic();
-        this.memberId = member.getId();
-    }
+  @Builder
+  public PortfolioCreateDto(Portfolio portfolio, Member member) {
+    this.title = portfolio.getTitle();
+    this.description = portfolio.getDescription();
+    this.category = portfolio.getCategory();
+    this.isPublic = portfolio.isPublic();
+    this.memberId = member.getId();
+  }
 }

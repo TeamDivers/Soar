@@ -51,6 +51,7 @@ class ProjectResponseDtoTest {
   StudyHistoryRepository studyHistoryRepository;
   @Autowired
   ProjectStudyHistoryRepository projectStudyHistoryRepository;
+
   @Test
   @Transactional
   void test() {

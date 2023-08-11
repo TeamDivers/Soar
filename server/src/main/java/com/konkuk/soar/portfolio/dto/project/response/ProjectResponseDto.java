@@ -31,7 +31,8 @@ public class ProjectResponseDto {
   private List<FileResponseDto> files;
 
   @Builder
-  public ProjectResponseDto(Project project, Portfolio portfolio, Member member, List<StudyHistory> studyHistoryList,
+  public ProjectResponseDto(Project project, Portfolio portfolio, Member member,
+      List<StudyHistory> studyHistoryList,
       List<File> fileList) {
     this.projectId = project.getId();
     this.portfolioId = portfolio.getId();

@@ -29,7 +29,8 @@ public class PortfolioResponseDto {
   private TagListResponseDto tags;
 
   // TODO : projects 만 dto로 받는 상황 해결
-  public PortfolioResponseDto(Portfolio portfolio, Member member, List<ProjectResponseDto> projectList,
+  public PortfolioResponseDto(Portfolio portfolio, Member member,
+      List<ProjectResponseDto> projectList,
       List<PortfolioReview> reviewList, List<Tag> tagList, Integer bookmark) {
     this.portfolioId = portfolio.getId();
     this.member_id = member.getId();
