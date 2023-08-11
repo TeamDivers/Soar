@@ -13,7 +13,7 @@ const Login = () => {
                 </h1>
                 <Logo />
             </div>
-            <div className="fixed bottom-[80px] w-full px-4 flex flex-col gap-[10px]">
+            <div className="fixed max-w-md mx-auto bottom-[80px] w-full px-4 flex flex-col gap-[10px]">
                 <RoundButton
                     backgroundColor="#FEE500"
                     textColor="#181600"
@@ -21,8 +21,10 @@ const Login = () => {
                         throw new Error('Function not implemented.');
                     }}
                 >
-                    <Kakao />
-                    카카오톡으로 로그인
+                    <div className="flex">
+                        <Kakao />
+                        카카오톡으로 로그인
+                    </div>
                 </RoundButton>
                 <RoundButton
                     backgroundColor="white"
@@ -32,8 +34,10 @@ const Login = () => {
                         throw new Error('Function not implemented.');
                     }}
                 >
-                    <Google />
-                    구글계정으로 로그인
+                    <div className="flex">
+                        <Google />
+                        구글계정으로 로그인
+                    </div>
                 </RoundButton>
             </div>
         </div>
