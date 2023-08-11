@@ -22,6 +22,8 @@ public class OAuth2Attribute {
     switch (provider) {
       case "google":
         return ofGoogle(attributes);
+      case "kakao":
+        return ofKakao(attributes);
       default:
         throw new RuntimeException();
     }
@@ -32,6 +34,18 @@ public class OAuth2Attribute {
         .id((Long) attributes.get("id"))
         .nickname((String) attributes.get("name"))
         .email((String) attributes.get("email"))
+        .attributes(attributes)
+        .attributeKey("id")
+        .build();
+  }
+
+  public static OAuth2Attribute ofKakao(Map<String, Object> attributes) {
+    Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+    Map<String, Object> kakaoProfile = (Map<String, Object>) kakaoAccount.get("profile");
+    return OAuth2Attribute.builder()
+        .id((Long) attributes.get("id"))
+        .nickname((String) kakaoProfile.get("nickname"))
+        .email((String) kakaoAccount.get("email"))
         .attributes(attributes)
         .attributeKey("id")
         .build();
