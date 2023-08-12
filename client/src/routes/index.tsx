@@ -6,6 +6,7 @@ import Layout from '@components/layout';
 import Error from './error';
 import Home from './home';
 import Login from './login';
+import OnBoard from './login/onboard';
 import SignUp from './login/signup';
 import Portfolio from './portfolio';
 import Profile from './profile';
@@ -60,7 +61,8 @@ const Router = () => {
             errorElement: <Error />,
             children: [
                 { index: true, element: <Login /> },
-                { path: 'signup', element: <SignUp /> }
+                { path: 'signup', element: <SignUp /> },
+                { path: 'onboard', element: <OnBoard /> }
             ]
         }
     ]);
