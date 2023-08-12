@@ -9,6 +9,7 @@ import Login from './login';
 import OnBoard from './login/onboard';
 import SignUp from './login/signup';
 import Portfolio from './portfolio';
+import PortfolioDetail from './portfolio/[id]';
 import Profile from './profile';
 import Ranking from './ranking';
 import Record from './record';
@@ -24,9 +25,25 @@ const Router = () => {
         },
         {
             path: '/portfolio',
-            element: <Layout />,
             errorElement: <Error />,
-            children: [{ index: true, element: <Portfolio /> }]
+            children: [
+                {
+                    index: true,
+                    element: (
+                        <Layout>
+                            <Portfolio />
+                        </Layout>
+                    )
+                },
+                {
+                    path: ':portfolioId',
+                    element: (
+                        <Layout hasLogo={false} hasNavigation={false}>
+                            <PortfolioDetail />
+                        </Layout>
+                    )
+                }
+            ]
         },
         {
             path: '/profile',
@@ -51,13 +68,7 @@ const Router = () => {
         },
         {
             path: '/login',
-            element: (
-                <Layout
-                    hasNavigation={false}
-                    hasLogo={false}
-                    hasPadding={false}
-                />
-            ),
+            element: <Layout hasNavigation={false} hasLogo={false} />,
             errorElement: <Error />,
             children: [
                 { index: true, element: <Login /> },
