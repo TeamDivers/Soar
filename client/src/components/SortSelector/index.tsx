@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import BottomSheet from '@components/BottomSheet';
+import Divider from '@components/Divider';
 
 import { Check, Down } from '@images/index';
 
@@ -39,15 +40,19 @@ const SortSelector = ({ onChange }: SortSelectorProps) => {
                 snapPoint={0.5}
             >
                 <div className="p-4">
-                    {SORTS.map((v) => {
+                    {SORTS.map((v, idx) => {
                         return (
-                            <div
-                                key={v}
-                                className="flex items-center justify-between"
-                                onClick={() => onClickSort(v)}
-                            >
-                                <span>{v}</span>
-                                {sort === v && <Check />}
+                            <div key={v}>
+                                <div
+                                    className="flex items-center justify-between py-5 px-[10px]"
+                                    onClick={() => onClickSort(v)}
+                                >
+                                    <span className="text-base font-semibold text-black">
+                                        {v}
+                                    </span>
+                                    {sort === v && <Check />}
+                                </div>
+                                {idx !== SORTS.length - 1 && <Divider isFull />}
                             </div>
                         );
                     })}
