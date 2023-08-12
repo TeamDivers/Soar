@@ -1,5 +1,7 @@
 package com.konkuk.soar.common.config;
 
+import com.konkuk.soar.common.config.jwt.JwtAuthFilter;
+import com.konkuk.soar.common.config.oauth.OAuth2SuccessHandler;
 import com.konkuk.soar.common.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +13,7 @@ import org.springframework.security.config.annotation.web.configurers.CsrfConfig
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -18,6 +21,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class OAuth2LoginSecurityConfig {
 
   private final CustomOAuth2UserService oAuth2UserService;
+  private final OAuth2SuccessHandler oAuth2SuccessHandler;
+  private final JwtAuthFilter jwtAuthFilter;
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -34,6 +39,7 @@ public class OAuth2LoginSecurityConfig {
             userInfoEndpoint(userInfo ->
                 userInfo.userService(oAuth2UserService)
             )
+            .successHandler(oAuth2SuccessHandler)
         );
     return http.build();
   }
