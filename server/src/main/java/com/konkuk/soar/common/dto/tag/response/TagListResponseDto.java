@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class TagListResponseDto {
 
   private List<String> name;

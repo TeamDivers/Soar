@@ -1,5 +1,6 @@
 package com.konkuk.soar.portfolio.domain.portfolio;
 
+import com.konkuk.soar.common.domain.BaseTime;
 import com.konkuk.soar.member.domain.Member;
 import com.konkuk.soar.portfolio.domain.project.Project;
 import jakarta.persistence.Column;
@@ -28,7 +29,7 @@ import org.hibernate.validator.constraints.Length;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "portfolios")
-public class Portfolio {
+public class Portfolio extends BaseTime {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

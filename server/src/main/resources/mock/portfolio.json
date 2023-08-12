@@ -1,0 +1,65 @@
+{
+  "portfolioId": 1,
+  "memberId": 1,
+  "title": "test portfolio title",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit Curabitur imperdiet dui a nisl aliquam ornare. Morbi sit amet viverra odio. Nunc elementum volutpat sapien, consectetur pulvinar elit dignissim ac. Morbi non turpis sed velit iaculis varius. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare non magna in facilisis. Nullam sit amet laoreet diam. Pellentesque et metus erat. Etiam posuere arcu lorem.",
+  "category": "개발 || 백엔드 || 스프링",
+  "bookmark": 5,
+  "projects": [
+    {
+      "projectId": 1,
+      "portfolioId": 1,
+      "title": "test project title",
+      "category": "개발 || 백엔드 || 스프링",
+      "role": "팀원",
+      "description": "스프링 부수기 프로젝트",
+      "startDate": "2023-08-10 15",
+      "endDate": "2023-08-11 15",
+      "studyHistories": [
+        {
+          "id": 1,
+          "type": "개발",
+          "content": "스프링 공부",
+          "memberId": 1,
+          "category": "개발 || 백엔드 || 스프링",
+          "startDate": "2023-08-10 12:00",
+          "endDate": "2023-08-10 15:34"
+        },
+        {
+          "id": 2,
+          "type": "개발",
+          "content": "자바 공부",
+          "memberId": 1,
+          "category": "개발 || 백엔드 || 자바",
+          "startDate": "2023-08-11 16:34",
+          "endDate": "2023-08-11 19:34"
+        }
+      ],
+      "files": [
+        {
+          "fileId": 1,
+          "type": "img",
+          "fileName": "project1 capture image",
+          "url": "test/image/myimage.jpg"
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "memberId": 2,
+      "portfolioId": 1,
+      "expertiseScore": 4.0,
+      "differenceScore": 3.5,
+      "perfectionScore": 4.5,
+      "comment": "잘 봤습니다."
+    }
+  ],
+  "tags": {
+    "name": [
+      "자바",
+      "스프링",
+      "백엔드"
+    ]
+  }
+}

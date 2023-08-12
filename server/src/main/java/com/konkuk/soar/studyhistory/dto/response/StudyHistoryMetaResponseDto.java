@@ -6,8 +6,10 @@ import com.konkuk.soar.studyhistory.domain.StudyHistory;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class StudyHistoryMetaResponseDto {
 
   private Long id;

@@ -57,10 +57,17 @@ VALUES (1, 'zip', 'memberAFile.zip', 'userId1/memberAFile.zip', 'remote/userId1/
 
 
 INSERT INTO PORTFOLIOS(PORTFOLIO_ID, PORTFOLIO_MEMBER_ID, PORTFOLIO_IS_PUBLIC, PORTFOLIO_TITLE,
-                       PORTFOLIO_CATEGORY, PORTFOLIO_DESCRIPTION)
-VALUES (1, 1, true, 'portfolio of A 1', '개발 || 백엔드 || 스프링', '스프링 고수가 되보자'),
-       (2, 1, true, 'portfolio of A 2', '개발 || 백엔드 || 스프링', '스프링 중수가 되보자'),
-       (3, 1, true, 'portfolio of A 3', '개발 || 프론트엔드 || 리액트', '리액트 고수가 되보자');
+                       PORTFOLIO_CATEGORY, PORTFOLIO_DESCRIPTION, create_at, update_at)
+VALUES (1, 1, true, 'portfolio of A 1', '개발 || 백엔드 || 스프링', '스프링 고수가 되보자', '2023-01-01 17:00',
+        '2023-01-01 17:00'),
+       (2, 1, true, 'portfolio of A 2', '개발 || 백엔드 || 스프링', '스프링 중수가 되보자', '2023-02-01 17:00',
+        '2023-02-01 17:00'),
+       (3, 1, true, 'portfolio of A 3', '개발 || 프론트엔드 || 리액트', '리액트 고수가 되보자', '2023-03-01 17:00',
+        '2023-03-01 17:00'),
+       (4, 1, false, 'portfolio of A 4', '개발 || 프론트엔드 || Vue', 'Vue 고수가 되보자', '2023-05-01 18:00',
+        '2023-05-01 17:00');
+
+
 
 
 INSERT INTO PORTFOLIO_TAGS (PT_PORTFOLIO_ID, PT_TAG_ID)
@@ -110,12 +117,12 @@ VALUES (1, 1, '2023-08-11 13:00', '2023-08-11 14:00', true, '스프링', '개발
 
 
 INSERT INTO STUDY_HISTORY_TAGS(SHT_STUDY_HISTORY_ID, SHT_TAG_ID)
-VALUES (1,1),
-       (1,2),
-       (1,3),
-       (1,5),
-       (2,1),
-       (2,2);
+VALUES (1, 1),
+       (1, 2),
+       (1, 3),
+       (1, 5),
+       (2, 1),
+       (2, 2);
 
 
 INSERT INTO STUDY_HISTORY_FILE(SHF_STUDY_HISTORY_ID, SHF_FILE_ID)
