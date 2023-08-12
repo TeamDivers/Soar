@@ -19,7 +19,7 @@ const RoundButton = ({
         <button
             type="button"
             onClick={onClick}
-            className={`bg-primary rounded-[50px] flex justify-center w-full items-center py-[14px]`}
+            className={`bg-primary rounded-[50px] flex justify-center w-full items-center py-[14px] text-white text-xl font-bold`}
             style={{
                 backgroundColor,
                 borderColor,
