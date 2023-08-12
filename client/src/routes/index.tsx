@@ -51,13 +51,7 @@ const Router = () => {
         },
         {
             path: '/login',
-            element: (
-                <Layout
-                    hasNavigation={false}
-                    hasLogo={false}
-                    hasPadding={false}
-                />
-            ),
+            element: <Layout hasNavigation={false} hasLogo={false} />,
             errorElement: <Error />,
             children: [
                 { index: true, element: <Login /> },
