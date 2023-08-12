@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Indicator from '@components/Indicator';
 import RadioInput from '@components/RadioInput';
@@ -15,10 +16,11 @@ const CTA = ['닉네임을 설정해주세요', '현재 직업을 선택해주�
 
 const SignUp = () => {
     const [step, setStep] = useState(1);
+    const navigate = useNavigate();
 
     const handleOnClickButton = () => {
         if (step === 2) {
-            // navigate to 'onboard'
+            navigate('/login/onboard');
         }
 
         setStep((prev) => prev + 1);
