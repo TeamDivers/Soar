@@ -14,7 +14,7 @@ const BottomNavigation = () => {
     };
 
     return (
-        <div className="fixed bottom-0 w-full max-w-md mx-auto bg-white drop-shadow">
+        <div className="fixed bottom-0 z-50 w-full max-w-md mx-auto bg-white drop-shadow">
             <div className="flex justify-between pt-[14px] pb-[34px] px-[52px]">
                 {menus.map((menu) => {
                     const Icon = menu.Icon;
