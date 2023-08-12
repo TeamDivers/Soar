@@ -14,14 +14,15 @@ const Layout = ({ hasNavigation = true, hasLogo = true }: LayoutProps) => {
     // if user is unauthorized, redirect to login
 
     return (
-        <main className="container relative h-full max-w-md mx-auto bg-white">
+        <main className={`container relative h-full max-w-md mx-auto bg-white`}>
             {hasLogo && (
                 <div className="flex px-5 pt-3">
                     <Logo className="w-16" />
                 </div>
             )}
-
-            <Outlet />
+            <div className={`${hasNavigation && 'pb-28'}`}>
+                <Outlet />
+            </div>
 
             {hasNavigation && <BottomNavigation />}
         </main>
