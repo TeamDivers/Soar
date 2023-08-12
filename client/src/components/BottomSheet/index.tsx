@@ -27,9 +27,7 @@ const BottomSheet = ({
         >
             <Sheet.Container>
                 <Sheet.Header />
-                <Sheet.Content>
-                    <div className="px-10">{children}</div>
-                </Sheet.Content>
+                <Sheet.Content>{children}</Sheet.Content>
             </Sheet.Container>
             <Sheet.Backdrop onTap={toggle} />
         </Sheet>
