@@ -9,3 +9,4 @@ export { ReactComponent as Kakao } from './Kakao.svg';
 export { ReactComponent as Left } from './chevron-left.svg';
 export { ReactComponent as Down } from './chevron-down.svg';
 export { ReactComponent as Delete } from './delete.svg';
+export { ReactComponent as Check } from './check.svg';
