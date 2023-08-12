@@ -16,27 +16,29 @@ const Login = () => {
             <div className="fixed max-w-md mx-auto bottom-[80px] w-full px-4 flex flex-col gap-[10px]">
                 <RoundButton
                     backgroundColor="#FEE500"
-                    textColor="#181600"
                     onClick={function (): void {
                         throw new Error('Function not implemented.');
                     }}
                 >
-                    <div className="flex">
-                        <Kakao />
-                        카카오톡으로 로그인
+                    <div className="relative flex justify-center w-full">
+                        <Kakao className="absolute left-[18px]" />
+                        <span className="text-[#181600] text-lg font-medium">
+                            카카오톡으로 로그인
+                        </span>
                     </div>
                 </RoundButton>
                 <RoundButton
                     backgroundColor="white"
-                    textColor="#242832"
                     hasBorder
                     onClick={function (): void {
                         throw new Error('Function not implemented.');
                     }}
                 >
-                    <div className="flex">
-                        <Google />
-                        구글계정으로 로그인
+                    <div className="relative flex justify-center w-full">
+                        <Google className="absolute left-[18px]" />
+                        <span className="text-[#242832] text-lg font-medium ">
+                            구글계정으로 로그인
+                        </span>
                     </div>
                 </RoundButton>
             </div>
