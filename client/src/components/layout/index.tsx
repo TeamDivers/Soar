@@ -8,9 +8,14 @@ import { Logo } from '../../assets/images';
 interface LayoutProps {
     hasNavigation?: boolean;
     hasLogo?: boolean;
+    children?: React.ReactNode;
 }
 
-const Layout = ({ hasNavigation = true, hasLogo = true }: LayoutProps) => {
+const Layout = ({
+    hasNavigation = true,
+    hasLogo = true,
+    children
+}: LayoutProps) => {
     // if user is unauthorized, redirect to login
 
     return (
@@ -20,8 +25,8 @@ const Layout = ({ hasNavigation = true, hasLogo = true }: LayoutProps) => {
                     <Logo className="w-16" />
                 </div>
             )}
-            <div className={`${hasNavigation && 'pb-28'}`}>
-                <Outlet />
+            <div className={`${hasNavigation ? 'pb-28' : ''}`}>
+                {children || <Outlet />}
             </div>
 
             {hasNavigation && <BottomNavigation />}
