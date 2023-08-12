@@ -1,4 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
+import { Delete } from '@images/index';
 
 interface SlideToDeleteProps {
     onDelete: () => void;
@@ -10,14 +14,30 @@ const SlideToDelete: React.FC<SlideToDeleteProps> = ({
     children
 }) => {
     return (
-        <div className="relative flex items-center justify-between group">
-            {children}
-            <div
-                className={`absolute top-0 right-0 h-full bg-red-500 text-white flex items-center px-4`}
-            >
-                Delete
-            </div>
-        </div>
+        <Swiper centeredSlides={true}>
+            <SwiperSlide>{children}</SwiperSlide>
+            <SwiperSlide>
+                <DeleteSlide onDelete={onDelete} />
+            </SwiperSlide>
+        </Swiper>
+    );
+};
+
+const DeleteSlide = ({ onDelete }: { onDelete: () => void }) => {
+    const swiperSlide = useSwiperSlide();
+    const swiper = useSwiper();
+
+    useEffect(() => {
+        if (swiperSlide.isActive) {
+            swiper.slidePrev();
+            onDelete();
+        }
+    }, [swiperSlide.isActive]);
+
+    return (
+        <button className="flex items-center justify-center h-40 px-4 mt-2 rounded-[10px] bg-red-600">
+            <Delete />
+        </button>
     );
 };
 
