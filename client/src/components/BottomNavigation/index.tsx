@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { menus } from '@constants/menus';
 
 const BottomNavigation = () => {
     const navigate = useNavigate();
 
-    const [activeTab, setActiveTab] = useState(menus[0].title);
+    const [activeTab, setActiveTab] = useState(menus[0]);
 
     const handleTabChange = (menu: (typeof menus)[number]) => {
-        setActiveTab(menu.title);
-        navigate(menu.route);
+        setActiveTab(menu);
     };
 
     return (
@@ -19,29 +18,29 @@ const BottomNavigation = () => {
                 {menus.map((menu) => {
                     const Icon = menu.Icon;
                     return (
-                        <div
+                        <NavLink
                             key={menu.title}
+                            to={menu.route}
                             className="flex flex-col gap-[6px] items-center justify-center"
                             onClick={() => handleTabChange(menu)}
                         >
-                            <Icon
-                                color={
-                                    activeTab === menu.title
-                                        ? '#1D5CFF'
-                                        : 'gray'
-                                }
-                            />
-
-                            <span
-                                className={`text-center text-xs font-medium ${
-                                    activeTab === menu.title
-                                        ? 'text-primary'
-                                        : 'text-gray-500'
-                                }`}
-                            >
-                                {menu.title}
-                            </span>
-                        </div>
+                            {({ isActive, isPending }) => (
+                                <>
+                                    <Icon
+                                        color={isActive ? '#1D5CFF' : 'gray'}
+                                    />
+                                    <span
+                                        className={`text-center text-xs font-medium ${
+                                            isActive
+                                                ? 'text-primary'
+                                                : 'text-gray-500'
+                                        }`}
+                                    >
+                                        {menu.title}
+                                    </span>
+                                </>
+                            )}
+                        </NavLink>
                     );
                 })}
             </div>
