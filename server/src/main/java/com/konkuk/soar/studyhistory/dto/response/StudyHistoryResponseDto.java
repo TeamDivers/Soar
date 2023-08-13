@@ -6,12 +6,15 @@ import com.konkuk.soar.common.domain.Tag;
 import com.konkuk.soar.member.domain.Member;
 import com.konkuk.soar.studyhistory.domain.StudyHistory;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class StudyHistoryResponseDto {
 
   private Long id;
@@ -25,8 +28,8 @@ public class StudyHistoryResponseDto {
   private LocalDateTime endDate;
   private Long memberId;
   private String timelapseURL;
-  private List<String> files;
-  private List<String> tags;
+  private List<String> files = new ArrayList<>();
+  private List<String> tags = new ArrayList<>();
 
   @Builder
   public StudyHistoryResponseDto(StudyHistory history, Member member, File timelapseFile,
@@ -40,7 +43,12 @@ public class StudyHistoryResponseDto {
     this.startDate = history.getStartDate();
     this.endDate = history.getEndDate();
     this.memberId = member.getId();
-    timelapseURL = timelapseFile.getUrl();
+
+    timelapseURL = null;
+    if (timelapseFile != null) {
+      timelapseURL = timelapseFile.getUrl();
+    }
+
     files = fileList.stream()
         .map(f -> f.getUrl())
         .collect(Collectors.toList());

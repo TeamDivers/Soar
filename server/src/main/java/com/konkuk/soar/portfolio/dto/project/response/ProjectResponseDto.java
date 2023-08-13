@@ -7,14 +7,16 @@ import com.konkuk.soar.member.domain.Member;
 import com.konkuk.soar.portfolio.domain.portfolio.Portfolio;
 import com.konkuk.soar.portfolio.domain.project.Project;
 import com.konkuk.soar.studyhistory.domain.StudyHistory;
-import com.konkuk.soar.studyhistory.dto.response.StudyHistoryMetaResponseDto;
+import com.konkuk.soar.studyhistory.dto.response.StudyHistoryOverviewDto;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class ProjectResponseDto {
 
   private Long projectId;
@@ -27,7 +29,7 @@ public class ProjectResponseDto {
   private LocalDateTime startDate;
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH", timezone = "Asia/Seoul")
   private LocalDateTime endDate;
-  private List<StudyHistoryMetaResponseDto> studyHistories;
+  private List<StudyHistoryOverviewDto> studyHistories;
   private List<FileResponseDto> files;
 
   @Builder
@@ -45,7 +47,7 @@ public class ProjectResponseDto {
 
     if (studyHistoryList != null) {
       this.studyHistories = studyHistoryList.stream()
-          .map(studyHistory -> StudyHistoryMetaResponseDto.builder()
+          .map(studyHistory -> StudyHistoryOverviewDto.builder()
               .member(member)
               .history(studyHistory)
               .build())

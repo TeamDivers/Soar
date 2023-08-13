@@ -5,8 +5,10 @@ import com.konkuk.soar.portfolio.domain.portfolio.Portfolio;
 import com.konkuk.soar.portfolio.domain.portfolio.PortfolioReview;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class PortfolioReviewResponseDto {
 
   private Long memberId;

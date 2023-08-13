@@ -25,12 +25,14 @@ public class BaseResponse<T> {
   private T result;
 
   // 200
-  public BaseResponse(T result) {
+  protected BaseResponse(T result) {
     this.isSuccess = SUCCESS.isSuccess();
     this.status = SUCCESS.getStatus();
     this.message = SUCCESS.getMessage();
     this.result = result;
   }
 
-
+  public static <G> BaseResponse<G> success(G result) {
+    return new BaseResponse<>(result);
+  }
 }
