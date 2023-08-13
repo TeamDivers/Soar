@@ -61,14 +61,7 @@ const Record = () => {
             </div>
             {view === '캘린더' ? (
                 <div>
-                    <CalendarView
-                        data={data}
-                        onChange={function (): void {
-                            throw new Error('Function not implemented.');
-                        }}
-                        value={day}
-                        setValue={setDay}
-                    />
+                    <CalendarView data={data} value={day} setValue={setDay} />
                     <div className="absolute w-full px-4 bottom-[188px]">
                         <div className="grid grid-cols-3 rounded-[10px] border border-neutral-300 p-5 gap-3">
                             {data.map((v) => {
