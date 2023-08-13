@@ -32,6 +32,7 @@ public class OAuth2LoginSecurityConfig {
         .cors(Customizer.withDefaults()) // cors 설정
         .httpBasic(HttpBasicConfigurer::disable)
         .formLogin(FormLoginConfigurer::disable)
+        .addFilterAfter(jwtAuthFilter, LogoutFilter.class)
         .authorizeHttpRequests(authorize -> authorize
             .anyRequest().authenticated()
         )
