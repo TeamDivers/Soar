@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class StudyHistoryMetaResponseDto {
+public class StudyHistoryOverviewDto {
 
   private Long id;
   private String type;
@@ -23,7 +23,7 @@ public class StudyHistoryMetaResponseDto {
   private LocalDateTime endDate;
 
   @Builder
-  public StudyHistoryMetaResponseDto(StudyHistory history, Member member) {
+  public StudyHistoryOverviewDto(StudyHistory history, Member member) {
     this.id = history.getId();
     this.type = history.getType();
     this.content = history.getContent();

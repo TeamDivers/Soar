@@ -49,11 +49,14 @@ VALUES (1, '개발'),
 
 
 INSERT INTO FILES (FILE_ID, FILE_TYPE, FILE_ORIGINAL_NAME, FILE_SAVED_NAME, FILE_URL)
-VALUES (1, 'zip', 'memberAFile.zip', 'userId1/memberAFile.zip', 'remote/userId1/memberAFile.zip'),
+VALUES (1, 'normal', 'memberAFile.zip', 'userId1/memberAFile.zip',
+        'remote/userId1/memberAFile.zip'),
        (2, 'timelapse', 'memberATimelapse.mp4', 'userId1/memberATimelapse.mp4',
         'remote/userId1/memberATimelapse.mp4'),
-       (3, 'zip', 'memberBFile.zip', 'userId1/memberBFile.zip', 'remote/userId1/memberBFile.zip'),
-       (4, 'zip', 'memberCFile.zip', 'userId1/memberCFile.zip', 'remote/userId1/memberCFile.zip');
+       (3, 'normal', 'memberBFile.zip', 'userId1/memberBFile.zip',
+        'remote/userId1/memberBFile.zip'),
+       (4, 'normal', 'memberCFile.zip', 'userId1/memberCFile.zip',
+        'remote/userId1/memberCFile.zip');
 
 
 INSERT INTO PORTFOLIOS(PORTFOLIO_ID, PORTFOLIO_MEMBER_ID, PORTFOLIO_IS_PUBLIC, PORTFOLIO_TITLE,
@@ -66,7 +69,6 @@ VALUES (1, 1, true, 'portfolio of A 1', '개발 || 백엔드 || 스프링', '스
         '2023-03-01 17:00'),
        (4, 1, false, 'portfolio of A 4', '개발 || 프론트엔드 || Vue', 'Vue 고수가 되보자', '2023-05-01 18:00',
         '2023-05-01 17:00');
-
 
 
 
@@ -111,9 +113,16 @@ VALUES (1, 1);
 
 INSERT INTO STUDY_HISTORIES (STUDY_HISTORY_ID, STUDY_HISTORY_MEMBER_ID, STUDY_HISTORY_START_DATE,
                              STUDY_HISTORY_END_DATE, STUDY_HISTORY_IS_OPEN, STUDY_HISTORY_TYPE,
-                             STUDY_HISTORY_CATEGORY, STUDY_HISTORY_CONTENT)
-VALUES (1, 1, '2023-08-11 13:00', '2023-08-11 14:00', true, '스프링', '개발 || 백엔드 || 스프링', '스프링 DI 박살'),
-       (2, 1, '2023-08-11 13:00', '2023-08-11 14:00', true, '스프링', '개발 || 백엔드 || 스프링', '자바 스트림 박살');
+                             STUDY_HISTORY_CATEGORY, STUDY_HISTORY_CONTENT, create_at, update_at)
+VALUES (1, 1, '2023-08-11 13:00', '2023-08-11 14:00', true, '스프링', '개발 || 백엔드 || 스프링', '스프링 DI 박살',
+        '2023-01-01 17:00',
+        '2023-01-01 17:00'),
+       (2, 1, '2023-08-12 13:00', '2023-08-12 14:00', true, '스프링', '개발 || 백엔드 || 스프링', '자바 스트림 박살',
+        '2023-02-01 17:00',
+        '2023-02-01 17:00'),
+       (3, 1, '2023-09-12 13:00', '2023-08-12 14:00', true, '영어', '영어 || 토익', '토익 공부',
+        '2023-03-01 17:00',
+        '2023-03-01 17:00');
 
 
 INSERT INTO STUDY_HISTORY_TAGS(SHT_STUDY_HISTORY_ID, SHT_TAG_ID)
@@ -126,7 +135,8 @@ VALUES (1, 1),
 
 
 INSERT INTO STUDY_HISTORY_FILE(SHF_STUDY_HISTORY_ID, SHF_FILE_ID)
-VALUES (1, 1);
+VALUES (1, 1),
+       (1, 2);
 
 
 INSERT INTO PROJECT_STUDY_HISTORIES(PSH_PROJECT_ID, PSH_STUDY_HISTORY_ID)

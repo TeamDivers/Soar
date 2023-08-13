@@ -20,13 +20,13 @@ public class PortfolioController {
   private final PortfolioService portfolioService;
 
   @GetMapping("/{portfolioId}")
-  BaseResponse getPortfolio(@PathVariable Long portfolioId) {
+  public BaseResponse<PortfolioResponseDto> getPortfolio(@PathVariable Long portfolioId) {
     PortfolioResponseDto result = portfolioService.getPortfolioById(portfolioId);
     return BaseResponse.success(result);
   }
 
   @GetMapping
-  BaseResponse getPortfolioList(@RequestParam Long memberId, @RequestParam String option,
+  public BaseResponse<List<PortfolioResponseDto>> getPortfolioList(@RequestParam Long memberId, @RequestParam String option,
       @RequestParam(required = false, defaultValue = "5") Integer size) {
     OptionType optionType = OptionType.of(option);
     List<PortfolioResponseDto> result = portfolioService.getPortfolioListByMember(

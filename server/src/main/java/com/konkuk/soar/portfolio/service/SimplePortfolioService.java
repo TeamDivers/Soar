@@ -82,7 +82,6 @@ public class SimplePortfolioService implements PortfolioService {
     return null;
   }
 
-  @Transactional
   protected PortfolioResponseDto getResponseDto(Portfolio portfolio) {
     Member member = portfolio.getMember();
     List<PortfolioBookmark> bookmarkList = portfolio.getBookmarkList();

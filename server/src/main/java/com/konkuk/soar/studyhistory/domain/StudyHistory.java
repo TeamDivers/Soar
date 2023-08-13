@@ -1,6 +1,7 @@
 package com.konkuk.soar.studyhistory.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.konkuk.soar.common.domain.BaseTime;
 import com.konkuk.soar.member.domain.Member;
 import com.konkuk.soar.portfolio.domain.project.ProjectStudyHistory;
 import jakarta.persistence.Column;
@@ -30,7 +31,7 @@ import org.hibernate.validator.constraints.Length;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "study_histories")
-public class StudyHistory {
+public class StudyHistory extends BaseTime {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
