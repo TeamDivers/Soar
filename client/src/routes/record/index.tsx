@@ -65,7 +65,7 @@ const Record = () => {
                         value={day}
                         setValue={setDay}
                     />
-                    <div className="px-4">
+                    <div className="absolute w-full px-4 bottom-[188px]">
                         <div className="grid grid-cols-3 rounded-[10px] border border-neutral-300 p-5 gap-3">
                             {data.map((v) => {
                                 /** TODO: 중복 방지 */
