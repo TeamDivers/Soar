@@ -20,26 +20,6 @@ const Portfolio = () => {
                     <PortfolioCard />
                 </div>
             </SlideToDelete>
-            <SlideToDelete onDelete={deletePortfolio}>
-                <div className="px-4 py-2">
-                    <PortfolioCard />
-                </div>
-            </SlideToDelete>
-            <SlideToDelete onDelete={deletePortfolio}>
-                <div className="px-4 py-2">
-                    <PortfolioCard />
-                </div>
-            </SlideToDelete>
-            <SlideToDelete onDelete={deletePortfolio}>
-                <div className="px-4 py-2">
-                    <PortfolioCard />
-                </div>
-            </SlideToDelete>
-            <SlideToDelete onDelete={deletePortfolio}>
-                <div className="px-4 py-2">
-                    <PortfolioCard />
-                </div>
-            </SlideToDelete>
         </>
     );
 };
