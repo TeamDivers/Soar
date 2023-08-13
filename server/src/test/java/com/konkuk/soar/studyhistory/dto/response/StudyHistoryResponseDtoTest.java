@@ -155,10 +155,10 @@ class StudyHistoryResponseDtoTest {
   @Test
   @Transactional
   void 학습기록_리스트_테스트() {
-    List<StudyHistoryMetaResponseDto> dtoList = new ArrayList<>();
+    List<StudyHistoryOverviewDto> dtoList = new ArrayList<>();
     for (int i = 0; i < 5; i++) {
       ClassBundle bundle = createPortfolio();
-      StudyHistoryMetaResponseDto dto = StudyHistoryMetaResponseDto.builder()
+      StudyHistoryOverviewDto dto = StudyHistoryOverviewDto.builder()
           .history(bundle.studyHistory)
           .member(bundle.member)
           .build();
