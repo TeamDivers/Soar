@@ -26,7 +26,7 @@ const SwitchSelector: React.FC<SwitchSelectorProps> = ({
             {options.map((option, index) => (
                 <button
                     key={option}
-                    className={`flex items-center justify-center rounded-full px-9 py-2 transition-colors duration-300 z-10 ${
+                    className={`flex items-center justify-center rounded-full px-9 py-2 transition-colors duration-300 z-0 ${
                         activeIndex === index && 'text-white'
                     }`}
                     onClick={() => handleOptionChange(index)}
