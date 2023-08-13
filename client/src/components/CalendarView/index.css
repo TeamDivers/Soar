@@ -35,4 +35,5 @@
 
 .react-calendar__tile--active {
     color: var(--light-secondary, #666);
+    background-color: white;
 }
