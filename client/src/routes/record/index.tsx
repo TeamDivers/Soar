@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 
 import CalendarView from '@components/CalendarView';
+import Dot from '@components/Dot';
+import RecordCard from '@components/RecordCard';
 import RoundButton from '@components/RoundButton';
+import SlideToDelete from '@components/SlideToDelete';
+import SortSelector from '@components/SortSelector';
 import SwitchSelector from '@components/SwitchSelector';
 
 import { text2Color } from '@utils/color';
@@ -75,10 +79,7 @@ const Record = () => {
                                         key={v.id}
                                         className="flex gap-[6px] items-center"
                                     >
-                                        <div
-                                            className="w-2 h-2 rounded-full"
-                                            style={{ backgroundColor: color }}
-                                        ></div>
+                                        <Dot color={color} size={8} />
                                         <div className="text-xs font-medium text-neutral-400">
                                             {v.category}
                                         </div>
@@ -89,9 +90,9 @@ const Record = () => {
                     </div>
                 </div>
             ) : (
-                <ListView />
+                <ListView data={data} />
             )}
-            <div className="absolute bottom-[120px] w-full px-4 mx-auto">
+            <div className="fixed bottom-[120px] w-full px-4 mx-auto">
                 <RoundButton
                     onClick={function (): void {
                         throw new Error('Function not implemented.');
@@ -108,6 +109,29 @@ const Record = () => {
 
 export default Record;
 
-const ListView = () => {
-    return <div>list</div>;
+const ListView = ({ data }: { data: any }) => {
+    return (
+        <div className="flex flex-col mt-4">
+            <div className="flex justify-between px-4 mt-3 mb-2">
+                <h1 className="text-xl font-bold text-black">나의 학습기록</h1>
+                <SortSelector onChange={(v: string) => console.log(v)} />
+            </div>
+            <div>
+                {data.map((v: any) => {
+                    return (
+                        <SlideToDelete
+                            key={v.id}
+                            onDelete={function (): void {
+                                throw new Error('Function not implemented.');
+                            }}
+                        >
+                            <div className="px-4 py-2">
+                                <RecordCard />
+                            </div>
+                        </SlideToDelete>
+                    );
+                })}
+            </div>
+        </div>
+    );
 };
