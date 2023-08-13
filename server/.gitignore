@@ -6,6 +6,7 @@
 *.ipr
 *.iws
 *.jar
+!gradle/wrapper/*.jar
 *.sw?
 *~
 .#*
