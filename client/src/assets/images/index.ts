@@ -10,3 +10,5 @@ export { ReactComponent as Left } from './chevron-left.svg';
 export { ReactComponent as Down } from './chevron-down.svg';
 export { ReactComponent as Delete } from './delete.svg';
 export { ReactComponent as Check } from './check.svg';
+export { ReactComponent as LeftSm } from './left-sm.svg';
+export { ReactComponent as RightSm } from './right-sm.svg';
