@@ -10,7 +10,7 @@ const PortfolioCard = ({}: PortfolioCardProps) => {
                 <div className="text-xl font-bold text-black mb-[10px]">
                     iOS 개발자입니다
                 </div>
-                <div className="text-sm font-normal text-zinc-800 mb-[12px]">
+                <div className="text-sm font-normal text-zinc-800 mb-[12px] truncate-lines">
                     안녕하세요 개발을 사랑..하는 학생 전!! 지노예요~~ 안녕하세요
                     개발을 사랑..하는 학생 전!! 지노예요~~ ...
                 </div>
