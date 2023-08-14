@@ -87,7 +87,10 @@ const Record = () => {
             ) : (
                 <ListView data={data} />
             )}
-            <div className="fixed bottom-[120px] w-full px-4 mx-auto">
+            <div
+                className="fixed bottom-[120px] px-4 max-w-md"
+                style={{ width: '-webkit-fill-available' }}
+            >
                 <RoundButton
                     onClick={function (): void {
                         throw new Error('Function not implemented.');
