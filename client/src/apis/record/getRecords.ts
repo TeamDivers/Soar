@@ -12,6 +12,13 @@ export interface RecordType {
     endDate: string;
 }
 
+const getRecord = (historyId: number) => {
+    return request<RecordType>({
+        method: 'GET',
+        url: `/studyhistories/${historyId}`
+    });
+};
+
 const getRecords = () => {
     return request<RecordType[]>({
         method: 'GET',
@@ -19,8 +26,10 @@ const getRecords = () => {
     });
 };
 
-const useGetRecords = () => {
+export const useGetRecords = () => {
     return useQuery(['records'], () => getRecords());
 };
 
-export default useGetRecords;
+export const useGetRecord = ({ historyId }: { historyId: number }) => {
+    return useQuery(['record'], () => getRecord(historyId));
+};
