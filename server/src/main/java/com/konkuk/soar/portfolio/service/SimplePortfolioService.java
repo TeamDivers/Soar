@@ -32,7 +32,7 @@ public class SimplePortfolioService implements PortfolioService {
   @Transactional
   public PortfolioResponseDto getPortfolioById(Long portfolioId) {
     Portfolio portfolio = portfolioRepository.findById(portfolioId)
-        .orElseThrow(() -> NotFoundException.PORTFOLIO_NOT_FOUND);
+        .orElseThrow(() -> NotFoundException.MEMBER_NOT_FOUND);
 
     return getResponseDto(portfolio);
   }
@@ -66,7 +66,7 @@ public class SimplePortfolioService implements PortfolioService {
     }
 
     if (res != null) {
-      return res.stream().map(this::getResponseDto).collect(Collectors.toList());
+      return res.stream().map(portfolio -> getResponseDto(portfolio)).collect(Collectors.toList());
     }
 
     throw new RuntimeException();
