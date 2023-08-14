@@ -1,45 +1,45 @@
 DELETE
-FROM PORTFOLIO_BOOKMARKS;
+FROM portfolio_bookmarks;
 DELETE
-FROM PORTFOLIO_REVIEWS;
+FROM portfolio_reviews;
 DELETE
-FROM PORTFOLIO_TAGS;
+FROM portfolio_tags;
 
 
 DELETE
-FROM PROJECT_FILES;
+FROM project_files;
 DELETE
-FROM PROJECT_STUDY_HISTORIES;
+FROM project_study_histories;
 
 
 DELETE
-FROM STUDY_HISTORY_FILE;
+FROM study_history_file;
 DELETE
-FROM STUDY_HISTORY_TAGS;
+FROM study_history_tags;
 
 
 DELETE
-FROM TAGS;
+FROM tags;
 DELETE
-FROM FILES;
+FROM files;
 
 DELETE
-FROM STUDY_HISTORIES;
+FROM study_histories;
 DELETE
-FROM PROJECTS;
+FROM projects;
 DELETE
-FROM PORTFOLIOS;
+FROM portfolios;
 DELETE
-FROM MEMBERS;
+FROM members;
 
 
-INSERT INTO MEMBERS(MEMBER_ID, MEMBER_NAME)
+INSERT INTO members(MEMBER_ID, MEMBER_NAME)
 values (1, 'memberA'),
        (2, 'memberB'),
        (3, 'memberC');
 
 
-INSERT INTO TAGS(TAG_ID, NAME)
+INSERT INTO tags(TAG_ID, NAME)
 VALUES (1, '개발'),
        (2, '자바'),
        (3, '스프링'),
@@ -48,7 +48,7 @@ VALUES (1, '개발'),
        (6, '프론트엔드');
 
 
-INSERT INTO FILES (FILE_ID, FILE_TYPE, FILE_ORIGINAL_NAME, FILE_SAVED_NAME, FILE_URL)
+INSERT INTO files (FILE_ID, FILE_TYPE, FILE_ORIGINAL_NAME, FILE_SAVED_NAME, FILE_URL)
 VALUES (1, 'normal', 'memberAFile.zip', 'userId1/memberAFile.zip',
         'remote/userId1/memberAFile.zip'),
        (2, 'timelapse', 'memberATimelapse.mp4', 'userId1/memberATimelapse.mp4',
@@ -59,7 +59,7 @@ VALUES (1, 'normal', 'memberAFile.zip', 'userId1/memberAFile.zip',
         'remote/userId1/memberCFile.zip');
 
 
-INSERT INTO PORTFOLIOS(PORTFOLIO_ID, PORTFOLIO_MEMBER_ID, PORTFOLIO_IS_PUBLIC, PORTFOLIO_TITLE,
+INSERT INTO portfolios(PORTFOLIO_ID, PORTFOLIO_MEMBER_ID, PORTFOLIO_IS_PUBLIC, PORTFOLIO_TITLE,
                        PORTFOLIO_CATEGORY, PORTFOLIO_DESCRIPTION, create_at, update_at)
 VALUES (1, 1, true, 'portfolio of A 1', '개발 || 백엔드 || 스프링', '스프링 고수가 되보자', '2023-01-01 17:00',
         '2023-01-01 17:00'),
@@ -72,7 +72,7 @@ VALUES (1, 1, true, 'portfolio of A 1', '개발 || 백엔드 || 스프링', '스
 
 
 
-INSERT INTO PORTFOLIO_TAGS (PT_PORTFOLIO_ID, PT_TAG_ID)
+INSERT INTO portfolio_tags (PT_PORTFOLIO_ID, PT_TAG_ID)
 VALUES (1, 1),
        (1, 2),
        (1, 3),
@@ -86,19 +86,19 @@ VALUES (1, 1),
        (3, 6);
 
 
-INSERT INTO PORTFOLIO_BOOKMARKS(PB_MEMBER_ID, PB_PORTFOLIO_ID)
+INSERT INTO portfolio_bookmarks(PB_MEMBER_ID, PB_PORTFOLIO_ID)
 VALUES (2, 1),
        (3, 1);
 
 
-INSERT INTO PORTFOLIO_REVIEWS(PR_PORTFOLIO_ID, PR_MEMBER_ID, PR_DIFFERENCE_SCORE,
+INSERT INTO portfolio_reviews(PR_PORTFOLIO_ID, PR_MEMBER_ID, PR_DIFFERENCE_SCORE,
                               PR_EXPERTISE_SCORE, PR_PERFECTION_SCORE,
                               PR_COMMENT)
 VALUES (1, 2, 4.0, 3.5, 4.5, '재밌게 잘 봤읍니다'),
        (1, 3, 3.0, 3.0, 3.0, '그저 그랬음');
 
 
-INSERT INTO PROJECTS (PROJECT_ID, PROJECT_PORTFOLIO_ID, PROJECT_START_DATE, PROJECT_END_DATE,
+INSERT INTO projects (PROJECT_ID, PROJECT_PORTFOLIO_ID, PROJECT_START_DATE, PROJECT_END_DATE,
                       PROJECT_CATEGORY, PROJECT_DESIGN_BACKGROUND, PROJECT_ROLE, PROJECT_TITLE,
                       PROJECT_DESCRIPTION)
 VALUES (1, 1, '2023-08-10 12:00', '2023-08-12 12:00', '스프링', '#eeeeee', '팀장', '스프링 부수기',
@@ -107,11 +107,11 @@ VALUES (1, 1, '2023-08-10 12:00', '2023-08-12 12:00', '스프링', '#eeeeee', '�
         'JPA를 부수는 프로젝트');
 
 
-INSERT INTO PROJECT_FILES(PF_FILE_ID, PF_PROJECT_ID)
+INSERT INTO project_files(PF_FILE_ID, PF_PROJECT_ID)
 VALUES (1, 1);
 
 
-INSERT INTO STUDY_HISTORIES (STUDY_HISTORY_ID, STUDY_HISTORY_MEMBER_ID, STUDY_HISTORY_START_DATE,
+INSERT INTO study_histories (STUDY_HISTORY_ID, STUDY_HISTORY_MEMBER_ID, STUDY_HISTORY_START_DATE,
                              STUDY_HISTORY_END_DATE, STUDY_HISTORY_IS_OPEN, STUDY_HISTORY_TYPE,
                              STUDY_HISTORY_CATEGORY, STUDY_HISTORY_CONTENT, create_at, update_at)
 VALUES (1, 1, '2023-08-11 13:00', '2023-08-11 14:00', true, '스프링', '개발 || 백엔드 || 스프링', '스프링 DI 박살',
@@ -125,7 +125,7 @@ VALUES (1, 1, '2023-08-11 13:00', '2023-08-11 14:00', true, '스프링', '개발
         '2023-03-01 17:00');
 
 
-INSERT INTO STUDY_HISTORY_TAGS(SHT_STUDY_HISTORY_ID, SHT_TAG_ID)
+INSERT INTO study_history_tags(SHT_STUDY_HISTORY_ID, SHT_TAG_ID)
 VALUES (1, 1),
        (1, 2),
        (1, 3),
@@ -134,11 +134,11 @@ VALUES (1, 1),
        (2, 2);
 
 
-INSERT INTO STUDY_HISTORY_FILE(SHF_STUDY_HISTORY_ID, SHF_FILE_ID)
+INSERT INTO study_history_file(SHF_STUDY_HISTORY_ID, SHF_FILE_ID)
 VALUES (1, 1),
        (1, 2);
 
 
-INSERT INTO PROJECT_STUDY_HISTORIES(PSH_PROJECT_ID, PSH_STUDY_HISTORY_ID)
+INSERT INTO project_study_histories(PSH_PROJECT_ID, PSH_STUDY_HISTORY_ID)
 VALUES (1, 1),
        (1, 2);

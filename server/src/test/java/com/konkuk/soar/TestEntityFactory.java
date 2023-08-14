@@ -16,6 +16,7 @@ public class TestEntityFactory {
   public static Member member() {
     return Member.builder()
         .name("member")
+        .email("email")
         .build();
   }
 
