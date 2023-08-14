@@ -23,13 +23,14 @@ const BottomSheet = ({
             isOpen={isOpen}
             onClose={onClose}
             snapPoints={[snapPoint, 0]}
+            className="max-w-md mx-auto"
             disableDrag
         >
             <Sheet.Container>
                 <Sheet.Header />
                 <Sheet.Content>{children}</Sheet.Content>
             </Sheet.Container>
-            <Sheet.Backdrop onTap={toggle} />
+            <Sheet.Backdrop className="max-w-md mx-auto" onTap={toggle} />
         </Sheet>
     );
 };
