@@ -32,7 +32,18 @@ public class BaseResponse<T> {
     this.result = result;
   }
 
+  protected BaseResponse(BaseResponseStatus status, T result) {
+    this.isSuccess = status.isSuccess();
+    this.status = status.getStatus();
+    this.message = status.getMessage();
+    this.result = result;
+  }
+
   public static <G> BaseResponse<G> success(G result) {
     return new BaseResponse<>(result);
+  }
+
+  public static <G> BaseResponse<G> fail(BaseResponseStatus status, G result) {
+    return new BaseResponse<>(status, result);
   }
 }
