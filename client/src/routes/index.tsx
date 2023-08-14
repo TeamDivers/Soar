@@ -38,7 +38,7 @@ const Router = () => {
                 {
                     path: ':portfolioId',
                     element: (
-                        <Layout hasLogo={false} hasNavigation={false}>
+                        <Layout hasHeader={false} hasNavigation={false}>
                             <PortfolioDetail />
                         </Layout>
                     )
@@ -68,7 +68,7 @@ const Router = () => {
         },
         {
             path: '/login',
-            element: <Layout hasNavigation={false} hasLogo={false} />,
+            element: <Layout hasNavigation={false} hasHeader={false} />,
             errorElement: <Error />,
             children: [
                 { index: true, element: <Login /> },
