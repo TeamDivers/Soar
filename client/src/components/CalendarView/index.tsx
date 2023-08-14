@@ -101,7 +101,7 @@ const CalendarView = ({ data, value, setValue }: CalendarViewProps) => {
                 }}
             />
             <Modal isOpen={isOpen} close={close}>
-                <div className="w-screen px-5">
+                <div className="w-screen max-w-md px-5">
                     <div className="pl-2 mb-4 text-2xl font-bold text-white">
                         {moment(selected.date).format('YYYY년 M월 D일')}
                     </div>
