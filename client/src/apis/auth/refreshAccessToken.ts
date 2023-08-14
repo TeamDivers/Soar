@@ -7,7 +7,7 @@ const refreshAccessToken = async () => {
     const refreshToken = getRefreshToken();
 
     const response = await axios({
-        baseURL: 'TBD',
+        baseURL: 'http://117.16.137.205:8080',
         url: '/token/refresh',
         method: 'get',
         headers: {
