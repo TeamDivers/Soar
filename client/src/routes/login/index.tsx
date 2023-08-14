@@ -16,8 +16,9 @@ const Login = () => {
             <div className="fixed max-w-md mx-auto bottom-[80px] w-full px-4 flex flex-col gap-[10px]">
                 <RoundButton
                     backgroundColor="#FEE500"
-                    onClick={function (): void {
-                        throw new Error('Function not implemented.');
+                    onClick={() => {
+                        location.href =
+                            'http://117.16.137.205:8080/oauth2/authorization/kakao';
                     }}
                 >
                     <div className="relative flex justify-center w-full">
@@ -30,8 +31,9 @@ const Login = () => {
                 <RoundButton
                     backgroundColor="white"
                     hasBorder
-                    onClick={function (): void {
-                        throw new Error('Function not implemented.');
+                    onClick={() => {
+                        location.href =
+                            'http://117.16.137.205:8080/oauth2/authorization/google';
                     }}
                 >
                     <div className="relative flex justify-center w-full">

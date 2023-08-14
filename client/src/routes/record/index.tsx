@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { RecordType } from 'src/apis/record/getRecords';
+
 import CalendarView from '@components/CalendarView';
 import Dot from '@components/Dot';
 import RecordCard from '@components/RecordCard';
@@ -110,7 +112,9 @@ const ListView = ({ data }: { data: any }) => {
                 <SortSelector onChange={(v: string) => console.log(v)} />
             </div>
             <div>
-                {data.map((v: any) => {
+                {[
+                    ...new Set(data.map((item: RecordType) => item.category))
+                ].map((v: any) => {
                     return (
                         <SlideToDelete
                             key={v.id}
