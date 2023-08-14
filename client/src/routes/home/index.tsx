@@ -7,7 +7,7 @@ import { Pencil } from '@images/index';
 
 const Home = () => {
     return (
-        <div className="flex flex-col pt-8">
+        <div className="flex flex-col px-4 pt-5">
             <div className="bg-white rounded-[20px] pt-10 px-[26px] shadow-md pb-4">
                 <div className="flex justify-between pb-[22px]">
                     <div>
