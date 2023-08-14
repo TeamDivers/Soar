@@ -1,4 +1,4 @@
-package com.konkuk.soar.studyhistory.dto.request;
+package com.konkuk.soar.studyhistory.dto.response;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class StudyHistoryCreateDto {
+public class StudyHistoryCreateResponseDto {
 
   private Long id;
 
   @Builder
-  public StudyHistoryCreateDto(Long id) {
+  public StudyHistoryCreateResponseDto(Long id) {
     this.id = id;
   }
 }

@@ -5,6 +5,7 @@ import com.konkuk.soar.common.domain.File;
 import com.konkuk.soar.common.domain.Tag;
 import com.konkuk.soar.member.domain.Member;
 import com.konkuk.soar.studyhistory.domain.StudyHistory;
+import com.konkuk.soar.studyhistory.domain.StudyHistoryTag;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class StudyHistoryResponseDto {
 
   private Long id;
-  private String type;
+  private String tag;
   private String content;
   private boolean isPublic;
   private String category;
@@ -29,14 +30,14 @@ public class StudyHistoryResponseDto {
   private Long memberId;
   private String timelapseURL;
   private List<String> files = new ArrayList<>();
-  private List<String> tags = new ArrayList<>();
 
+
+  //TODO: 여기서 tag를 어떻게 받아오는 것이 좋을까요?
   @Builder
   public StudyHistoryResponseDto(StudyHistory history, Member member, File timelapseFile,
-      List<File> fileList,
-      List<Tag> tagList) {
+      List<File> fileList, Tag tag) {
     this.id = history.getId();
-    this.type = history.getType();
+    this.tag = tag.getName();
     this.content = history.getContent();
     this.isPublic = history.getIsPublic();
     this.category = history.getCategory();
@@ -50,10 +51,7 @@ public class StudyHistoryResponseDto {
     }
 
     files = fileList.stream()
-        .map(f -> f.getUrl())
-        .collect(Collectors.toList());
-    tags = tagList.stream()
-        .map(tag -> tag.getName())
+        .map(File::getUrl)
         .collect(Collectors.toList());
   }
 }

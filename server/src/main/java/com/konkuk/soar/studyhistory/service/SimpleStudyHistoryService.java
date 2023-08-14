@@ -109,9 +109,6 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
   private StudyHistoryResponseDto getDto(StudyHistory studyHistory) {
 
     Member member = studyHistory.getMember();
-    List<Tag> tagList = studyHistory.getTagList().stream()
-        .map(StudyHistoryTag::getTag)
-        .toList();
     List<File> fileList = studyHistory.getFileList().stream()
         .map(StudyHistoryFile::getFile)
         .filter(file -> !FileType.of(file.getType()).equals(FileType.TIMELAPSE))
@@ -126,7 +123,6 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
     return StudyHistoryResponseDto.builder()
         .history(studyHistory)
         .member(member)
-        .tagList(tagList)
         .fileList(fileList)
         .timelapseFile(timelapse)
         .build();

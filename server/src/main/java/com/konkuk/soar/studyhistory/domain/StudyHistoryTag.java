@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -22,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class StudyHistoryTag {
 
   @Id
-  @ManyToOne(fetch = FetchType.LAZY)
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "sht_study_history_id")
   private StudyHistory studyHistory;
 
@@ -34,10 +35,6 @@ public class StudyHistoryTag {
   @Builder
   public StudyHistoryTag(StudyHistory studyHistory, Tag tag) {
     this.studyHistory = studyHistory;
-    if (!studyHistory.getTagList().contains(this)) {
-      studyHistory.getTagList().add(this);
-    }
-
     this.tag = tag;
     if (!tag.getStudyHistoryTagList().contains(this)) {
       tag.getStudyHistoryTagList().add(this);

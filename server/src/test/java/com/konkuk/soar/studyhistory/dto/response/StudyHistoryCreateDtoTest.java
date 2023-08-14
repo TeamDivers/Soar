@@ -1,10 +1,12 @@
-package com.konkuk.soar.studyhistory.dto.request;
+package com.konkuk.soar.studyhistory.dto.response;
 
 import static com.konkuk.soar.TestEntityFactory.file;
 import static com.konkuk.soar.TestEntityFactory.member;
 import static com.konkuk.soar.TestEntityFactory.studyHistory;
 import static com.konkuk.soar.TestEntityFactory.tag;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.konkuk.soar.common.domain.File;
@@ -56,7 +58,7 @@ class StudyHistoryCreateDtoTest {
     StudyHistory studyHistory = classBundle.studyHistory;
 
     //when
-    StudyHistoryCreateDto dto = StudyHistoryCreateDto.builder()
+    StudyHistoryCreateResponseDto dto = StudyHistoryCreateResponseDto.builder()
         .id(studyHistory.getId())
         .build();
 
@@ -73,7 +75,7 @@ class StudyHistoryCreateDtoTest {
     StudyHistory studyHistory = classBundle.studyHistory;
 
     //when
-    StudyHistoryCreateDto dto = StudyHistoryCreateDto.builder()
+    StudyHistoryCreateResponseDto dto = StudyHistoryCreateResponseDto.builder()
         .id(studyHistory.getId())
         .build();
 
@@ -118,29 +120,16 @@ class StudyHistoryCreateDtoTest {
     studyHistoryFileRepository.save(studyHistoryFile2);
     studyHistoryFileRepository.save(studyHistoryFile3);
 
-    List<Tag> tagList = new ArrayList<>();
-    Tag tag1 = tag();
-    Tag tag2 = tag();
+    Tag tag = tag();
+    tagRepository.save(tag);
 
-    tagRepository.save(tag1);
-    tagRepository.save(tag2);
-
-    tagList.add(tag1);
-    tagList.add(tag2);
-
-    StudyHistoryTag shTag1 = StudyHistoryTag.builder()
+    StudyHistoryTag shTag = StudyHistoryTag.builder()
         .studyHistory(studyHistory)
-        .tag(tag1)
+        .tag(tag)
         .build();
-    StudyHistoryTag shTag2 = StudyHistoryTag.builder()
-        .studyHistory(studyHistory)
-        .tag(tag2)
-        .build();
+    studyHistoryTagRepository.save(shTag);
 
-    studyHistoryTagRepository.save(shTag1);
-    studyHistoryTagRepository.save(shTag2);
-
-    return new ClassBundle(member, studyHistory, fileList, timelapseFile, tagList);
+    return new ClassBundle(member, studyHistory, fileList, timelapseFile, shTag);
   }
 
   @Transactional
@@ -158,14 +147,7 @@ class StudyHistoryCreateDtoTest {
     fileList.add(file1);
     fileList.add(file2);
 
-    List<Tag> tagList = new ArrayList<>();
-    Tag tag1 = tag();
-    Tag tag2 = tag();
-
-    tagList.add(tag1);
-    tagList.add(tag2);
-
-    return new ClassBundle(member, studyHistory, fileList, timelapseFile, tagList);
+    return new ClassBundle(member, studyHistory, fileList, timelapseFile, null);
   }
 
   static class ClassBundle {
@@ -174,15 +156,15 @@ class StudyHistoryCreateDtoTest {
     StudyHistory studyHistory;
     List<File> fileList;
     File timelapse;
-    List<Tag> tagList;
+    StudyHistoryTag tag;
 
     public ClassBundle(Member member, StudyHistory studyHistory, List<File> fileList,
-        File timelapse, List<Tag> tagList) {
+        File timelapse, StudyHistoryTag tag) {
       this.member = member;
       this.studyHistory = studyHistory;
       this.fileList = fileList;
       this.timelapse = timelapse;
-      this.tagList = tagList;
+      this.tag = tag;
     }
   }
 

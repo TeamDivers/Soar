@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -37,11 +38,6 @@ public class StudyHistory extends BaseTime {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "study_history_id")
   private Long id;
-
-  @NotBlank
-  @Length(max = 20)
-  @Column(name = "study_history_type")
-  private String type;
 
   @NotBlank
   @Length(max = 1000)
@@ -80,15 +76,14 @@ public class StudyHistory extends BaseTime {
   @Setter(AccessLevel.NONE)
   private List<StudyHistoryFile> fileList = new ArrayList<>();
 
-  @OneToMany(mappedBy = "studyHistory", fetch = FetchType.EAGER)
+  @OneToOne(mappedBy = "studyHistory", fetch = FetchType.EAGER)
   @Setter(AccessLevel.NONE)
-  private List<StudyHistoryTag> tagList = new ArrayList<>();
+  private StudyHistoryTag tag;
 
   @Builder
-  public StudyHistory(String type, String content, Boolean isPublic, String category,
+  public StudyHistory(String content, Boolean isPublic, String category,
       LocalDateTime startDate,
       LocalDateTime endDate, Member member) {
-    this.type = type;
     this.content = content;
     this.isPublic = isPublic;
     this.category = category;

@@ -10,6 +10,7 @@ import com.konkuk.soar.member.domain.Member;
 import com.konkuk.soar.member.repository.MemberRepository;
 import com.konkuk.soar.portfolio.domain.portfolio.Portfolio;
 import com.konkuk.soar.portfolio.domain.project.Project;
+import com.konkuk.soar.portfolio.dto.project.response.ProjectCreateResponseDto;
 import com.konkuk.soar.portfolio.repository.PortfolioRepository;
 import com.konkuk.soar.portfolio.repository.project.ProjectFileRepository;
 import com.konkuk.soar.portfolio.repository.project.ProjectRepository;
@@ -54,7 +55,7 @@ class ProjectCreateDtoTest {
     projectRepository.save(project);
 
     //when
-    ProjectCreateDto dto = ProjectCreateDto.builder()
+    ProjectCreateResponseDto dto = ProjectCreateResponseDto.builder()
         .id(project.getId())
         .build();
 
@@ -71,7 +72,7 @@ class ProjectCreateDtoTest {
     Project project = project(portfolio);
 
     //when
-    ProjectCreateDto dto = ProjectCreateDto.builder()
+    ProjectCreateResponseDto dto = ProjectCreateResponseDto.builder()
         .id(project.getId())
         .build();
 

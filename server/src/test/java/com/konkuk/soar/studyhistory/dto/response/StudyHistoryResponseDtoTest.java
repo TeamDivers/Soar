@@ -57,15 +57,15 @@ class StudyHistoryResponseDtoTest {
     StudyHistory studyHistory;
     List<File> fileList;
     File timelapse;
-    List<Tag> tagList;
+    StudyHistoryTag tag;
 
     public ClassBundle(Member member, StudyHistory studyHistory, List<File> fileList,
-        File timelapse, List<Tag> tagList) {
+        File timelapse, StudyHistoryTag tag) {
       this.member = member;
       this.studyHistory = studyHistory;
       this.fileList = fileList;
       this.timelapse = timelapse;
-      this.tagList = tagList;
+      this.tag = tag;
     }
   }
 
@@ -106,29 +106,16 @@ class StudyHistoryResponseDtoTest {
     studyHistoryFileRepository.save(studyHistoryFile2);
     studyHistoryFileRepository.save(studyHistoryFile3);
 
-    List<Tag> tagList = new ArrayList<>();
-    Tag tag1 = tag();
-    Tag tag2 = tag();
+    Tag tag = tag();
+    tagRepository.save(tag);
 
-    tagRepository.save(tag1);
-    tagRepository.save(tag2);
-
-    tagList.add(tag1);
-    tagList.add(tag2);
-
-    StudyHistoryTag shTag1 = StudyHistoryTag.builder()
+    StudyHistoryTag shTag = StudyHistoryTag.builder()
         .studyHistory(studyHistory)
-        .tag(tag1)
+        .tag(tag)
         .build();
-    StudyHistoryTag shTag2 = StudyHistoryTag.builder()
-        .studyHistory(studyHistory)
-        .tag(tag2)
-        .build();
+    studyHistoryTagRepository.save(shTag);
 
-    studyHistoryTagRepository.save(shTag1);
-    studyHistoryTagRepository.save(shTag2);
-
-    return new ClassBundle(member, studyHistory, fileList, timelapseFile, tagList);
+    return new ClassBundle(member, studyHistory, fileList, timelapseFile, shTag);
   }
 
   @Test
@@ -138,9 +125,9 @@ class StudyHistoryResponseDtoTest {
     StudyHistoryResponseDto dto = StudyHistoryResponseDto.builder()
         .history(bundle.studyHistory)
         .member(bundle.member)
+        .tag(bundle.tag.getTag())
         .timelapseFile(bundle.timelapse)
         .fileList(bundle.fileList)
-        .tagList(bundle.tagList)
         .build();
     try {
       String res = objectMapper.writeValueAsString(dto);
