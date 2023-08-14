@@ -23,8 +23,14 @@ const Layout = ({
     return (
         <main className={`container relative h-full max-w-md mx-auto bg-white`}>
             {hasHeader && (
-                <div className="flex px-5 pt-3">
+                <div className="flex items-center justify-between px-5 pt-3">
                     <Logo className="w-16" />
+                    {hasProfile && (
+                        <img
+                            src="https://placehold.co/400"
+                            className="w-10 h-10 rounded-full"
+                        />
+                    )}
                 </div>
             )}
             <div className={`${hasNavigation ? 'pb-28' : ''}`}>

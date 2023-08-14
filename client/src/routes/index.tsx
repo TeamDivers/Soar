@@ -19,7 +19,7 @@ const Router = () => {
     const router = createBrowserRouter([
         {
             path: '/',
-            element: <Layout />,
+            element: <Layout hasProfile />,
             errorElement: <Error />,
             children: [{ index: true, element: <Home /> }]
         },
