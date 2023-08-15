@@ -39,13 +39,18 @@ const Portfolio = () => {
                     );
                 })}
             </div>
-            <button
-                className="fixed bottom-[118px] right-4 p-4 rounded-full bg-primary"
-                type="button"
-                onClick={onClickPlusButton}
+            <div
+                className="flex fixed bottom-[118px] max-w-md justify-end pr-4"
+                style={{ width: '-webkit-fill-available' }}
             >
-                <Plus />
-            </button>
+                <button
+                    className="p-4 rounded-full bg-primary"
+                    type="button"
+                    onClick={onClickPlusButton}
+                >
+                    <Plus />
+                </button>
+            </div>
         </>
     );
 };
