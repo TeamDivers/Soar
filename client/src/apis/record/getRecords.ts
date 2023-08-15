@@ -31,5 +31,5 @@ export const useGetRecords = () => {
 };
 
 export const useGetRecord = ({ historyId }: { historyId: number }) => {
-    return useQuery(['record'], () => getRecord(historyId));
+    return useQuery(['record', historyId], () => getRecord(historyId));
 };
