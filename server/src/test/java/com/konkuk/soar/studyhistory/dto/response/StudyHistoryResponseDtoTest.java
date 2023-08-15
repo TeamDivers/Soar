@@ -140,7 +140,7 @@ class StudyHistoryResponseDtoTest {
         .member(bundle.member)
         .timelapseFile(bundle.timelapse)
         .fileList(bundle.fileList)
-        .tagList(bundle.tagList)
+        .tag(bundle.tagList.get(0))
         .build();
     try {
       String res = objectMapper.writeValueAsString(dto);

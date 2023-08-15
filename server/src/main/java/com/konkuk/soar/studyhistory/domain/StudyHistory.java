@@ -67,6 +67,11 @@ public class StudyHistory extends BaseTime {
   @Setter(AccessLevel.NONE)
   private Member member;
 
+  @OneToMany(mappedBy = "studyHistory", fetch = FetchType.EAGER)
+  @Setter(AccessLevel.NONE)
+  private List<StudyHistoryTag> tagList = new ArrayList<>();
+
+
   @OneToMany(mappedBy = "studyHistory", fetch = FetchType.LAZY)
   @Setter(AccessLevel.NONE)
   private List<ProjectStudyHistory> projectStudyHistoryList = new ArrayList<>();
@@ -75,9 +80,6 @@ public class StudyHistory extends BaseTime {
   @Setter(AccessLevel.NONE)
   private List<StudyHistoryFile> fileList = new ArrayList<>();
 
-  @OneToMany(mappedBy = "studyHistory", fetch = FetchType.EAGER)
-  @Setter(AccessLevel.NONE)
-  private List<StudyHistoryTag> tagList = new ArrayList<>();
 
   @Builder
   public StudyHistory(String content, Boolean isPublic, String category,

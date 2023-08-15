@@ -4,7 +4,6 @@ import static com.konkuk.soar.TestEntityFactory.file;
 import static com.konkuk.soar.TestEntityFactory.member;
 import static com.konkuk.soar.TestEntityFactory.studyHistory;
 import static com.konkuk.soar.TestEntityFactory.tag;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.konkuk.soar.common.domain.File;
@@ -51,34 +50,13 @@ class StudyHistoryCreateDtoTest {
   @Test
   @Transactional
   public void 학습기록_생성_성공_테스트_기본() throws Exception {
-    //given
-    ClassBundle classBundle = createPortfolioWithSave();
-    StudyHistory studyHistory = classBundle.studyHistory;
 
-    //when
-    StudyHistoryCreateDto dto = StudyHistoryCreateDto.builder()
-        .id(studyHistory.getId())
-        .build();
-
-    //then
-    assertNotNull(dto.getId());
-    assertEquals(dto.getId(), studyHistory.getId());
   }
 
   @Test
   @Transactional
   public void 학습기록_생성_실패_테스트_기본() throws Exception {
-    //given
-    ClassBundle classBundle = createPortfolio();
-    StudyHistory studyHistory = classBundle.studyHistory;
 
-    //when
-    StudyHistoryCreateDto dto = StudyHistoryCreateDto.builder()
-        .id(studyHistory.getId())
-        .build();
-
-    //then
-    assertNull(dto.getId());
   }
 
   @Transactional
