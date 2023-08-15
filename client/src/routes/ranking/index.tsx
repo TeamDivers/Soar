@@ -99,9 +99,53 @@ const Ranking = () => {
             </div>
             <Modal isOpen={isOpen} close={closeModal}>
                 <div className="w-screen max-w-md px-5">
-                    <div className="flex flex-col gap-6 px-5 py-10 bg-white rounded-[20px] shadow h-[500px]">
-                        <PortfolioCard size="sm" ranking={24} rating={3.5} />
-                        <PortfolioCard size="sm" ranking={58} rating={3.0} />
+                    <div className="flex flex-col pt-10 bg-white rounded-[20px] shadow h-[500px]">
+                        <div className="flex items-start justify-between px-5 mb-2">
+                            <div className="flex gap-[10px] items-center">
+                                <img
+                                    src="https://placehold.co/200"
+                                    className="w-10 h-10 rounded-full"
+                                />
+                                <div className="flex flex-col">
+                                    <span className="text-base font-normal text-black mb-[2px]">
+                                        {/* SB AggroOTF */}
+                                        전진호님의 랭킹
+                                    </span>
+                                    <span className="text-sm font-normal text-neutral-400">
+                                        총 4개의 포트폴리오
+                                    </span>
+                                </div>
+                            </div>
+                            <button
+                                className=""
+                                onClick={closeModal}
+                                type={'button'}
+                            >
+                                X
+                            </button>
+                        </div>
+                        <div className="flex flex-col gap-2 px-5 py-2 overflow-x-visible overflow-y-scroll">
+                            <PortfolioCard
+                                size="sm"
+                                ranking={24}
+                                rating={3.5}
+                            />
+                            <PortfolioCard
+                                size="sm"
+                                ranking={58}
+                                rating={3.0}
+                            />
+                            <PortfolioCard
+                                size="sm"
+                                ranking={58}
+                                rating={3.0}
+                            />
+                            <PortfolioCard
+                                size="sm"
+                                ranking={58}
+                                rating={3.0}
+                            />
+                        </div>
                     </div>
                 </div>
             </Modal>
