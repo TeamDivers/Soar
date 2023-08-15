@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 public class StudyHistoryResponseDto {
 
   private Long id;
-  private String type;
   private String content;
   private boolean isPublic;
   private String category;
@@ -36,7 +35,6 @@ public class StudyHistoryResponseDto {
       List<File> fileList,
       List<Tag> tagList) {
     this.id = history.getId();
-    this.type = history.getType();
     this.content = history.getContent();
     this.isPublic = history.getIsPublic();
     this.category = history.getCategory();

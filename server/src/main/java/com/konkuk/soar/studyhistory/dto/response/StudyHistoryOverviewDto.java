@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 public class StudyHistoryOverviewDto {
 
   private Long id;
-  private String type;
   private String content;
   private Long memberId;
   private String category;
@@ -25,7 +24,6 @@ public class StudyHistoryOverviewDto {
   @Builder
   public StudyHistoryOverviewDto(StudyHistory history, Member member) {
     this.id = history.getId();
-    this.type = history.getType();
     this.content = history.getContent();
     this.category = history.getCategory();
     this.startDate = history.getStartDate();
