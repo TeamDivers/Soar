@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ChipList from '@components/ChipList';
@@ -17,7 +17,7 @@ const SearchButton = () => {
 };
 
 const Ranking = () => {
-    const chips = [
+    const categories = [
         '기본',
         '디자인',
         '수학',
@@ -28,10 +28,16 @@ const Ranking = () => {
         '캘리그라피'
     ];
 
+    const [category, setCategory] = useState(categories[0]);
+
+    const onClickChip = (label: string) => {
+        setCategory(label);
+    };
+
     return (
         <Layout title="랭킹보드" right={SearchButton}>
             <div className="mt-4">
-                <ChipList chips={chips} />
+                <ChipList chips={categories} onClick={onClickChip} />
             </div>
         </Layout>
     );

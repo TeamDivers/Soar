@@ -4,10 +4,16 @@ import Chip from '@components/Chip';
 
 interface ChipListProps {
     chips: string[];
+    onClick: (label: string) => void;
 }
 
-const ChipList: React.FC<ChipListProps> = ({ chips }) => {
+const ChipList: React.FC<ChipListProps> = ({ chips, onClick }) => {
     const [selectedIdx, setSelectedIdx] = useState(0);
+
+    const handleOnClickChip = (index: number) => {
+        onClick(chips[index]);
+        setSelectedIdx(index);
+    };
 
     return (
         <div className="flex overflow-x-auto hide-scrollbar">
@@ -18,9 +24,7 @@ const ChipList: React.FC<ChipListProps> = ({ chips }) => {
                         key={index}
                         label={chip}
                         isSelected={index === selectedIdx}
-                        onClick={function (): void {
-                            throw new Error('Function not implemented.');
-                        }}
+                        onClick={() => handleOnClickChip(index)}
                     />
                 ))}
                 <div className="p-2" />
