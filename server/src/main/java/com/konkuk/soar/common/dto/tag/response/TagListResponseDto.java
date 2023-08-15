@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@Schema(name = "태그리스트를 반환하는 response body dto")
+@Schema(description = "태그리스트를 반환하는 response body dto")
 public class TagListResponseDto {
 
   @Schema(name = "태그명 리스트")
