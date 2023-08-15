@@ -16,7 +16,7 @@ const SearchButton = () => {
 
     return (
         <button onClick={() => navigate('/ranking/search')}>
-            <Search />
+            <Search stroke={'#28303F'} />
         </button>
     );
 };
