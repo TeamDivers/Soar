@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import ChipList from '@components/ChipList';
 import Layout from '@components/layout';
+import Modal from '@components/Modal';
 import Ring from '@components/Ring';
+import RoundButton from '@components/RoundButton';
 
 import { Search } from '@images/index';
 
@@ -31,9 +33,17 @@ const Ranking = () => {
 
     /** TOOD: filter portfolios with category */
     const [category, setCategory] = useState(categories[0]);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const closeModal = () => setIsOpen(false);
 
     const onClickChip = (label: string) => {
         setCategory(label);
+    };
+
+    const onClickMyRanking = () => {
+        /** TODO: open modal and shows my portfolios */
+        setIsOpen(true);
     };
 
     return (
@@ -79,6 +89,20 @@ const Ranking = () => {
                     />
                 </div>
             </div>
+            <div className="mt-[30px] px-4">
+                <RoundButton onClick={onClickMyRanking}>
+                    <div className="py-[9px] text-white text-lg font-semibold">
+                        나의 랭킹
+                    </div>
+                </RoundButton>
+            </div>
+            <Modal isOpen={isOpen} close={closeModal}>
+                <div className="w-screen max-w-md px-5">
+                    <div className="flex flex-col gap-6 px-5 py-10 bg-white rounded-[20px] shadow h-[500px]">
+                        hi
+                    </div>
+                </div>
+            </Modal>
         </Layout>
     );
 };
