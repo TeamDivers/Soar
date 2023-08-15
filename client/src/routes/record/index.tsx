@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { RecordType } from 'src/apis/record/getRecords';
 
@@ -15,9 +16,9 @@ import { text2Color } from '@utils/color';
 const VIEWS = ['캘린더', '리스트'];
 
 const Record = () => {
+    const navigate = useNavigate();
     const [view, setView] = useState(VIEWS[0]);
     const [day, setDay] = useState(new Date());
-
     const data = [
         {
             id: 1,
@@ -50,6 +51,10 @@ const Record = () => {
             endDate: new Date(2023, 7, 13, 18, 0)
         }
     ];
+
+    const handleOnClickCreateRecord = () => {
+        navigate('/record/create');
+    };
 
     return (
         <div className="flex flex-col pt-[20px]">
@@ -91,11 +96,7 @@ const Record = () => {
                 className="fixed bottom-[120px] px-4 max-w-md"
                 style={{ width: '-webkit-fill-available' }}
             >
-                <RoundButton
-                    onClick={function (): void {
-                        throw new Error('Function not implemented.');
-                    }}
-                >
+                <RoundButton onClick={handleOnClickCreateRecord}>
                     <div className="text-lg font-semibold text-white">
                         학습기록 작성하기
                     </div>

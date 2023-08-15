@@ -14,6 +14,7 @@ import PortfolioCreate from './portfolio/create';
 import Profile from './profile';
 import Ranking from './ranking';
 import Record from './record';
+import RecordCreate from './record/create';
 import Search from './search';
 
 const Router = () => {
@@ -58,13 +59,34 @@ const Router = () => {
             path: '/profile',
             element: <Layout />,
             errorElement: <Error />,
-            children: [{ index: true, element: <Profile /> }]
+            children: [
+                {
+                    index: true,
+                    element: <Profile />
+                }
+            ]
         },
         {
             path: '/record',
-            element: <Layout />,
             errorElement: <Error />,
-            children: [{ index: true, element: <Record /> }]
+            children: [
+                {
+                    index: true,
+                    element: (
+                        <Layout>
+                            <Record />
+                        </Layout>
+                    )
+                },
+                {
+                    path: 'create',
+                    element: (
+                        <Layout hasHeader={false} hasNavigation={false}>
+                            <RecordCreate />
+                        </Layout>
+                    )
+                }
+            ]
         },
         {
             path: '/ranking',
