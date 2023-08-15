@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ChipList from '@components/ChipList';
 import Layout from '@components/layout';
 import Modal from '@components/Modal';
+import PortfolioCard from '@components/PortfolioCard';
 import Ring from '@components/Ring';
 import RoundButton from '@components/RoundButton';
 
@@ -99,7 +100,8 @@ const Ranking = () => {
             <Modal isOpen={isOpen} close={closeModal}>
                 <div className="w-screen max-w-md px-5">
                     <div className="flex flex-col gap-6 px-5 py-10 bg-white rounded-[20px] shadow h-[500px]">
-                        hi
+                        <PortfolioCard size="sm" ranking={24} rating={3.5} />
+                        <PortfolioCard size="sm" ranking={58} rating={3.0} />
                     </div>
                 </div>
             </Modal>
