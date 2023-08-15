@@ -6,6 +6,7 @@ import static com.konkuk.soar.common.dto.BaseResponseStatus.SUCCESS;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,12 +16,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @JsonPropertyOrder({"success", "status", "message", "result"})
+@Schema(description = "기본 응답 dto format")
 public class BaseResponse<T> {
 
+  @Schema(name = "요청이 정상적으로 처리가 됐는지 여부")
   @JsonProperty("success")
   private final Boolean isSuccess;
+  @Schema(name = "http status")
   private final int status;
+  @Schema(name = "응답 메시지")
   private final String message;
+  @Schema(name = "요청 결과")
   @JsonInclude(JsonInclude.Include.NON_NULL)
   private T result;
 

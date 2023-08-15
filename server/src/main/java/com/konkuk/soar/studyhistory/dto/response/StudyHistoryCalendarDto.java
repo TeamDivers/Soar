@@ -1,5 +1,6 @@
 package com.konkuk.soar.studyhistory.dto.response;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,10 +11,14 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@Schema(description = "학습 기록을 달력으로 보기 위한 response body dto")
 public class StudyHistoryCalendarDto {
 
+  @Schema(description = "년도")
   private Integer year;
+  @Schema(description = "월")
   private Integer month;
+  @Schema(description = "<날짜, 그 날짜에 한 학습 기록>의 Map")
   private Map<Integer, List<StudyHistoryOverviewDto>> dayMap;
 
   @Builder
