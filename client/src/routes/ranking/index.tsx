@@ -5,6 +5,7 @@ import ChipList from '@components/ChipList';
 import Layout from '@components/layout';
 import Modal from '@components/Modal';
 import PortfolioCard from '@components/PortfolioCard';
+import RankingItem from '@components/RankingItem';
 import Ring from '@components/Ring';
 import RoundButton from '@components/RoundButton';
 
@@ -90,12 +91,62 @@ const Ranking = () => {
                     />
                 </div>
             </div>
-            <div className="mt-[30px] px-4">
+            <div className="my-[30px] px-4">
                 <RoundButton onClick={onClickMyRanking}>
                     <div className="py-[9px] text-white text-lg font-semibold">
                         나의 랭킹
                     </div>
                 </RoundButton>
+            </div>
+            <div className="flex flex-col gap-[30px] px-4 pb-10 bg-white">
+                <RankingItem
+                    rank={4}
+                    isAscending={false}
+                    thumbnail={'https://placehold.co/200'}
+                    title={'개발 8년차 포트폴리오'}
+                    desc={'김무준 / 직장인'}
+                    rating={4.5}
+                />
+                <RankingItem
+                    rank={4}
+                    isAscending={false}
+                    thumbnail={'https://placehold.co/200'}
+                    title={'개발 8년차 포트폴리오'}
+                    desc={'김무준 / 직장인'}
+                    rating={4.5}
+                />
+                <RankingItem
+                    rank={4}
+                    isAscending={false}
+                    thumbnail={'https://placehold.co/200'}
+                    title={'개발 8년차 포트폴리오'}
+                    desc={'김무준 / 직장인'}
+                    rating={4.5}
+                />{' '}
+                <RankingItem
+                    rank={4}
+                    isAscending={false}
+                    thumbnail={'https://placehold.co/200'}
+                    title={'개발 8년차 포트폴리오'}
+                    desc={'김무준 / 직장인'}
+                    rating={4.5}
+                />
+                <RankingItem
+                    rank={4}
+                    isAscending={false}
+                    thumbnail={'https://placehold.co/200'}
+                    title={'개발 8년차 포트폴리오'}
+                    desc={'김무준 / 직장인'}
+                    rating={4.5}
+                />
+                <RankingItem
+                    rank={4}
+                    isAscending={false}
+                    thumbnail={'https://placehold.co/200'}
+                    title={'개발 8년차 포트폴리오'}
+                    desc={'김무준 / 직장인'}
+                    rating={4.5}
+                />
             </div>
             <Modal isOpen={isOpen} close={closeModal}>
                 <div className="w-screen max-w-md px-5">
