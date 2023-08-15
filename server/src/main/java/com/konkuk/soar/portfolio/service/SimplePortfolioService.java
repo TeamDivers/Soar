@@ -12,8 +12,10 @@ import com.konkuk.soar.portfolio.domain.portfolio.PortfolioTag;
 import com.konkuk.soar.portfolio.domain.project.ProjectFile;
 import com.konkuk.soar.portfolio.domain.project.ProjectStudyHistory;
 import com.konkuk.soar.portfolio.dto.portfolio.request.PortfolioCreateDto;
+import com.konkuk.soar.portfolio.dto.portfolio.request.PortfolioCreateLargeDto;
 import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioOverviewDto;
 import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioResponseDto;
+import com.konkuk.soar.portfolio.dto.project.request.ProjectCreateDto;
 import com.konkuk.soar.portfolio.dto.project.response.ProjectResponseDto;
 import com.konkuk.soar.portfolio.enums.OptionType;
 import com.konkuk.soar.portfolio.repository.PortfolioRepository;
@@ -32,6 +34,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class SimplePortfolioService implements PortfolioService {
 
   private final PortfolioRepository portfolioRepository;
+
+  private final ProjectService projectService;
   private final MemberService memberService;
   private final TagService tagService;
 
@@ -54,6 +58,20 @@ public class SimplePortfolioService implements PortfolioService {
     List<Tag> tags = tagService.addAllTagToPortfolio(portfolio, dto.getTags());
 
     return getOverview(portfolio);
+  }
+
+  @Override
+  @Transactional
+  public PortfolioOverviewDto createPortfolio(PortfolioCreateLargeDto dto) {
+    PortfolioCreateDto portfolioCreateDto = dto.getPortfolio();
+    List<ProjectCreateDto> projectsDto = dto.getProjects();
+
+    PortfolioOverviewDto portfolio = createPortfolio(portfolioCreateDto);
+    for (ProjectCreateDto projectCreateDto : projectsDto) {
+      projectCreateDto.setPortfolioId(portfolio.getPortfolioId());
+      projectService.createProject(projectCreateDto);
+    }
+    return portfolio;
   }
 
   @Override

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
@@ -21,6 +22,7 @@ public class ProjectCreateDto {
   private LocalDateTime endDate;
   private String background;
 
+  @Setter
   private Long portfolioId;
   private List<FileCreateDto> files;
   private List<Long> histories;

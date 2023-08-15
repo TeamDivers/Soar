@@ -8,6 +8,7 @@ import com.konkuk.soar.portfolio.domain.project.ProjectStudyHistory;
 import com.konkuk.soar.portfolio.dto.project.request.ProjectCreateDto;
 import com.konkuk.soar.portfolio.dto.project.response.ProjectOverviewDto;
 import com.konkuk.soar.portfolio.dto.project.response.ProjectResponseDto;
+import com.konkuk.soar.portfolio.repository.PortfolioRepository;
 import com.konkuk.soar.portfolio.repository.project.ProjectRepository;
 import com.konkuk.soar.studyhistory.domain.StudyHistory;
 import com.konkuk.soar.studyhistory.service.StudyHistoryService;
@@ -21,7 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class SimpleProjectService implements ProjectService{
 
   private final ProjectRepository projectRepository;
-  private final PortfolioService portfolioService;
+
+  private final PortfolioRepository portfolioRepository;
   private final StudyHistoryService studyHistoryService;
 
   @Override
@@ -55,7 +57,7 @@ public class SimpleProjectService implements ProjectService{
   @Transactional
   public ProjectOverviewDto createProject(ProjectCreateDto dto) {
     // TODO : RuntimeException -> Custom으로 바꾸기
-    Portfolio portfolio = portfolioService.getPortfolioEntityById(dto.getPortfolioId()).
+    Portfolio portfolio = portfolioRepository.findById(dto.getPortfolioId()).
         orElseThrow(RuntimeException::new);
 
     Project project = Project.builder()

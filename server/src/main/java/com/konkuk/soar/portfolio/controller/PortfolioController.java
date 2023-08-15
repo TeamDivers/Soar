@@ -1,7 +1,7 @@
 package com.konkuk.soar.portfolio.controller;
 
 import com.konkuk.soar.common.dto.BaseResponse;
-import com.konkuk.soar.portfolio.dto.portfolio.request.PortfolioCreateDto;
+import com.konkuk.soar.portfolio.dto.portfolio.request.PortfolioCreateLargeDto;
 import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioOverviewDto;
 import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioResponseDto;
 import com.konkuk.soar.portfolio.enums.OptionType;
@@ -40,7 +40,7 @@ public class PortfolioController {
   }
 
   @PostMapping
-  public BaseResponse<PortfolioOverviewDto> createPortfolio(@RequestBody PortfolioCreateDto dto) {
+  public BaseResponse<PortfolioOverviewDto> createPortfolio(@RequestBody PortfolioCreateLargeDto dto) {
     PortfolioOverviewDto result = portfolioService.createPortfolio(dto);
     return BaseResponse.success(result);
   }
