@@ -13,3 +13,5 @@ export { ReactComponent as Check } from './check.svg';
 export { ReactComponent as LeftSm } from './left-sm.svg';
 export { ReactComponent as RightSm } from './right-sm.svg';
 export { ReactComponent as Plus } from './plus.svg';
+export { ReactComponent as Search } from './search.svg';
+export { ReactComponent as Crown } from './crown.svg';

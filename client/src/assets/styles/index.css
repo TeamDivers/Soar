@@ -16,3 +16,12 @@ body,
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.hide-scrollbar {
+    scrollbar-width: none; /* Firefox에서 스크롤바 숨김 */
+    -ms-overflow-style: none; /* IE/Edge에서 스크롤바 숨김 */
+    &::-webkit-scrollbar {
+        width: 0; /* Chrome/Safari/Opera에서 스크롤바 숨김 */
+        display: none; /* Chrome/Safari/Opera에서 스크롤바 숨김 */
+    }
+}

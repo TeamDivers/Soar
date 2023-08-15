@@ -17,8 +17,9 @@ const Login = () => {
                 <RoundButton
                     backgroundColor="#FEE500"
                     onClick={() => {
-                        location.href =
-                            'http://117.16.137.205:8080/oauth2/authorization/kakao';
+                        const CLIENT_ID = process.env.REACT_APP_REST_API_KEY;
+                        const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URL;
+                        location.href = `${process.env.KAKAO_BASE_URI}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
                     }}
                 >
                     <div className="relative flex justify-center w-full">
