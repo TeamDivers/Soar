@@ -90,10 +90,13 @@ const Router = () => {
         },
         {
             path: '/ranking',
-            element: <Layout />,
+
             errorElement: <Error />,
             children: [
-                { index: true, element: <Ranking /> },
+                {
+                    index: true,
+                    element: <Ranking />
+                },
                 { path: 'search', element: <Search /> }
             ]
         },
