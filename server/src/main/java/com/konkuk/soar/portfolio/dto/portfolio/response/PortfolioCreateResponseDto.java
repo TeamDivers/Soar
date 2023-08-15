@@ -1,4 +1,4 @@
-package com.konkuk.soar.portfolio.dto.project.response;
+package com.konkuk.soar.portfolio.dto.portfolio.response;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ProjectCreateResponseDto {
+public class PortfolioCreateResponseDto {
 
   private Long id;
 
   @Builder
-  public ProjectCreateResponseDto(Long id) {
+  public PortfolioCreateResponseDto(Long id) {
     this.id = id;
   }
 }

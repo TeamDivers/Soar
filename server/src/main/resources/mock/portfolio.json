@@ -18,7 +18,6 @@
       "studyHistories": [
         {
           "id": 1,
-          "type": "개발",
           "content": "스프링 공부",
           "memberId": 1,
           "category": "개발 || 백엔드 || 스프링",
@@ -27,7 +26,6 @@
         },
         {
           "id": 2,
-          "type": "개발",
           "content": "자바 공부",
           "memberId": 1,
           "category": "개발 || 백엔드 || 자바",

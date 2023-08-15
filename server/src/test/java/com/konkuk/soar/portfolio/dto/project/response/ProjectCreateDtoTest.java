@@ -1,4 +1,4 @@
-package com.konkuk.soar.portfolio.dto.project.request;
+package com.konkuk.soar.portfolio.dto.project.response;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static com.konkuk.soar.TestEntityFactory.*;
