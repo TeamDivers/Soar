@@ -1,6 +1,8 @@
 package com.konkuk.soar.studyhistory.service;
 
+import com.konkuk.soar.portfolio.domain.project.Project;
 import com.konkuk.soar.portfolio.enums.OptionType;
+import com.konkuk.soar.studyhistory.domain.StudyHistory;
 import com.konkuk.soar.studyhistory.dto.request.StudyHistoryCreateDto;
 import com.konkuk.soar.studyhistory.dto.response.StudyHistoryCalendarDto;
 import com.konkuk.soar.studyhistory.dto.response.StudyHistoryOverviewDto;
@@ -16,4 +18,6 @@ public interface StudyHistoryService {
 
   List<StudyHistoryOverviewDto> getStudyHistoryListByMember(Long memberId, OptionType option,
       Integer size);
+
+  StudyHistory addHistoryToProject(Long historyId, Project project);
 }

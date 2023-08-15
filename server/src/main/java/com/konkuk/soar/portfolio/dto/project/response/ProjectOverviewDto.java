@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ProjectMetaResponseDto {
+public class ProjectOverviewDto {
 
   private Long projectId;
   private Long portfolioId;
@@ -22,7 +22,7 @@ public class ProjectMetaResponseDto {
   private LocalDateTime endDate;
 
   @Builder
-  public ProjectMetaResponseDto(Project project, Portfolio portfolio) {
+  public ProjectOverviewDto(Project project, Portfolio portfolio) {
     this.projectId = project.getId();
     this.portfolioId = portfolio.getId();
     this.title = project.getTitle();

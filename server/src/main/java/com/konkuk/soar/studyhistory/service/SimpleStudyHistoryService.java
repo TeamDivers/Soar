@@ -7,7 +7,10 @@ import com.konkuk.soar.common.service.TagService;
 import com.konkuk.soar.global.exception.NotFoundException;
 import com.konkuk.soar.member.domain.Member;
 import com.konkuk.soar.member.service.MemberService;
+import com.konkuk.soar.portfolio.domain.project.Project;
+import com.konkuk.soar.portfolio.domain.project.ProjectStudyHistory;
 import com.konkuk.soar.portfolio.enums.OptionType;
+import com.konkuk.soar.portfolio.repository.project.ProjectStudyHistoryRepository;
 import com.konkuk.soar.studyhistory.domain.StudyHistory;
 import com.konkuk.soar.studyhistory.domain.StudyHistoryFile;
 import com.konkuk.soar.studyhistory.domain.StudyHistoryTag;
@@ -33,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SimpleStudyHistoryService implements StudyHistoryService {
 
   private final StudyHistoryRepository studyHistoryRepository;
+  private final ProjectStudyHistoryRepository projectStudyHistoryRepository;
   private final MemberService memberService;
   private final TagService tagService;
   @Override
@@ -88,6 +92,7 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
   }
 
   @Override
+  @Transactional
   public List<StudyHistoryOverviewDto> getStudyHistoryListByMember(Long memberId, OptionType option,
       Integer size) {
 
@@ -125,7 +130,21 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
     throw new RuntimeException();
   }
 
-  private StudyHistoryOverviewDto getOverview(StudyHistory history, Tag tag) {
+  @Override
+  @Transactional
+  public StudyHistory addHistoryToProject(Long historyId, Project project) {
+    StudyHistory studyHistory = studyHistoryRepository.findById(historyId)
+        .orElseThrow(() -> NotFoundException.STUDY_HISTORY_NOT_FOUND);
+
+    projectStudyHistoryRepository.save(ProjectStudyHistory.builder()
+        .project(project)
+        .studyHistory(studyHistory)
+        .build());
+
+    return studyHistory;
+  }
+
+  protected StudyHistoryOverviewDto getOverview(StudyHistory history, Tag tag) {
     Member member = history.getMember();
     return StudyHistoryOverviewDto.builder()
         .member(member)
@@ -133,7 +152,7 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
         .tag(tag)
         .build();
   }
-  private StudyHistoryResponseDto getResponseDto(StudyHistory studyHistory) {
+  protected StudyHistoryResponseDto getResponseDto(StudyHistory studyHistory) {
 
     Member member = studyHistory.getMember();
     List<Tag> tagList = studyHistory.getTagList().stream()
@@ -159,7 +178,7 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
         .build();
   }
 
-  private Tag unwrapTag(StudyHistory history) {
+  protected Tag unwrapTag(StudyHistory history) {
     List<StudyHistoryTag> tagList = history.getTagList();
     if (tagList.isEmpty()) {
       // TODO : Custom Exception
