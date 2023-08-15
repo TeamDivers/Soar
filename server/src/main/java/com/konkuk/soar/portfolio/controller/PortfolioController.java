@@ -40,6 +40,11 @@ public class PortfolioController {
     return BaseResponse.success(result);
   }
 
+  @GetMapping("/rank/{portfolioId}")
+  public int getScore(@PathVariable Long portfolioId) {
+    return portfolioService.getRankByPortfolioScore(portfolioId);
+  }
+
   @Operation(summary = "포트폴리오 리스트 조회", description = "회원이 작성한 포트폴리오 리스트를 조회합니다.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "정상적으로 리스트 조회 성공", content = @Content(schema = @Schema(implementation = PortfolioResponseDto.class)))
