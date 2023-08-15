@@ -6,6 +6,7 @@ import Layout from '@components/layout';
 import Error from './error';
 import Home from './home';
 import Login from './login';
+import Kakao from './login/kakao';
 import OnBoard from './login/onboard';
 import SignUp from './login/signup';
 import Portfolio from './portfolio';
@@ -107,7 +108,8 @@ const Router = () => {
             children: [
                 { index: true, element: <Login /> },
                 { path: 'signup', element: <SignUp /> },
-                { path: 'onboard', element: <OnBoard /> }
+                { path: 'onboard', element: <OnBoard /> },
+                { path: 'kakao', element: <Kakao /> }
             ]
         }
     ]);
