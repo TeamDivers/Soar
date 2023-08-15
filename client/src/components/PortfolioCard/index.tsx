@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface PortfolioCardProps {
     ranking?: number;
@@ -17,7 +17,12 @@ const PortfolioCard = ({
     ranking,
     size = 'lg'
 }: PortfolioCardProps) => {
-    const imgSize = size === 'lg' ? 160 : 100;
+    const [height, setHeight] = useState(0);
+    const ref = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        setHeight(ref.current?.clientHeight || 0);
+    }, [ref]);
 
     return (
         <div className="relative">
@@ -27,18 +32,22 @@ const PortfolioCard = ({
                     {ranking}위
                 </div>
             )}
-            <div className="flex w-full shadow-md rounded-[10px]">
-                <img
-                    src="https://placehold.co/400"
-                    className="rounded-l-[10px]"
-                    style={{ width: imgSize, height: imgSize }}
-                />
+            <div className="relative flex shadow-md rounded-[10px]">
+                <div>
+                    <img
+                        src="https://placehold.co/400"
+                        className="rounded-l-[10px] w-full h-full aspect-square"
+                        style={{
+                            width: height,
+                            height
+                        }}
+                    />
+                </div>
                 <div
+                    ref={ref}
                     className={`${
-                        size === 'lg'
-                            ? 'p-4 h-[160px]'
-                            : 'py-[10px] px-3 h-[100px]'
-                    } flex flex-col`}
+                        size === 'lg' ? 'p-4 h-[160px]' : 'py-[10px] px-3'
+                    } flex flex-col flex-1 h-fit`}
                 >
                     <div className="flex justify-between">
                         <div
