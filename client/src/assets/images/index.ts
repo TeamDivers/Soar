@@ -16,3 +16,5 @@ export { ReactComponent as Plus } from './plus.svg';
 export { ReactComponent as Search } from './search.svg';
 export { ReactComponent as Crown } from './crown.svg';
 export { ReactComponent as Star } from './star.svg';
+export { ReactComponent as Asc } from './asc.svg';
+export { ReactComponent as Desc } from './desc.svg';
