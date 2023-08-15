@@ -1,11 +1,21 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import PortfolioCard from '@components/PortfolioCard';
 import SlideToDelete from '@components/SlideToDelete';
 import SortSelector from '@components/SortSelector';
 
+import { Plus } from '@images/index';
+
 const Portfolio = () => {
-    const deletePortfolio = () => {};
+    const navigate = useNavigate();
+    const portfolios = [{ id: 1 }];
+
+    const onDeletePortfolio = () => {};
+
+    const onClickPlusButton = () => {
+        navigate('/portfolio/create');
+    };
 
     return (
         <>
@@ -15,11 +25,27 @@ const Portfolio = () => {
                 </h1>
                 <SortSelector onChange={(v: string) => console.log(v)} />
             </div>
-            <SlideToDelete onDelete={deletePortfolio}>
-                <div className="px-4 py-2">
-                    <PortfolioCard />
-                </div>
-            </SlideToDelete>
+            <div>
+                {portfolios.map((portfolio) => {
+                    return (
+                        <SlideToDelete
+                            onDelete={onDeletePortfolio}
+                            key={portfolio.id}
+                        >
+                            <div className="px-4 py-2">
+                                <PortfolioCard />
+                            </div>
+                        </SlideToDelete>
+                    );
+                })}
+            </div>
+            <button
+                className="fixed bottom-[118px] right-4 p-4 rounded-full bg-primary"
+                type="button"
+                onClick={onClickPlusButton}
+            >
+                <Plus />
+            </button>
         </>
     );
 };
