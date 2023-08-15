@@ -18,6 +18,7 @@ import com.konkuk.soar.portfolio.dto.project.response.ProjectResponseDto;
 import com.konkuk.soar.portfolio.enums.OptionType;
 import com.konkuk.soar.portfolio.repository.PortfolioRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,7 @@ public class SimplePortfolioService implements PortfolioService {
   public PortfolioOverviewDto createPortfolio(PortfolioCreateDto dto) {
     Member member = memberService.findById(dto.getMemberId())
         .orElseThrow(() -> NotFoundException.MEMBER_NOT_FOUND);
+
     Portfolio portfolio = Portfolio.builder()
         .title(dto.getTitle())
         .description(dto.getDescription())
@@ -61,6 +63,11 @@ public class SimplePortfolioService implements PortfolioService {
         .orElseThrow(() -> NotFoundException.MEMBER_NOT_FOUND);
 
     return getResponseDto(portfolio);
+  }
+
+  @Override
+  public Optional<Portfolio> getPortfolioEntityById(Long portfolioId) {
+    return portfolioRepository.findById(portfolioId);
   }
 
   @Override
@@ -92,7 +99,7 @@ public class SimplePortfolioService implements PortfolioService {
     }
 
     if (res != null) {
-      return res.stream().map(portfolio -> getResponseDto(portfolio)).collect(Collectors.toList());
+      return res.stream().map(this::getResponseDto).collect(Collectors.toList());
     }
 
     throw new RuntimeException();
