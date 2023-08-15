@@ -10,8 +10,9 @@ const ChipList: React.FC<ChipListProps> = ({ chips }) => {
     const [selectedIdx, setSelectedIdx] = useState(0);
 
     return (
-        <div className="flex overflow-x-auto">
+        <div className="flex overflow-x-auto hide-scrollbar">
             <div className="flex">
+                <div className="p-2" />
                 {chips.map((chip, index) => (
                     <Chip
                         key={index}
@@ -22,6 +23,7 @@ const ChipList: React.FC<ChipListProps> = ({ chips }) => {
                         }}
                     />
                 ))}
+                <div className="p-2" />
             </div>
         </div>
     );

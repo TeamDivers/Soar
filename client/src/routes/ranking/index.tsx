@@ -30,7 +30,7 @@ const Ranking = () => {
 
     return (
         <Layout title="랭킹보드" right={SearchButton}>
-            <div className="">
+            <div className="mt-4">
                 <ChipList chips={chips} />
             </div>
         </Layout>
