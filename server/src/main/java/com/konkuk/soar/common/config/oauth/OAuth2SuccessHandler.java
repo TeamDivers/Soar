@@ -48,7 +48,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
               + targetUrl);
     }
 
-    redirectStrategy.sendRedirect(request, response, "/login/redirect");
+    redirectStrategy.sendRedirect(request, response, targetUrl+"login/redirect");
   }
 
   private void makeTokenResponse(HttpServletResponse response, Token token) throws IOException {
