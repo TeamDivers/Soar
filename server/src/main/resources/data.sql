@@ -33,10 +33,10 @@ DELETE
 FROM members;
 
 
-INSERT INTO members(MEMBER_ID, MEMBER_NAME)
-values (1, 'memberA'),
-       (2, 'memberB'),
-       (3, 'memberC');
+INSERT INTO members(MEMBER_ID, MEMBER_NAME, MEMBER_EMAIL)
+values (1, 'memberA', "aaaa@gmail.com"),
+       (2, 'memberB', "aaaa@gmail.com"),
+       (3, 'memberC', "aaaa@gmail.com");
 
 
 INSERT INTO tags(TAG_ID, NAME)

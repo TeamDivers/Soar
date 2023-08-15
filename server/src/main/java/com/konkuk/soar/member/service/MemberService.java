@@ -1,33 +1,16 @@
 package com.konkuk.soar.member.service;
 
 import com.konkuk.soar.member.domain.Member;
-import com.konkuk.soar.member.repository.MemberRepository;
+import com.konkuk.soar.member.dto.request.MemberUpdateRequestDto;
+import com.konkuk.soar.member.dto.response.MemberResponseDto;
 import java.util.Optional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-@Service
-@RequiredArgsConstructor
-public class MemberService {
+public interface MemberService {
 
-  private final MemberRepository memberRepository;
+  void registerMember(Member member);
+  Optional<Member> findMemberByEmail(String email);
 
-  public void registerMember(Member requestMember) {
-    if (memberRepository.existsByEmail(requestMember.getEmail())) {
-      return;
-    }
-    Member newMember = requestMember;
-    newMember.setName("임시유저");
-    memberRepository.save(newMember);
-  }
-
-  public Optional<Member> findMemberByEmail(String email) {
-    return memberRepository.getByEmail(email);
-  }
-
-  @Transactional
-  public Optional<Member> findById(Long id) {
-    return memberRepository.findById(id);
-  }
+  MemberResponseDto getMemberById(Long id);
+  MemberResponseDto updateMember(MemberUpdateRequestDto updateMember);
+  Optional<Member> findById(Long id);
 }
