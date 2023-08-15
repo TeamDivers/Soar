@@ -8,10 +8,10 @@ import org.springframework.web.multipart.MultipartFile;
 @Schema(description = "파일 저장 시 필요한 request body dto")
 public class FileCreateDto {
 
-  @Schema(name = "파일 타입")
+  @Schema(description = "파일 타입")
   private String type;
-  @Schema(name = "파일명")
+  @Schema(description = "파일명")
   private String fileName;
-  @Schema(name = "실제 파일")
+  @Schema(description = "실제 파일")
   private MultipartFile file;
 }

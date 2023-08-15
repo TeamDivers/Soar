@@ -35,11 +35,11 @@ public class PortfolioResponseDto {
   @Schema(description = "해당 포트폴리오 북마크 수")
   private Integer bookmark;
 
-  @Schema(name = "해당 포트폴리오에 들어있는 프로젝트 리스트")
+  @Schema(description = "해당 포트폴리오에 들어있는 프로젝트 리스트")
   private List<ProjectResponseDto> projects = new ArrayList<>();
-  @Schema(name = "해당 포트폴리오에 달려있는 리뷰들")
+  @Schema(description = "해당 포트폴리오에 달려있는 리뷰들")
   private List<PortfolioReviewResponseDto> reviews = new ArrayList<>();
-  @Schema(name = "해당 포트폴리오의 태그 리스트")
+  @Schema(description = "해당 포트폴리오의 태그 리스트")
   private TagListResponseDto tags;
 
   // TODO : projects 만 dto로 받는 상황 해결

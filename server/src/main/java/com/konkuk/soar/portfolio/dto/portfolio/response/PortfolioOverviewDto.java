@@ -15,20 +15,20 @@ import lombok.NoArgsConstructor;
 @Schema(description = "포트폴리오 단락 조회 시 응답하는 response body dto")
 public class PortfolioOverviewDto {
 
-  @Schema(name = "포트폴리오 id")
+  @Schema(description = "포트폴리오 id")
   private Long portfolioId;
-  @Schema(name = "포트폴리오를 작성한 회원 id")
+  @Schema(description = "포트폴리오를 작성한 회원 id")
   private Long memberId;
-  @Schema(name = "포트폴리오 제목")
+  @Schema(description = "포트폴리오 제목")
   private String title;
-  @Schema(name = "포트폴리오 설명")
+  @Schema(description = "포트폴리오 설명")
   private String description;
-  @Schema(name = "포트폴리오 카테고리")
+  @Schema(description = "포트폴리오 카테고리")
   private String category;
-  @Schema(name = "해당 포트폴리오의 북마크 수")
+  @Schema(description = "해당 포트폴리오의 북마크 수")
   private Integer bookmark;
 
-  @Schema(name = "해당 포트폴리오의 태그 리스트")
+  @Schema(description = "해당 포트폴리오의 태그 리스트")
   private TagListResponseDto tags;
 
   @Builder

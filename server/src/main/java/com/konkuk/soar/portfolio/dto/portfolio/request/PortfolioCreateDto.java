@@ -16,18 +16,18 @@ import lombok.ToString;
 @Schema(description = "포트폴리오 생성 시 필요한 request body dto")
 public class PortfolioCreateDto {
 
-  @Schema(name = "포트폴리오 제목")
+  @Schema(description = "포트폴리오 제목")
   private String title;
-  @Schema(name = "포트폴리오 설명")
+  @Schema(description = "포트폴리오 설명")
   private String description;
-  @Schema(name = "포트폴리오 카테고리")
+  @Schema(description = "포트폴리오 카테고리")
   private String category;
-  @Schema(name = "포트폴리오 공개 여부")
+  @Schema(description = "포트폴리오 공개 여부")
   private boolean isPublic;
 
-  @Schema(name = "포트폴리오 작성 회원 id")
+  @Schema(description = "포트폴리오 작성 회원 id")
   private Long memberId;
-  @Schema(name = "포트폴리오 태그 리스트")
+  @Schema(description = "포트폴리오 태그 리스트")
   private List<String> tags = new ArrayList<>();
 
   @Builder

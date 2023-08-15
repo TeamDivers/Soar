@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Schema(description = "포트폴리오 생성 시 프로젝트를 같이 생성할 경우 필요한 request body dto")
 public class PortfolioCreateLargeDto {
 
-  @Schema(name = "생성할 포트폴리오")
+  @Schema(description = "생성할 포트폴리오")
   PortfolioCreateDto portfolio;
-  @Schema(name = "생성할 프로젝트")
+  @Schema(description = "생성할 프로젝트")
   List<ProjectCreateDto> projects;
 }
