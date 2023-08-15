@@ -6,6 +6,7 @@ import com.konkuk.soar.member.domain.Member;
 import com.konkuk.soar.portfolio.domain.portfolio.Portfolio;
 import com.konkuk.soar.portfolio.domain.portfolio.PortfolioReview;
 import com.konkuk.soar.portfolio.dto.project.response.ProjectResponseDto;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,17 +19,27 @@ import lombok.NoArgsConstructor;
  */
 @Getter
 @NoArgsConstructor
+@Schema(description = "포트폴리오 상세 조회 시 response body dto")
 public class PortfolioResponseDto {
 
+  @Schema(description = "포트폴리오 id")
   private Long portfolioId;
+  @Schema(description = "포트폴리오 작성 회원 id")
   private Long memberId;
+  @Schema(description = "포트폴리오 제목")
   private String title;
+  @Schema(description = "포트폴리오 설명")
   private String description;
+  @Schema(description = "포트폴리오 카테고리")
   private String category;
+  @Schema(description = "해당 포트폴리오 북마크 수")
   private Integer bookmark;
 
+  @Schema(name = "해당 포트폴리오에 들어있는 프로젝트 리스트")
   private List<ProjectResponseDto> projects = new ArrayList<>();
+  @Schema(name = "해당 포트폴리오에 달려있는 리뷰들")
   private List<PortfolioReviewResponseDto> reviews = new ArrayList<>();
+  @Schema(name = "해당 포트폴리오의 태그 리스트")
   private TagListResponseDto tags;
 
   // TODO : projects 만 dto로 받는 상황 해결

@@ -3,19 +3,27 @@ package com.konkuk.soar.portfolio.dto.portfolio.response;
 import com.konkuk.soar.member.domain.Member;
 import com.konkuk.soar.portfolio.domain.portfolio.Portfolio;
 import com.konkuk.soar.portfolio.domain.portfolio.PortfolioReview;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@Schema(description = "포트폴리오의 리뷰에 대한 response body dto")
 public class PortfolioReviewResponseDto {
 
+  @Schema(name = "해당 포트폴리오에 평가를 남긴 회원 id")
   private Long memberId;
+  @Schema(name = "포트폴리오 id")
   private Long portfolioId;
+  @Schema(name = "포트폴리오 전문성 별점")
   private Float expertiseScore;
+  @Schema(name = "포트폴리오 차별성 별점")
   private Float differenceScore;
+  @Schema(name = "포트폴리오 완성도 별점")
   private Float perfectionScore;
+  @Schema(name = "해당 포트폴리오에 대한 코멘트")
   private String comment;
 
   @Builder
