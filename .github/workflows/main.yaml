@@ -1,0 +1,42 @@
+name: BACK_DEPLOY
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches:
+      - server/main
+      - server/ci
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  SSH:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: git cloning...
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          script: |
+            cd Soar/server
+            echo "##### GIT FETCH #####"
+            git fetch --all
+            git reset --hard origin/main
+            
+            echo "##### KILL SERVER #####"
+            jar_filename="soar-0.0.1-SNAPSHOT.jar"
+            pid=$(ps aux | grep "$jar_filename" | grep -v grep | awk '{print $2}')
+            echo $pid
+            sudo kill -9 $pid
+            
+            echo "##### BUILD #####"
+            sudo ./gradlew build
+            
+            echo "##### RUN SERVER #####"
+            sudo nohup java -jar build/libs/soar-0.0.1-SNAPSHOT.jar &
+            jar_filename="soar-0.0.1-SNAPSHOT.jar"
+            pid=$(ps aux | grep "$jar_filename" | grep -v grep | awk '{print $2}')
+            echo "Server run on $pid"
