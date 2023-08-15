@@ -10,6 +10,7 @@ import OnBoard from './login/onboard';
 import SignUp from './login/signup';
 import Portfolio from './portfolio';
 import PortfolioDetail from './portfolio/[id]';
+import PortfolioCreate from './portfolio/create';
 import Profile from './profile';
 import Ranking from './ranking';
 import Record from './record';
@@ -40,6 +41,14 @@ const Router = () => {
                     element: (
                         <Layout hasHeader={false} hasNavigation={false}>
                             <PortfolioDetail />
+                        </Layout>
+                    )
+                },
+                {
+                    path: 'create',
+                    element: (
+                        <Layout hasHeader={false} hasNavigation={false}>
+                            <PortfolioCreate />
                         </Layout>
                     )
                 }
