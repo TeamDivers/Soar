@@ -1,11 +1,10 @@
-package com.konkuk.soar.studyhistory.dto.response;
+package com.konkuk.soar.studyhistory.dto.request;
 
 import static com.konkuk.soar.TestEntityFactory.file;
 import static com.konkuk.soar.TestEntityFactory.member;
 import static com.konkuk.soar.TestEntityFactory.studyHistory;
 import static com.konkuk.soar.TestEntityFactory.tag;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.konkuk.soar.common.domain.File;
 import com.konkuk.soar.common.domain.Tag;
@@ -19,58 +18,49 @@ import com.konkuk.soar.studyhistory.domain.StudyHistoryTag;
 import com.konkuk.soar.studyhistory.repository.StudyHistoryFileRepository;
 import com.konkuk.soar.studyhistory.repository.StudyHistoryRepository;
 import com.konkuk.soar.studyhistory.repository.StudyHistoryTagRepository;
+import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
-class StudyHistoryResponseDtoTest {
+@ActiveProfiles("test")
+class StudyHistoryCreateDtoTest {
 
   @Autowired
   ObjectMapper objectMapper;
 
   @Autowired
-  MemberRepository memberRepository;
-
-  @Autowired
   StudyHistoryRepository studyHistoryRepository;
-
+  @Autowired
+  MemberRepository memberRepository;
   @Autowired
   FileRepository fileRepository;
-
+  @Autowired
+  TagRepository tagRepository;
+  @Autowired
+  StudyHistoryTagRepository studyHistoryTagRepository;
   @Autowired
   StudyHistoryFileRepository studyHistoryFileRepository;
 
-  @Autowired
-  TagRepository tagRepository;
 
-  @Autowired
-  StudyHistoryTagRepository studyHistoryTagRepository;
+  @Test
+  @Transactional
+  public void 학습기록_생성_성공_테스트_기본() throws Exception {
 
+  }
 
-  static class ClassBundle {
+  @Test
+  @Transactional
+  public void 학습기록_생성_실패_테스트_기본() throws Exception {
 
-    Member member;
-    StudyHistory studyHistory;
-    List<File> fileList;
-    File timelapse;
-    List<Tag> tagList;
-
-    public ClassBundle(Member member, StudyHistory studyHistory, List<File> fileList,
-        File timelapse, List<Tag> tagList) {
-      this.member = member;
-      this.studyHistory = studyHistory;
-      this.fileList = fileList;
-      this.timelapse = timelapse;
-      this.tagList = tagList;
-    }
   }
 
   @Transactional
-  ClassBundle createPortfolio() {
+  ClassBundle createPortfolioWithSave() {
     Member member = member();
     memberRepository.save(member);
 
@@ -131,42 +121,47 @@ class StudyHistoryResponseDtoTest {
     return new ClassBundle(member, studyHistory, fileList, timelapseFile, tagList);
   }
 
-  @Test
   @Transactional
-  void 학습기록_DTO_테스트() {
-    ClassBundle bundle = createPortfolio();
-    StudyHistoryResponseDto dto = StudyHistoryResponseDto.builder()
-        .history(bundle.studyHistory)
-        .member(bundle.member)
-        .timelapseFile(bundle.timelapse)
-        .fileList(bundle.fileList)
-        .tag(bundle.tagList.get(0))
-        .build();
-    try {
-      String res = objectMapper.writeValueAsString(dto);
-      System.out.println(res);
-    } catch (JsonProcessingException e) {
-      throw new RuntimeException(e);
+  ClassBundle createPortfolio() {
+    Member member = member();
+    memberRepository.save(member);
+
+    StudyHistory studyHistory = studyHistory(member);
+
+    List<File> fileList = new ArrayList<>();
+    File timelapseFile = file();
+    File file1 = file();
+    File file2 = file();
+
+    fileList.add(file1);
+    fileList.add(file2);
+
+    List<Tag> tagList = new ArrayList<>();
+    Tag tag1 = tag();
+    Tag tag2 = tag();
+
+    tagList.add(tag1);
+    tagList.add(tag2);
+
+    return new ClassBundle(member, studyHistory, fileList, timelapseFile, tagList);
+  }
+
+  static class ClassBundle {
+
+    Member member;
+    StudyHistory studyHistory;
+    List<File> fileList;
+    File timelapse;
+    List<Tag> tagList;
+
+    public ClassBundle(Member member, StudyHistory studyHistory, List<File> fileList,
+        File timelapse, List<Tag> tagList) {
+      this.member = member;
+      this.studyHistory = studyHistory;
+      this.fileList = fileList;
+      this.timelapse = timelapse;
+      this.tagList = tagList;
     }
   }
 
-  @Test
-  @Transactional
-  void 학습기록_리스트_테스트() {
-    List<StudyHistoryOverviewDto> dtoList = new ArrayList<>();
-    for (int i = 0; i < 5; i++) {
-      ClassBundle bundle = createPortfolio();
-      StudyHistoryOverviewDto dto = StudyHistoryOverviewDto.builder()
-          .history(bundle.studyHistory)
-          .member(bundle.member)
-          .build();
-      dtoList.add(dto);
-    }
-    try {
-      String res = objectMapper.writeValueAsString(dtoList);
-      System.out.println(res);
-    } catch (JsonProcessingException e) {
-      throw new RuntimeException(e);
-    }
-  }
 }

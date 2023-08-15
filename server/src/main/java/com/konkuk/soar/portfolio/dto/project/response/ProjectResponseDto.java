@@ -49,6 +49,7 @@ public class ProjectResponseDto {
       this.studyHistories = studyHistoryList.stream()
           .map(studyHistory -> StudyHistoryOverviewDto.builder()
               .member(member)
+              .tag(studyHistory.getTagList().get(0).getTag())
               .history(studyHistory)
               .build())
           .collect(Collectors.toList());

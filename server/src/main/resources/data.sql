@@ -33,10 +33,10 @@ DELETE
 FROM members;
 
 
-INSERT INTO members(MEMBER_ID, MEMBER_NAME)
-values (1, 'memberA'),
-       (2, 'memberB'),
-       (3, 'memberC');
+INSERT INTO members(MEMBER_ID, MEMBER_NAME, MEMBER_EMAIL)
+values (1, 'memberA', "aaaa@gmail.com"),
+       (2, 'memberB', "aaaa@gmail.com"),
+       (3, 'memberC', "aaaa@gmail.com");
 
 
 INSERT INTO tags(TAG_ID, NAME)
@@ -112,26 +112,22 @@ VALUES (1, 1);
 
 
 INSERT INTO study_histories (STUDY_HISTORY_ID, STUDY_HISTORY_MEMBER_ID, STUDY_HISTORY_START_DATE,
-                             STUDY_HISTORY_END_DATE, STUDY_HISTORY_IS_OPEN, STUDY_HISTORY_TYPE,
+                             STUDY_HISTORY_END_DATE, STUDY_HISTORY_IS_OPEN,
                              STUDY_HISTORY_CATEGORY, STUDY_HISTORY_CONTENT, create_at, update_at)
-VALUES (1, 1, '2023-08-11 13:00', '2023-08-11 14:00', true, '스프링', '개발 || 백엔드 || 스프링', '스프링 DI 박살',
+VALUES (1, 1, '2023-08-11 13:00', '2023-08-11 14:00', true, '개발 || 백엔드 || 스프링', '스프링 DI 박살',
         '2023-01-01 17:00',
         '2023-01-01 17:00'),
-       (2, 1, '2023-08-12 13:00', '2023-08-12 14:00', true, '스프링', '개발 || 백엔드 || 스프링', '자바 스트림 박살',
+       (2, 1, '2023-08-12 13:00', '2023-08-12 14:00', true, '개발 || 백엔드 || 스프링', '자바 스트림 박살',
         '2023-02-01 17:00',
         '2023-02-01 17:00'),
-       (3, 1, '2023-09-12 13:00', '2023-08-12 14:00', true, '영어', '영어 || 토익', '토익 공부',
+       (3, 1, '2023-09-12 13:00', '2023-08-12 14:00', true, '영어 || 토익', '토익 공부',
         '2023-03-01 17:00',
         '2023-03-01 17:00');
 
 
 INSERT INTO study_history_tags(SHT_STUDY_HISTORY_ID, SHT_TAG_ID)
-VALUES (1, 1),
-       (1, 2),
-       (1, 3),
-       (1, 5),
-       (2, 1),
-       (2, 2);
+VALUES (1, 5),
+       (2, 1);
 
 
 INSERT INTO study_history_file(SHF_STUDY_HISTORY_ID, SHF_FILE_ID)

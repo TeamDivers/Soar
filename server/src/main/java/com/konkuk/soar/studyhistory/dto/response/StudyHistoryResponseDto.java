@@ -18,10 +18,10 @@ import lombok.NoArgsConstructor;
 public class StudyHistoryResponseDto {
 
   private Long id;
-  private String type;
   private String content;
   private boolean isPublic;
   private String category;
+  private String tagName;
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
   private LocalDateTime startDate;
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
@@ -29,21 +29,19 @@ public class StudyHistoryResponseDto {
   private Long memberId;
   private String timelapseURL;
   private List<String> files = new ArrayList<>();
-  private List<String> tags = new ArrayList<>();
 
   @Builder
   public StudyHistoryResponseDto(StudyHistory history, Member member, File timelapseFile,
       List<File> fileList,
-      List<Tag> tagList) {
+      Tag tag) {
     this.id = history.getId();
-    this.type = history.getType();
     this.content = history.getContent();
     this.isPublic = history.getIsPublic();
     this.category = history.getCategory();
     this.startDate = history.getStartDate();
     this.endDate = history.getEndDate();
     this.memberId = member.getId();
-
+    this.tagName = tag.getName();
     timelapseURL = null;
     if (timelapseFile != null) {
       timelapseURL = timelapseFile.getUrl();
@@ -51,9 +49,6 @@ public class StudyHistoryResponseDto {
 
     files = fileList.stream()
         .map(f -> f.getUrl())
-        .collect(Collectors.toList());
-    tags = tagList.stream()
-        .map(tag -> tag.getName())
         .collect(Collectors.toList());
   }
 }

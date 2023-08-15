@@ -1,19 +1,26 @@
 package com.konkuk.soar.portfolio.service;
 
 import com.konkuk.soar.common.domain.Tag;
+import com.konkuk.soar.common.service.TagService;
 import com.konkuk.soar.global.exception.NotFoundException;
 import com.konkuk.soar.member.domain.Member;
+import com.konkuk.soar.member.service.MemberService;
 import com.konkuk.soar.portfolio.domain.portfolio.Portfolio;
 import com.konkuk.soar.portfolio.domain.portfolio.PortfolioBookmark;
 import com.konkuk.soar.portfolio.domain.portfolio.PortfolioReview;
 import com.konkuk.soar.portfolio.domain.portfolio.PortfolioTag;
 import com.konkuk.soar.portfolio.domain.project.ProjectFile;
 import com.konkuk.soar.portfolio.domain.project.ProjectStudyHistory;
+import com.konkuk.soar.portfolio.dto.portfolio.request.PortfolioCreateDto;
+import com.konkuk.soar.portfolio.dto.portfolio.request.PortfolioCreateLargeDto;
+import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioOverviewDto;
 import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioResponseDto;
+import com.konkuk.soar.portfolio.dto.project.request.ProjectCreateDto;
 import com.konkuk.soar.portfolio.dto.project.response.ProjectResponseDto;
 import com.konkuk.soar.portfolio.enums.OptionType;
 import com.konkuk.soar.portfolio.repository.PortfolioRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +35,45 @@ public class SimplePortfolioService implements PortfolioService {
 
   private final PortfolioRepository portfolioRepository;
 
+  private final ProjectService projectService;
+  private final MemberService memberService;
+  private final TagService tagService;
+
+  @Override
+  @Transactional
+  public PortfolioOverviewDto createPortfolio(PortfolioCreateDto dto) {
+    Member member = memberService.findById(dto.getMemberId())
+        .orElseThrow(() -> NotFoundException.MEMBER_NOT_FOUND);
+
+    Portfolio portfolio = Portfolio.builder()
+        .title(dto.getTitle())
+        .description(dto.getDescription())
+        .category(dto.getCategory())
+        .isPublic(dto.isPublic())
+        .member(member)
+        .build();
+
+    portfolioRepository.save(portfolio);
+
+    List<Tag> tags = tagService.addAllTagToPortfolio(portfolio, dto.getTags());
+
+    return getOverview(portfolio);
+  }
+
+  @Override
+  @Transactional
+  public PortfolioOverviewDto createPortfolio(PortfolioCreateLargeDto dto) {
+    PortfolioCreateDto portfolioCreateDto = dto.getPortfolio();
+    List<ProjectCreateDto> projectsDto = dto.getProjects();
+
+    PortfolioOverviewDto portfolio = createPortfolio(portfolioCreateDto);
+    for (ProjectCreateDto projectCreateDto : projectsDto) {
+      projectCreateDto.setPortfolioId(portfolio.getPortfolioId());
+      projectService.createProject(projectCreateDto);
+    }
+    return portfolio;
+  }
+
   @Override
   @Transactional
   public PortfolioResponseDto getPortfolioById(Long portfolioId) {
@@ -35,6 +81,11 @@ public class SimplePortfolioService implements PortfolioService {
         .orElseThrow(() -> NotFoundException.PORTFOLIO_NOT_FOUND);
 
     return getResponseDto(portfolio);
+  }
+
+  @Override
+  public Optional<Portfolio> getPortfolioEntityById(Long portfolioId) {
+    return portfolioRepository.findById(portfolioId);
   }
 
   @Override
@@ -80,6 +131,18 @@ public class SimplePortfolioService implements PortfolioService {
   @Override
   public List<PortfolioResponseDto> getPortfolioListByPopular() {
     return null;
+  }
+
+  protected PortfolioOverviewDto getOverview(Portfolio portfolio) {
+    List<PortfolioBookmark> bookmarkList = portfolio.getBookmarkList();
+    List<Tag> tagList = portfolio.getTagList().stream().map(PortfolioTag::getTag)
+        .toList();
+    return PortfolioOverviewDto.builder()
+        .portfolio(portfolio)
+        .bookmark(bookmarkList.size())
+        .member(portfolio.getMember())
+        .tagList(tagList)
+        .build();
   }
 
   protected PortfolioResponseDto getResponseDto(Portfolio portfolio) {
