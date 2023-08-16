@@ -29,4 +29,5 @@ public interface PortfolioService {
   List<PortfolioResponseDto> getPortfolioListByBookmark(Long memberId);
   List<PortfolioResponseDto> getPortfolioListByPopular();
 
+  List<PortfolioOverviewDto> searchByKeyword(String keyword, int size);
 }

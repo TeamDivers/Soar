@@ -70,11 +70,13 @@ public class SimpleMemberService implements MemberService {
   }
 
   @Override
+  @Transactional
   public Optional<Member> findById(Long id) {
     return memberRepository.findById(id);
   }
 
   @Override
+  @Transactional
   public List<MemberResponseDto> searchByKeyword(String keyword, int size) {
     List<Member> list = memberRepository.findAllByNameContains(keyword, Pageable.ofSize(size));
     return list.stream()
