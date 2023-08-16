@@ -30,7 +30,7 @@ public class PortfolioOverviewDto {
   @Schema(description = "해당 포트폴리오의 등수")
   private Integer rank;
   @Schema(description = "해당 포트폴리오의 별점 평균")
-  private Float score;
+  private Double score;
 
   @Schema(description = "해당 포트폴리오의 태그 리스트")
   private TagListResponseDto tags;
@@ -46,7 +46,7 @@ public class PortfolioOverviewDto {
     this.category = portfolio.getCategory();
     this.bookmark = bookmark;
     this.rank = rank;
-    this.score = score;
+    this.score = Math.round(score * 10.0) / 10.0;
     this.tags = TagListResponseDto.builder()
         .tagList(tagList)
         .build();

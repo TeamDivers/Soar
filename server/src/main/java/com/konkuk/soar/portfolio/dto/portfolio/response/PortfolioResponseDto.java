@@ -1,5 +1,6 @@
 package com.konkuk.soar.portfolio.dto.portfolio.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.konkuk.soar.common.domain.Tag;
 import com.konkuk.soar.common.dto.tag.response.TagListResponseDto;
 import com.konkuk.soar.member.domain.Member;
@@ -37,7 +38,8 @@ public class PortfolioResponseDto {
   @Schema(description = "해당 포트폴리오의 등수")
   private Integer rank;
   @Schema(description = "해당 포트폴리오의 별점 평균")
-  private Float score;
+  @JsonFormat()
+  private Double score;
   @Schema(description = "포트폴리오 배경 색")
   private String background;
   @Schema(description = "썸네일 주소")
@@ -64,7 +66,7 @@ public class PortfolioResponseDto {
     this.background = portfolio.getBackground();
     this.bookmark = bookmark;
     this.rank = rank;
-    this.score = score;
+    this.score = Math.round(score * 10.0) / 10.0;
     this.thumbnailURL = thumbnailURL;
 
     if (reviewList != null) {

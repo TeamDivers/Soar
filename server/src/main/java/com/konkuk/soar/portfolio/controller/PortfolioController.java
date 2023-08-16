@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.konkuk.soar.common.dto.BaseResponse;
 import com.konkuk.soar.portfolio.dto.portfolio.request.PortfolioCreateDto;
+import com.konkuk.soar.portfolio.dto.portfolio.request.PortfolioReviewCreateDto;
 import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioOverviewDto;
 import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioResponseDto;
 import com.konkuk.soar.portfolio.dto.project.request.ProjectCreateDto;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -73,6 +75,16 @@ public class PortfolioController {
     } else {
       result = portfolioService.getPortfolioList();
     }
+    return BaseResponse.success(result);
+  }
+
+  @Operation(summary = "포트폴리오 별점 매기기", description = "포트폴리오를 작성합니다.")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "정상적으로 포트폴리오 별점 작성 성공.", content = @Content(schema = @Schema(implementation = PortfolioOverviewDto.class)))
+  })
+  @PostMapping("/rate")
+  public BaseResponse<PortfolioResponseDto> ratePortfolio(@RequestBody PortfolioReviewCreateDto dto) {
+    PortfolioResponseDto result = portfolioService.ratePortfolio(dto);
     return BaseResponse.success(result);
   }
 

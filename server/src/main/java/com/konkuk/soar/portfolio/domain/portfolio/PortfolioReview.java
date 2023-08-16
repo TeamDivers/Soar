@@ -10,7 +10,6 @@ import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -55,7 +54,6 @@ public class PortfolioReview {
   @Column(name = "pr_perfection_score")
   private Float perfectionScore;
 
-  @NotBlank
   @Length(max = 1000)
   @Column(name = "pr_comment")
   private String comment;
