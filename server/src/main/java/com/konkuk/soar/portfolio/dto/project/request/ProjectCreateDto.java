@@ -15,26 +15,26 @@ import lombok.ToString;
 @ToString
 public class ProjectCreateDto {
 
-  @Schema(name = "프로젝트 제목")
+  @Schema(description = "프로젝트 제목")
   private String title;
-  @Schema(name = "프로젝트 카테고리")
+  @Schema(description = "프로젝트 카테고리")
   private String category;
-  @Schema(name = "프로젝트에서 맡은 역할")
+  @Schema(description = "프로젝트에서 맡은 역할")
   private String role;
-  @Schema(name = "프로젝트 설명")
+  @Schema(description = "프로젝트 설명")
   private String description;
-  @Schema(name = "프로젝트 시작 날짜")
+  @Schema(description = "프로젝트 시작 날짜")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
   private LocalDateTime startDate;
-  @Schema(name = "프로젝트 종료 날짜")
+  @Schema(description = "프로젝트 종료 날짜")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
   private LocalDateTime endDate;
-  @Schema(name = "해당 프로젝트에 넣을 배경 색")
+  @Schema(description = "해당 프로젝트에 넣을 배경 색")
   private String background;
 
   @Setter
   private Long portfolioId;
-  @Schema(name = "해당 프로젝트에 첨부할 학습 기록 리스트")
+  @Schema(description = "해당 프로젝트에 첨부할 학습 기록 리스트")
   private List<Long> histories;
 
 }

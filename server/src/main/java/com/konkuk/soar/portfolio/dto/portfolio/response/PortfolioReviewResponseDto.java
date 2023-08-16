@@ -13,17 +13,17 @@ import lombok.NoArgsConstructor;
 @Schema(description = "포트폴리오의 리뷰에 대한 response body dto")
 public class PortfolioReviewResponseDto {
 
-  @Schema(name = "해당 포트폴리오에 평가를 남긴 회원 id")
+  @Schema(description = "해당 포트폴리오에 평가를 남긴 회원 id")
   private Long memberId;
-  @Schema(name = "포트폴리오 id")
+  @Schema(description = "포트폴리오 id")
   private Long portfolioId;
-  @Schema(name = "포트폴리오 전문성 별점")
+  @Schema(description = "포트폴리오 전문성 별점")
   private Float expertiseScore;
-  @Schema(name = "포트폴리오 차별성 별점")
+  @Schema(description = "포트폴리오 차별성 별점")
   private Float differenceScore;
-  @Schema(name = "포트폴리오 완성도 별점")
+  @Schema(description = "포트폴리오 완성도 별점")
   private Float perfectionScore;
-  @Schema(name = "해당 포트폴리오에 대한 코멘트")
+  @Schema(description = "해당 포트폴리오에 대한 코멘트")
   private String comment;
 
   @Builder
