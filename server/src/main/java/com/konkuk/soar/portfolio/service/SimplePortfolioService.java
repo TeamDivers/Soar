@@ -18,6 +18,7 @@ import com.konkuk.soar.portfolio.domain.project.ProjectStudyHistory;
 import com.konkuk.soar.portfolio.dto.portfolio.PortfolioScore;
 import com.konkuk.soar.portfolio.dto.portfolio.request.PortfolioCreateDto;
 import com.konkuk.soar.portfolio.dto.portfolio.request.PortfolioCreateLargeDto;
+import com.konkuk.soar.portfolio.dto.portfolio.request.PortfolioReviewCreateDto;
 import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioOverviewDto;
 import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioResponseDto;
 import com.konkuk.soar.portfolio.dto.project.request.ProjectCreateDto;
@@ -169,6 +170,29 @@ public class SimplePortfolioService implements PortfolioService {
     Portfolio portfolio = portfolioRepository.findById(portfolioId)
         .orElseThrow(() -> NotFoundException.PORTFOLIO_NOT_FOUND);
     return this.getRankByPortfolioScore(portfolio);
+  }
+
+  @Override
+  @Transactional
+  public PortfolioResponseDto ratePortfolio(PortfolioReviewCreateDto dto) {
+    Long portfolioId = dto.getPortfolioId();
+    Portfolio portfolio = portfolioRepository.findById(portfolioId)
+        .orElseThrow(() -> NotFoundException.PORTFOLIO_NOT_FOUND);
+    Member member = memberService.findById(dto.getMemberId())
+        .orElseThrow(() -> NotFoundException.MEMBER_NOT_FOUND);
+    final String DUMMY_COMMENT = "DUMMY COMMENT";
+    portfolioReviewRepository.save(PortfolioReview.builder()
+        .member(member)
+        .portfolio(portfolio)
+        .expertiseScore(dto.getExpertiseScore())
+        .differenceScore(dto.getDifferenceScore())
+        .perfectionScore(dto.getPerfectionScore())
+        .comment(DUMMY_COMMENT)
+        .build()
+    );
+
+    return getResponseDto(portfolio, getRankByPortfolioScore(portfolioId), getScore(portfolio),
+        getUrl(portfolio));
   }
 
   /**

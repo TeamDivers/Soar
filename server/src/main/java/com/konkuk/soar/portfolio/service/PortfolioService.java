@@ -3,6 +3,7 @@ package com.konkuk.soar.portfolio.service;
 import com.konkuk.soar.portfolio.domain.portfolio.Portfolio;
 import com.konkuk.soar.portfolio.dto.portfolio.request.PortfolioCreateDto;
 import com.konkuk.soar.portfolio.dto.portfolio.request.PortfolioCreateLargeDto;
+import com.konkuk.soar.portfolio.dto.portfolio.request.PortfolioReviewCreateDto;
 import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioOverviewDto;
 import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioResponseDto;
 import com.konkuk.soar.portfolio.enums.OptionType;
@@ -26,6 +27,7 @@ public interface PortfolioService {
 
   Integer getRankByPortfolioScore(Long portfolioId);
 
+  PortfolioResponseDto ratePortfolio(PortfolioReviewCreateDto dto);
 
   Integer getRankByPortfolioScore(Portfolio portfolio);
 
