@@ -137,37 +137,36 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
 
   @Override
   @Transactional
-  public List<StudyHistoryOverviewDto> getStudyHistoryListByMember(Long memberId, OptionType option,
-      Integer size) {
+  public List<StudyHistoryOverviewDto> getStudyHistoryListByMember(Long memberId, OptionType option) {
 
     List<StudyHistory> res = null;
 
     switch (option) {
       case NEWEST:
-        res = studyHistoryRepository.findByMemberIdOrderByCreateAtDesc(memberId,
-            Pageable.ofSize(size));
+        log.info("member.id={}", memberId);
+        res = studyHistoryRepository.findByMemberIdOrderByCreateAtDesc(memberId);
         break;
       case OLDEST:
-        res = studyHistoryRepository.findByMemberIdOrderByCreateAtAsc(memberId,
-            Pageable.ofSize(size));
+        res = studyHistoryRepository.findByMemberIdOrderByCreateAtAsc(memberId);
         break;
       case PUBLIC:
-        res = studyHistoryRepository.findByMemberIdAndIsPublic(memberId, true,
-            Pageable.ofSize(size));
+        res = studyHistoryRepository.findByMemberIdAndIsPublic(memberId, true);
         break;
       case PRIVATE:
-        res = studyHistoryRepository.findByMemberIdAndIsPublic(memberId, false,
-            Pageable.ofSize(size));
+        res = studyHistoryRepository.findByMemberIdAndIsPublic(memberId, false);
         break;
       case RANK:
       default:
-        res = studyHistoryRepository.findByMemberId(memberId, Pageable.ofSize(size));
+        res = studyHistoryRepository.findByMemberId(memberId);
         break;
     }
 
     if (res != null) {
       return res.stream()
-          .map(history -> getOverview(history, unwrapTag(history)))
+          .map(history -> {
+            log.info("history.id={}", history.getId());
+            return getOverview(history, unwrapTag(history));
+          })
           .toList();
     }
 

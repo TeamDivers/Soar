@@ -134,6 +134,7 @@ VALUES (1, 5),
        (2, 1);
 
 
+
 INSERT INTO study_history_file(SHF_STUDY_HISTORY_ID, SHF_FILE_ID)
 VALUES (1, 1),
        (1, 2);

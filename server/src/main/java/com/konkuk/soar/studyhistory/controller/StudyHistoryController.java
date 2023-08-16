@@ -65,11 +65,11 @@ public class StudyHistoryController {
   @GetMapping
   public BaseResponse<List<StudyHistoryOverviewDto>> getStudyHistoryList(
       @RequestParam Long memberId,
-      @RequestParam String option,
-      @RequestParam(required = false, defaultValue = "5") Integer size) {
+      @RequestParam String option) {
+    System.out.println("member.id=" + memberId);
     OptionType optionType = OptionType.of(option);
-    List<StudyHistoryOverviewDto> result = studyHistoryService.getStudyHistoryListByMember(
-        memberId, optionType, size);
+    List<StudyHistoryOverviewDto> result = studyHistoryService.getStudyHistoryListByMember(memberId,
+        optionType);
     return BaseResponse.success(result);
   }
 
