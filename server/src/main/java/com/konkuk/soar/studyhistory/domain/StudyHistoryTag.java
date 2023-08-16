@@ -35,7 +35,7 @@ public class StudyHistoryTag {
   public StudyHistoryTag(StudyHistory studyHistory, Tag tag) {
     this.studyHistory = studyHistory;
     if (!studyHistory.getTagList().contains(this)) {
-      studyHistory.getTagList().add(this);
+      tag.getStudyHistoryTagList().add(this);
     }
 
     this.tag = tag;

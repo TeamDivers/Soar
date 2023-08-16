@@ -8,6 +8,7 @@ import com.konkuk.soar.portfolio.domain.portfolio.Portfolio;
 import com.konkuk.soar.portfolio.domain.project.Project;
 import com.konkuk.soar.studyhistory.domain.StudyHistory;
 import com.konkuk.soar.studyhistory.dto.response.StudyHistoryOverviewDto;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,46 +18,58 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@Schema(description = "프로젝트 상세 조회 시 response body dto")
 public class ProjectResponseDto {
 
-  private Long projectId;
-  private Long portfolioId;
-  private String title;
-  private String category;
-  private String role;
-  private String description;
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH", timezone = "Asia/Seoul")
-  private LocalDateTime startDate;
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH", timezone = "Asia/Seoul")
-  private LocalDateTime endDate;
-  private List<StudyHistoryOverviewDto> studyHistories;
-  private List<FileResponseDto> files;
+    @Schema(description = "프로젝트 id")
+    private Long projectId;
+    @Schema(description = "해당 프로젝트가 속해있는 포트폴리오 id")
+    private Long portfolioId;
+    @Schema(description = "프로젝트 제목")
+    private String title;
+    @Schema(description = "프로젝트 카테고리")
+    private String category;
+    @Schema(description = "프로젝트에서 맡은 역할")
+    private String role;
+    @Schema(description = "프로젝트 상세 설명")
+    private String description;
+    @Schema(description = "프로젝트 시작 기간")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH", timezone = "Asia/Seoul")
+    private LocalDateTime startDate;
+    @Schema(description = "프로젝트 종료 기간")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH", timezone = "Asia/Seoul")
+    private LocalDateTime endDate;
+    @Schema(description = "해당 프로젝트에 첨부된 학습 기록 리스트")
+    private List<StudyHistoryOverviewDto> studyHistories;
+    @Schema(description = "해당 프로젝트에 첨부된 파일 리스트")
+    private List<FileResponseDto> files;
 
-  @Builder
-  public ProjectResponseDto(Project project, Portfolio portfolio, Member member,
-      List<StudyHistory> studyHistoryList,
-      List<File> fileList) {
-    this.projectId = project.getId();
-    this.portfolioId = portfolio.getId();
-    this.title = project.getTitle();
-    this.category = project.getCategory();
-    this.role = project.getRole();
-    this.description = project.getDescription();
-    this.startDate = project.getStartDate();
-    this.endDate = project.getEndDate();
+    @Builder
+    public ProjectResponseDto(Project project, Portfolio portfolio, Member member,
+            List<StudyHistory> studyHistoryList,
+            List<File> fileList) {
+        this.projectId = project.getId();
+        this.portfolioId = portfolio.getId();
+        this.title = project.getTitle();
+        this.category = project.getCategory();
+        this.role = project.getRole();
+        this.description = project.getDescription();
+        this.startDate = project.getStartDate();
+        this.endDate = project.getEndDate();
 
-    if (studyHistoryList != null) {
-      this.studyHistories = studyHistoryList.stream()
-          .map(studyHistory -> StudyHistoryOverviewDto.builder()
-              .member(member)
-              .history(studyHistory)
-              .build())
-          .collect(Collectors.toList());
+        if (studyHistoryList != null) {
+            this.studyHistories = studyHistoryList.stream()
+                    .map(studyHistory -> StudyHistoryOverviewDto.builder()
+                            .member(member)
+                            .tag(studyHistory.getTagList().get(0).getTag())
+                            .history(studyHistory)
+                            .build())
+                    .collect(Collectors.toList());
+        }
+        if (fileList != null) {
+            this.files = fileList.stream()
+                    .map(FileResponseDto::new)
+                    .collect(Collectors.toList());
+        }
     }
-    if (fileList != null) {
-      this.files = fileList.stream()
-          .map(FileResponseDto::new)
-          .collect(Collectors.toList());
-    }
-  }
 }
