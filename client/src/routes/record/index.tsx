@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { RecordType } from 'src/apis/record/getRecords';
-
 import CalendarView from '@components/CalendarView';
 import Dot from '@components/Dot';
 import RecordCard from '@components/RecordCard';
@@ -12,6 +10,8 @@ import SortSelector from '@components/SortSelector';
 import SwitchSelector from '@components/SwitchSelector';
 
 import { text2Color } from '@utils/color';
+
+import { RecordType } from '@interfaces/record';
 
 const VIEWS = ['캘린더', '리스트'];
 

@@ -25,7 +25,9 @@ const Layout = ({
     // if user is unauthorized, redirect to login
 
     return (
-        <main className={`container relative h-full max-w-md mx-auto bg-white`}>
+        <main
+            className={`container relative h-full max-w-md mx-auto bg-white overflow-hidden`}
+        >
             {hasHeader && (
                 <div className="flex items-center justify-between h-10 px-5 pt-3">
                     {title || <Logo className="w-16" />}
