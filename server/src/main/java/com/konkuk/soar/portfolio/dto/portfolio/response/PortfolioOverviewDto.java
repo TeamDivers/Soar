@@ -27,9 +27,9 @@ public class PortfolioOverviewDto {
   private String category;
   @Schema(description = "해당 포트폴리오의 북마크 수")
   private Integer bookmark;
-  @Schema(name = "해당 포트폴리오의 등수")
+  @Schema(description = "해당 포트폴리오의 등수")
   private Integer rank;
-  @Schema(name = "해당 포트폴리오의 별점 평균")
+  @Schema(description = "해당 포트폴리오의 별점 평균")
   private Float score;
 
   @Schema(description = "해당 포트폴리오의 태그 리스트")
