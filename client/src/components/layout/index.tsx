@@ -22,11 +22,9 @@ const Layout = ({
     right = () => <></>,
     children
 }: LayoutProps) => {
-    // if user is unauthorized, redirect to login
-
     return (
         <main
-            className={`container relative h-full max-w-md mx-auto bg-white overflow-hidden`}
+            className={`container relative h-screen max-w-md mx-auto bg-white overflow-y-scroll hide-scrollbar`}
         >
             {hasHeader && (
                 <div className="flex items-center justify-between h-10 px-5 pt-3">
@@ -41,7 +39,7 @@ const Layout = ({
                     )}
                 </div>
             )}
-            <div className={`${hasNavigation ? 'pb-[94px]' : ''}`}>
+            <div className={`${hasNavigation ? 'mb-[94px]' : ''}`}>
                 {children || <Outlet />}
             </div>
 
