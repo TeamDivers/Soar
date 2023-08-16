@@ -1,34 +1,49 @@
-import { useMutation, useQuery } from 'react-query';
+import { useMutation } from 'react-query';
 
 import { queryClient } from '@configs/reactQuery';
 
+import { CreatePortfolioDto } from '@interfaces/portfolio';
+
 import { request } from '../axios';
 
-export interface CreatePortfolioType {
-    content: string;
-    isPublic: boolean;
-    category: string;
-    startDate: string;
-    endDate: string;
-    tagName: string;
-    memberId: number;
-    files: File[];
-}
+const createPortfolio = (params: CreatePortfolioDto) => {
+    const formData: any = new FormData();
 
-const createPortfolio = (params: CreatePortfolioType) => {
-    const formData = new FormData();
-    const { files, ...recordInfo } = params;
+    formData.append(
+        'portfolio',
+        new Blob([JSON.stringify(params.portfolio, null, 2)], {
+            type: 'application/json'
+        })
+    );
+
+    formData.append(
+        'projectList',
+        new Blob(
+            [
+                JSON.stringify(
+                    Array.from({ length: params.files.length }, () => 1),
+                    null,
+                    2
+                )
+            ],
+            {
+                type: 'application/json'
+            }
+        )
+    );
+
+    formData.append(
+        'fileNumbers',
+        new Blob([JSON.stringify(params.projectList, null, 2)], {
+            type: 'application/json'
+        })
+    );
 
     params.files.map((file) => {
         formData.append('files', file);
     });
 
-    formData.append(
-        'studyhistory',
-        new Blob([JSON.stringify(recordInfo, null, 2)], {
-            type: 'application/json'
-        })
-    );
+    formData.append('thumbnail', params.thumbnail);
 
     return request<Response>({
         method: 'POST',
@@ -44,7 +59,7 @@ export const useCreatePortfolio = () => {
     return useMutation({
         mutationFn: createPortfolio,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['records'] });
+            queryClient.invalidateQueries({ queryKey: ['portfolios'] });
         }
     });
 };

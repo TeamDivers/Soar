@@ -31,7 +31,7 @@ const Ring = ({ size, rank, color, img }: RingProps) => {
             />
             {rank && (
                 <div
-                    className="absolute transform -translate-x-1/2 rounded-full left-1/2 w-[22px] h-[22px] flex justify-center items-center text-white text-[10px] font-normal -bottom-[11px]"
+                    className="aggro absolute transform -translate-x-1/2 rounded-full left-1/2 w-[22px] h-[22px] flex justify-center items-center text-white text-[10px] font-normal bottom-[-11px]"
                     style={{ backgroundColor: color }}
                 >
                     {/* SB AggroOTF */}

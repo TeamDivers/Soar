@@ -35,8 +35,7 @@ const Search = () => {
     const renderPortfolioSearchResult = () => {
         return (
             <div className="flex flex-col gap-3 p-4">
-                <PortfolioCard ranking={12} size="sm" />
-                <PortfolioCard ranking={88} size="sm" />
+                {/* <PortfolioCard ranking={12} size="sm" /> */}
             </div>
         );
     };

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { CompactPicker } from 'react-color';
 import { useNavigate } from 'react-router-dom';
 
+import { useCreatePortfolio } from '@apis/portfolio/createPortfolio';
+
 import CreateNavigation from '@components/CreateNavigation';
 import Divider from '@components/Divider';
 import FileInput from '@components/FileInput';
@@ -17,6 +19,8 @@ import './index.css';
 
 const PortfolioCreate = () => {
     const navigate = useNavigate();
+
+    const { mutate } = useCreatePortfolio();
 
     const { value: title, onChange: onChangeTitle } = useTextInput();
     const [projects, setProjects] = useState<ProjectType[]>([]);
@@ -44,7 +48,21 @@ const PortfolioCreate = () => {
     };
 
     const handleOnSave = () => {
-        /** createPortflioMutation */
+        if (file)
+            mutate({
+                portfolio: {
+                    title,
+                    description: '',
+                    category: '',
+                    isPublic,
+                    memberId: 1,
+                    tags: [],
+                    background: color
+                },
+                projectList: [],
+                files: [],
+                thumbnail: file
+            });
     };
 
     const handleOnChangeFileInput = (file: File) => {
@@ -174,7 +192,7 @@ const PortfolioCreate = () => {
 
 export default PortfolioCreate;
 
-const Title = ({
+export const Title = ({
     text,
     isRequired = true
 }: {

@@ -6,8 +6,8 @@ import { PortfolioType } from '@interfaces/portfolio';
 import { request } from '../axios';
 
 interface PortfolioRequestParams {
-    memberId: number;
-    option: OPTION;
+    memberId?: number;
+    option?: OPTION;
 }
 
 const getPortfolio = (portfolioId: number) => {

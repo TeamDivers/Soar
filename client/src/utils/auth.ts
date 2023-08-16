@@ -1,13 +1,21 @@
-import { REFRESH_TOKEN_KEY } from '@constants/index';
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@constants/index';
 
 let inMemoryAccessToken: string | undefined;
 
-export const setAccessToken = (accessToken: string) => {
-    inMemoryAccessToken = accessToken;
+export const setMemberId = (memberId: string) => {
+    localStorage.setItem('MEMBER_ID', memberId);
 };
 
-export const getAccessToken = (): string | undefined => {
-    return inMemoryAccessToken;
+export const getMemberId = (): string => {
+    return localStorage.getItem('MEMBER_ID') || '';
+};
+
+export const setAccessToken = (accessToken: string) => {
+    localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+};
+
+export const getAccessToken = (): string | null => {
+    return localStorage.getItem(ACCESS_TOKEN_KEY);
 };
 
 export const deleteAccessToken = () => {

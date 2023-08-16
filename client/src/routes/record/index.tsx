@@ -97,7 +97,7 @@ const Record = () => {
                 style={{ width: '-webkit-fill-available' }}
             >
                 <RoundButton onClick={handleOnClickCreateRecord}>
-                    <div className="text-lg font-semibold text-white">
+                    <div className="text-lg font-semibold text-white py-[14px]">
                         학습기록 작성하기
                     </div>
                 </RoundButton>

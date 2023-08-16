@@ -1,3 +1,26 @@
+interface CreatePortfolioDto {
+    portfolio: {
+        title: string;
+        description: string;
+        category: string;
+        isPublic: boolean;
+        memberId: number;
+        tags: string[];
+        background: string;
+    };
+    projectList: {
+        title: string;
+        category: string;
+        role: string;
+        description: string;
+        startDate: string;
+        endDate: string;
+        histories: number[];
+    }[];
+    files: File[];
+    thumbnail: File;
+}
+
 interface PortfolioType {
     portfolioId: number;
     memberId: number;
@@ -10,6 +33,8 @@ interface PortfolioType {
     projects: Project[];
     reviews: Review[];
     tags: Tags;
+    thumbnailURL: string;
+    background: string;
 }
 
 interface Tags {
@@ -38,12 +63,12 @@ interface Project {
     files: File[];
 }
 
-interface File {
-    fileId: number;
-    type: string;
-    fileName: string;
-    url: string;
-}
+// interface File {
+//     fileId: number;
+//     type: string;
+//     fileName: string;
+//     url: string;
+// }
 
 interface StudyHistory {
     id: number;
@@ -54,4 +79,11 @@ interface StudyHistory {
     endDate: string;
 }
 
-export type { PortfolioType, Tags, Review, Project, File, StudyHistory };
+export type {
+    CreatePortfolioDto,
+    PortfolioType,
+    Tags,
+    Review,
+    Project,
+    StudyHistory
+};
