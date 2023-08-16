@@ -23,9 +23,9 @@ const Login = () => {
                     backgroundColor="#FEE500"
                     onClick={handleKakaoLogin}
                 >
-                    <div className="relative flex justify-center w-full">
+                    <div className="relative flex justify-center items-center w-full py-[13px] px-[18px]">
                         <Kakao className="absolute left-[18px]" />
-                        <span className="text-[#181600] text-lg font-medium">
+                        <span className="text-[#181600] text-lg font-medium leading-[21.09px]">
                             카카오톡으로 로그인
                         </span>
                     </div>
@@ -38,9 +38,9 @@ const Login = () => {
                             'http://117.16.137.205:8080/oauth2/authorization/google';
                     }}
                 >
-                    <div className="relative flex justify-center w-full">
+                    <div className="relative flex justify-center items-center w-full py-[13px] px-[18px]">
                         <Google className="absolute left-[18px]" />
-                        <span className="text-[#242832] text-lg font-medium ">
+                        <span className="text-[#242832] text-lg font-medium leading-[21.09px]">
                             구글계정으로 로그인
                         </span>
                     </div>
