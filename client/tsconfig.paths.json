@@ -10,7 +10,8 @@
             "@constants/*": ["src/constants/*"],
             "@utils/*": ["src/utils/*"],
             "@hooks/*": ["src/hooks/*"],
-            "@apis/*": ["src/apis/*"]
+            "@apis/*": ["src/apis/*"],
+            "@interfaces/*": ["src/interfaces/*"]
         }
     }
 }
