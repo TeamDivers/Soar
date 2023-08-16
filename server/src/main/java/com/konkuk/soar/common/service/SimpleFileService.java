@@ -4,6 +4,9 @@ import com.konkuk.soar.common.domain.File;
 import com.konkuk.soar.common.dto.file.request.FileCreateDto;
 import com.konkuk.soar.common.dto.file.response.FileResponseDto;
 import com.konkuk.soar.common.repository.FileRepository;
+import com.konkuk.soar.portfolio.domain.project.Project;
+import com.konkuk.soar.portfolio.domain.project.ProjectFile;
+import com.konkuk.soar.portfolio.repository.project.ProjectFileRepository;
 import com.konkuk.soar.studyhistory.domain.StudyHistory;
 import com.konkuk.soar.studyhistory.domain.StudyHistoryFile;
 import com.konkuk.soar.studyhistory.repository.StudyHistoryFileRepository;
@@ -18,6 +21,7 @@ public class SimpleFileService implements FileService {
 
   private final FileRepository fileRepository;
   private final StudyHistoryFileRepository studyHistoryFileRepository;
+  private final ProjectFileRepository projectFileRepository;
 
   @Override
   @Transactional
@@ -42,6 +46,18 @@ public class SimpleFileService implements FileService {
   public FileResponseDto addFileToStudyHistory(File file, StudyHistory studyHistory) {
     StudyHistoryFile saved = studyHistoryFileRepository.save(StudyHistoryFile.builder()
         .studyHistory(studyHistory)
+        .file(file)
+        .build());
+    return FileResponseDto.builder()
+        .file(saved.getFile())
+        .build();
+  }
+
+  @Override
+  @Transactional
+  public FileResponseDto addFileToProject(File file, Project project) {
+    ProjectFile saved = projectFileRepository.save(ProjectFile.builder()
+        .project(project)
         .file(file)
         .build());
     return FileResponseDto.builder()
