@@ -38,6 +38,8 @@ public class PortfolioResponseDto {
   private Integer rank;
   @Schema(description = "해당 포트폴리오의 별점 평균")
   private Float score;
+  @Schema(description = "포트폴리오 배경 색")
+  private String background;
   @Schema(description = "썸네일 주소")
   private String thumbnailURL;
 
@@ -59,6 +61,7 @@ public class PortfolioResponseDto {
     this.title = portfolio.getTitle();
     this.description = portfolio.getDescription();
     this.category = portfolio.getCategory();
+    this.background = portfolio.getBackground();
     this.bookmark = bookmark;
     this.rank = rank;
     this.score = score;

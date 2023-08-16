@@ -75,7 +75,6 @@ public class SimpleProjectService implements ProjectService {
         .description(dto.getDescription())
         .startDate(dto.getStartDate())
         .endDate(dto.getEndDate())
-        .designBackground(dto.getBackground())
         .portfolio(portfolio)
         .build();
 
