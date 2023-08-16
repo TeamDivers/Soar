@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Divider from '@components/Divider';
+import Project from '@components/Project';
+import ProejctEdit from '@components/ProjectEdit.tsx';
 import TextInput from '@components/TextInput';
 
 import useTextInput from '@hooks/useTextInput';
 
 const PortfolioCreate = () => {
     const { value: title, onChange: onChangeTitle } = useTextInput();
+    const [projects, setProjects] = useState([]);
 
     return (
-        <div className="flex flex-col justify-between px-4 pt-[34px] mb-2">
+        <div className="flex flex-col justify-between px-4 pt-[34px] mb-2 overflow-y-scroll h-screen">
             <div className="flex items-center gap-[22px] mb-[30px]">
                 <img
                     src="https://placehold.co/400/000000/FFF"
@@ -36,9 +39,7 @@ const PortfolioCreate = () => {
             </div>
             <button
                 className="rounded-[10px] border border-stone-300 py-3 text-black text-sm font-semibold mb-[40px]"
-                onClick={function (): void {
-                    throw new Error('Function not implemented.');
-                }}
+                onClick={function (): void {}}
             >
                 정보 수정
             </button>
@@ -52,6 +53,22 @@ const PortfolioCreate = () => {
                 />
             </div>
             <Divider />
+            <div className="my-[40px]">
+                <Title text="프로젝트" />
+                <div className="flex flex-col gap-[10px]">
+                    <Project
+                        title={'title'}
+                        category={'category'}
+                        startDate={new Date().toString()}
+                        endDate={new Date().toString()}
+                    />
+                    <ProejctEdit
+                        onAddProject={function (proejct: any): void {
+                            throw new Error('Function not implemented.');
+                        }}
+                    />
+                </div>
+            </div>
         </div>
     );
 };
@@ -87,7 +104,7 @@ const Desc = ({
     return (
         <div className="flex">
             <span className="text-sm font-normal text-neutral-500 w-[75px]">
-                {label}{' '}
+                {label}
                 {isRequired && (
                     <span className="text-sm font-normal text-red-600">*</span>
                 )}
