@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Star } from '@images/index';
 
@@ -24,10 +25,15 @@ const PortfolioCard = ({
     ranking,
     size = 'lg'
 }: PortfolioCardProps) => {
+    const navigate = useNavigate();
+
     const imageSize = size === 'lg' ? 160 : 100;
 
     return (
-        <div className="relative">
+        <div
+            className="relative"
+            onClick={() => navigate(`/portfolio/${portfolio.portfolioId}`)}
+        >
             {ranking && (
                 <div className="aggro absolute left-2 top-2 bg-blue-600 rounded-[11px] text-white text-xs font-normal pt-[5px] px-2 pb-[3px] z-10">
                     {/* SB AggroOTF */}
