@@ -8,3 +8,20 @@ body,
     background-color: #f9f9f9;
     height: 100%;
 }
+
+.truncate-lines {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Number of lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hide-scrollbar {
+    scrollbar-width: none; /* Firefox에서 스크롤바 숨김 */
+    -ms-overflow-style: none; /* IE/Edge에서 스크롤바 숨김 */
+    &::-webkit-scrollbar {
+        width: 0; /* Chrome/Safari/Opera에서 스크롤바 숨김 */
+        display: none; /* Chrome/Safari/Opera에서 스크롤바 숨김 */
+    }
+}

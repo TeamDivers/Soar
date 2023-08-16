@@ -1,0 +1,14 @@
+.swiper-wrapper {
+}
+
+.swiper-slide {
+    height: auto;
+}
+
+.first-slide {
+    width: 100%;
+}
+
+.last-slide {
+    width: 76px;
+}

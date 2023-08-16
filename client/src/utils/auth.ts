@@ -1,3 +1,5 @@
+import { REFRESH_TOKEN_KEY } from 'src/constants';
+
 let inMemoryAccessToken: string | undefined;
 
 export const setAccessToken = (accessToken: string) => {
@@ -12,10 +14,20 @@ export const deleteAccessToken = () => {
     inMemoryAccessToken = '';
 };
 
+export const getRefreshToken = () => {
+    return getCookie(REFRESH_TOKEN_KEY);
+};
+
+export const setRefreshToken = (refreshToken: string) => {
+    setCookie(REFRESH_TOKEN_KEY, refreshToken);
+};
+
 export const setCookie = (name: string, value: string, days: number = 14) => {
     const expires = new Date();
     expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-    const cookieValue = encodeURIComponent(value) + (days ? `; expires=${expires.toUTCString()}` : '');
+    const cookieValue =
+        encodeURIComponent(value) +
+        (days ? `; expires=${expires.toUTCString()}` : '');
     document.cookie = `${name}=${cookieValue}; path=/; HttpOnly; Secure; SameSite=None`;
 };
 
