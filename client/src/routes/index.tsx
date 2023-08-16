@@ -109,7 +109,7 @@ const Router = () => {
                 { index: true, element: <Login /> },
                 { path: 'signup', element: <SignUp /> },
                 { path: 'onboard', element: <OnBoard /> },
-                { path: 'kakao', element: <Kakao /> }
+                { path: 'redirect', element: <Kakao /> }
             ]
         }
     ]);
