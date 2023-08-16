@@ -10,7 +10,7 @@ const Profile = () => {
         <div className="px-4">
             <div>Profile</div>
             <ProfileView></ProfileView>
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col items-center justify-center">
                 <UserStatic />
                 <UserOverview
                     career="대학생/ 건국대학교"

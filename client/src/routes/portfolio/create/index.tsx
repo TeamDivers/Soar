@@ -192,7 +192,7 @@ const PortfolioCreate = () => {
 
 export default PortfolioCreate;
 
-const Title = ({
+export const Title = ({
     text,
     isRequired = true
 }: {

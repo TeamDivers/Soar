@@ -20,14 +20,14 @@ const SwitchSelector: React.FC<SwitchSelectorProps> = ({
         <div className="relative flex rounded-full bg-zinc-100 w-fit">
             <div
                 className={`absolute z-0 w-2/4 h-full transition-transform duration-300 rounded-full bg-primary ${
-                    activeIndex === 1 && 'translate-x-full'
+                    activeIndex === 1 ? 'translate-x-full' : ''
                 }`}
             ></div>
             {options.map((option, index) => (
                 <button
                     key={option}
                     className={`flex items-center justify-center rounded-full px-9 py-2 transition-colors duration-300 z-0 ${
-                        activeIndex === index && 'text-white'
+                        activeIndex === index ? 'text-white' : ''
                     }`}
                     onClick={() => handleOptionChange(index)}
                 >

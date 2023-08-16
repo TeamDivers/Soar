@@ -11,7 +11,7 @@ interface RoundButtonProps {
 const RoundButton = ({
     children,
     onClick,
-    backgroundColor,
+    backgroundColor = '#1D5CFF',
     hasBorder,
     borderColor = '#DDDDDD'
 }: RoundButtonProps) => {
@@ -19,9 +19,7 @@ const RoundButton = ({
         <button
             type="button"
             onClick={onClick}
-            className={`rounded-[50px] flex justify-center w-full items-center text-white text-xl font-bold ${
-                backgroundColor || 'bg-primary'
-            }`}
+            className={`rounded-[50px] flex justify-center w-full items-center text-white text-xl font-bold`}
             style={{
                 backgroundColor,
                 borderColor,

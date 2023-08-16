@@ -47,7 +47,7 @@ const SignUp = () => {
             <div className="pt-[20px] pb-[16px] px-6">
                 <button
                     onClick={handleOnClickBack}
-                    className={`${step < 2 && 'invisible'}`}
+                    className={`${step < 2 ? 'invisible' : ''}`}
                 >
                     <Left />
                 </button>
