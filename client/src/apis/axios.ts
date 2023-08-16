@@ -9,7 +9,7 @@ export interface Response<T> {
 }
 
 const instance = axios.create({
-    baseURL: 'http://117.16.137.205:8080/api',
+    baseURL: `${process.env.API_BASE_URI}`,
     timeout: 3000
 });
 
