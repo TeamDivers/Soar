@@ -15,6 +15,8 @@ const PortfolioDetail = () => {
 
     const color = '#423d75';
 
+    const handleBookmark = () => {};
+
     return (
         <Layout hasHeader={false}>
             <div className="relative z-10 pt-12 pb-4">
@@ -81,16 +83,27 @@ const PortfolioDetail = () => {
                                 새로운 풀이과정을 도입한 확통 24,35,36번
                                 풀이.짜-x, 짬-y, 탕-z 대입.
                             </div>
-                            <RoundButton
-                                backgroundColor={color}
-                                onClick={function (): void {
-                                    /** TODO: navigate to /record/:id */
-                                }}
-                            >
-                                <div className="text-base font-semibold text-white py-[10px]">
-                                    학습기록 보러가기
-                                </div>
-                            </RoundButton>
+                            <div className="relative">
+                                <button
+                                    onClick={handleBookmark}
+                                    className="flex justify-center items-center absolute w-[60px] h-[60px] bg-zinc-400 rounded-full shadow-md right-0 top-[-8px]"
+                                >
+                                    <Star
+                                        fill="#ffffff"
+                                        style={{ width: 30, height: 'auto' }}
+                                    />
+                                </button>
+                                <RoundButton
+                                    backgroundColor={color}
+                                    onClick={function (): void {
+                                        /** TODO: navigate to /record/:id */
+                                    }}
+                                >
+                                    <div className="text-base font-semibold text-white py-[10px]">
+                                        학습기록 보러가기
+                                    </div>
+                                </RoundButton>
+                            </div>
                         </div>
                     </div>
                 </div>
