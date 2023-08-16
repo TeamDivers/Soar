@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -82,4 +83,13 @@ public class PortfolioController {
     return BaseResponse.success(result);
   }
 
+  @Operation(summary = "포트폴리오 삭제", description = "포트폴리오와 해당 포트폴리오 내에 있는 프로젝트를 모두 삭제합니다.")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "정상적으로 삭제되었습니다.")
+  })
+  @DeleteMapping("/{portfolioId}")
+  public BaseResponse<Void> deletePortfolio(@PathVariable Long portfolioId) {
+    portfolioService.deletePortfolio(portfolioId);
+    return BaseResponse.success(null);
+  }
 }

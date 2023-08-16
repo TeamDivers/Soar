@@ -17,6 +17,7 @@ public interface StudyHistoryService {
 
   StudyHistoryOverviewDto createStudyHistory(StudyHistoryCreateDto dto, MultipartFile timelapse,
       List<MultipartFile> files);
+
   StudyHistoryResponseDto getStudyHistoryById(Long historyId);
 
   StudyHistoryCalendarDto getStudyHistoryCalendar(Long memberId, Integer year, Integer month);
@@ -27,4 +28,6 @@ public interface StudyHistoryService {
   StudyHistory addHistoryToProject(Long historyId, Project project);
 
   Optional<StudyHistory> findById(Long historyId);
+
+  void deleteStudyHistory(Long historyId);
 }

@@ -15,9 +15,11 @@ public interface PortfolioService {
   PortfolioOverviewDto createPortfolio(PortfolioCreateDto dto);
 
   PortfolioOverviewDto createPortfolio(PortfolioCreateLargeDto dto);
+
   PortfolioResponseDto getPortfolioById(Long portfolioId);
 
   Optional<Portfolio> getPortfolioEntityById(Long portfolioId);
+
   List<PortfolioResponseDto> getPortfolioListByMember(Long memberId, OptionType optionType,
       Integer size);
 
@@ -27,7 +29,10 @@ public interface PortfolioService {
   Integer getRankByPortfolioScore(Portfolio portfolio);
 
   List<PortfolioResponseDto> getPortfolioListByBookmark(Long memberId);
+
   List<PortfolioResponseDto> getPortfolioListByPopular();
 
   List<PortfolioOverviewDto> searchByKeyword(String keyword, int size);
+
+  void deletePortfolio(Long portfolioId);
 }

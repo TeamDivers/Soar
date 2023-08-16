@@ -19,7 +19,12 @@ import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioResponseDto;
 import com.konkuk.soar.portfolio.dto.project.request.ProjectCreateDto;
 import com.konkuk.soar.portfolio.dto.project.response.ProjectResponseDto;
 import com.konkuk.soar.portfolio.enums.OptionType;
+import com.konkuk.soar.portfolio.repository.PortfolioBookmarkRepository;
 import com.konkuk.soar.portfolio.repository.PortfolioRepository;
+import com.konkuk.soar.portfolio.repository.PortfolioReviewRepository;
+import com.konkuk.soar.portfolio.repository.PortfolioTagRepository;
+import com.konkuk.soar.portfolio.repository.project.ProjectFileRepository;
+import com.konkuk.soar.portfolio.repository.project.ProjectStudyHistoryRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,6 +40,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class SimplePortfolioService implements PortfolioService {
 
   private final PortfolioRepository portfolioRepository;
+  private final PortfolioReviewRepository portfolioReviewRepository;
+  private final PortfolioBookmarkRepository portfolioBookmarkRepository;
+  private final PortfolioTagRepository portfolioTagRepository;
+
+  private final ProjectStudyHistoryRepository projectStudyHistoryRepository;
+  private final ProjectFileRepository projectFileRepository;
 
   private final ProjectService projectService;
   private final MemberService memberService;
@@ -212,6 +223,38 @@ public class SimplePortfolioService implements PortfolioService {
         .score(score)
         .tagList(tagList)
         .build();
+  }
+
+  /**
+   * @param portfolioId
+   * @진행순서 1. 해당 포트폴리오 안에 있는 프로젝트 삭제 -> (ProjectStudyHistory 삭제, ProjectFile 삭제, Project 삭제) 2.
+   * 포트폴리오 평가 삭제. 3. 포트폴리오 즐겨찾기 삭제. 4. 포트폴리오 태그 삭제. 5. 포트폴리오 삭제.
+   */
+  @Override
+  @Transactional
+  public void deletePortfolio(Long portfolioId) {
+    List<ProjectResponseDto> projects = projectService.getProjectListByPortfolioId(
+        portfolioId);
+    for (ProjectResponseDto project : projects) {
+      projectStudyHistoryRepository.deleteProjectStudyHistoriesByProjectId(project.getProjectId());
+    }
+    for (ProjectResponseDto project : projects) {
+      projectFileRepository.deleteProjectFilesByProjectId(project.getProjectId());
+    }
+    projectService.deleteProjects(portfolioId);
+
+    List<PortfolioReview> prList = portfolioReviewRepository.findAllByPortfolioId(
+        portfolioId);
+    portfolioReviewRepository.deleteAll(prList);
+
+    List<PortfolioBookmark> pbList = portfolioBookmarkRepository.findAllByPortfolioId(
+        portfolioId);
+    portfolioBookmarkRepository.deleteAll(pbList);
+
+    List<PortfolioTag> ptList = portfolioTagRepository.findAllByPortfolioId(portfolioId);
+    portfolioTagRepository.deleteAll(ptList);
+
+    portfolioRepository.deleteById(portfolioId);
   }
 
   protected PortfolioResponseDto getResponseDto(Portfolio portfolio, Integer rank, Float score) {

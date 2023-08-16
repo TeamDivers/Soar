@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
-public class SimpleProjectService implements ProjectService{
+public class SimpleProjectService implements ProjectService {
 
   private final ProjectRepository projectRepository;
 
@@ -106,6 +106,17 @@ public class SimpleProjectService implements ProjectService{
       fileService.addFileToProject(filEntity, prj);
     }
     return projectResult;
+  }
+
+  @Override
+  public void deleteProject(Long projectId) {
+
+  }
+
+  @Override
+  @Transactional
+  public void deleteProjects(Long portfolioId) {
+    projectRepository.deleteProjectsByPortfolioId(portfolioId);
   }
 
   protected ProjectResponseDto getResponseDto(Project project) {
