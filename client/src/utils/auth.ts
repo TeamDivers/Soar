@@ -1,4 +1,4 @@
-import { REFRESH_TOKEN_KEY } from 'src/constants';
+import { REFRESH_TOKEN_KEY } from '@constants/index';
 
 let inMemoryAccessToken: string | undefined;
 
