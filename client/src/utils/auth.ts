@@ -6,8 +6,8 @@ export const setMemberId = (memberId: string) => {
     localStorage.setItem('MEMBER_ID', memberId);
 };
 
-export const getMemberId = (): string | null => {
-    return localStorage.getItem('MEMBER_ID');
+export const getMemberId = (): string => {
+    return localStorage.getItem('MEMBER_ID') || '';
 };
 
 export const setAccessToken = (accessToken: string) => {

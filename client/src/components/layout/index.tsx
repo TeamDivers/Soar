@@ -27,7 +27,7 @@ const Layout = ({
             className={`container relative h-screen max-w-md mx-auto bg-white overflow-y-scroll hide-scrollbar`}
         >
             {hasHeader && (
-                <div className="flex items-center justify-between h-10 px-5 pt-3">
+                <div className="flex items-center justify-between h-10 px-5 pt-3 text-xl font-bold text-black">
                     {title || <Logo className="w-16" />}
                     {hasProfile ? (
                         <img
@@ -39,7 +39,7 @@ const Layout = ({
                     )}
                 </div>
             )}
-            <div className={`${hasNavigation ? 'mb-[100px]' : ''}`}>
+            <div className={`${hasNavigation ? 'mb-[90px]' : ''}`}>
                 {children || <Outlet />}
             </div>
 

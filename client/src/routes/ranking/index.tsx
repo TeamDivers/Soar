@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useGetPortfolios } from '@apis/portfolio/getPortfolio';
+
 import ChipList from '@components/ChipList';
 import Layout from '@components/layout';
 import Modal from '@components/Modal';
@@ -22,16 +24,17 @@ const SearchButton = () => {
 };
 
 const Ranking = () => {
-    const categories = [
-        '기본',
-        '디자인',
-        '수학',
-        '개발',
-        '영어',
-        '국어',
-        '코딩',
-        '캘리그라피'
-    ];
+    const navigate = useNavigate();
+    const { data: portfolios } = useGetPortfolios({ option: 'rank' });
+
+    const categories = Array.from(
+        new Set(
+            portfolios
+                ?.map((p) => p.tags)
+                .map((v) => v.name)
+                .flat()
+        )
+    );
 
     /** TOOD: filter portfolios with category */
     const [category, setCategory] = useState(categories[0]);
@@ -48,46 +51,66 @@ const Ranking = () => {
         setIsOpen(true);
     };
 
+    if (!portfolios) {
+        return <></>;
+    }
+
     return (
         <Layout title="랭킹보드" right={SearchButton}>
             <div className="mt-4">
                 <ChipList chips={categories} onClick={onClickChip} />
             </div>
             <div className="flex items-end justify-center gap-6 mt-10">
-                <div className="flex flex-col items-center gap-5">
+                <div
+                    className="flex flex-col items-center gap-5"
+                    onClick={() => {
+                        navigate(`/portfolio/${portfolios[1].portfolioId}`);
+                    }}
+                >
                     <Ring
                         size="md"
                         rank={2}
                         color="#1D5CFF"
-                        img="https://placehold.co/200"
+                        img={portfolios[1].thumbnailURL}
                     />
                     <PortfolioInfo
-                        title={'UX 프리랜서 지원'}
-                        desc={'김민지 / 학생'}
+                        title={portfolios[1].title}
+                        desc={`${portfolios[1].description}`}
                     />
                 </div>
-                <div className="flex flex-col items-center gap-5">
+                <div
+                    className="flex flex-col items-center gap-5"
+                    onClick={() => {
+                        navigate(`/portfolio/${portfolios[0].portfolioId}`);
+                    }}
+                >
                     <Ring
                         size="lg"
                         rank={1}
                         color="#FFC01D"
-                        img="https://placehold.co/200"
+                        img={portfolios[0].thumbnailURL}
                     />
                     <PortfolioInfo
-                        title={'UX 프리랜서 지원'}
-                        desc={'김민지 / 학생'}
+                        title={portfolios[0].title}
+                        desc={`${portfolios[0].description}`}
+                        // desc={'김민지 / 학생'}
                     />
                 </div>
-                <div className="flex flex-col items-center gap-5">
+                <div
+                    className="flex flex-col items-center gap-5"
+                    onClick={() => {
+                        navigate(`/portfolio/${portfolios[2].portfolioId}`);
+                    }}
+                >
                     <Ring
                         size="md"
                         rank={3}
                         color="#1D5CFF"
-                        img="https://placehold.co/200"
+                        img={portfolios[2].thumbnailURL}
                     />
                     <PortfolioInfo
-                        title={'UX 프리랜서 지원'}
-                        desc={'김민지 / 학생'}
+                        title={portfolios[2].title}
+                        desc={`${portfolios[2].description}`}
                     />
                 </div>
             </div>
@@ -99,54 +122,19 @@ const Ranking = () => {
                 </RoundButton>
             </div>
             <div className="flex flex-col gap-[30px] px-4 pb-10 bg-white">
-                <RankingItem
-                    rank={4}
-                    isAscending={false}
-                    thumbnail={'https://placehold.co/200'}
-                    title={'개발 8년차 포트폴리오'}
-                    desc={'김무준 / 직장인'}
-                    rating={4.5}
-                />
-                <RankingItem
-                    rank={4}
-                    isAscending={false}
-                    thumbnail={'https://placehold.co/200'}
-                    title={'개발 8년차 포트폴리오'}
-                    desc={'김무준 / 직장인'}
-                    rating={4.5}
-                />
-                <RankingItem
-                    rank={4}
-                    isAscending={false}
-                    thumbnail={'https://placehold.co/200'}
-                    title={'개발 8년차 포트폴리오'}
-                    desc={'김무준 / 직장인'}
-                    rating={4.5}
-                />{' '}
-                <RankingItem
-                    rank={4}
-                    isAscending={false}
-                    thumbnail={'https://placehold.co/200'}
-                    title={'개발 8년차 포트폴리오'}
-                    desc={'김무준 / 직장인'}
-                    rating={4.5}
-                />
-                <RankingItem
-                    rank={4}
-                    isAscending={false}
-                    thumbnail={'https://placehold.co/200'}
-                    title={'개발 8년차 포트폴리오'}
-                    desc={'김무준 / 직장인'}
-                    rating={4.5}
-                />
-                <RankingItem
-                    rank={4}
-                    isAscending={false}
-                    thumbnail={'https://placehold.co/200'}
-                    title={'개발 8년차 포트폴리오'}
-                    desc={'김무준 / 직장인'}
-                    rating={4.5}
-                />
+                {portfolios.slice(3).map((portfolio) => {
+                    return (
+                        <RankingItem
+                            key={portfolio.portfolioId}
+                            rank={portfolio.rank}
+                            isAscending={Math.random() < 0.5}
+                            thumbnail={portfolio.thumbnailURL}
+                            title={portfolio.title}
+                            desc={portfolio.description}
+                            rating={portfolio.score}
+                        />
+                    );
+                })}
             </div>
             <Modal isOpen={isOpen} close={closeModal}>
                 <div className="w-screen max-w-md px-5">

@@ -6,7 +6,7 @@ import { PortfolioType } from '@interfaces/portfolio';
 import { request } from '../axios';
 
 interface PortfolioRequestParams {
-    memberId: number;
+    memberId?: number;
     option?: OPTION;
 }
 

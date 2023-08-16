@@ -34,6 +34,7 @@ interface PortfolioType {
     reviews: Review[];
     tags: Tags;
     thumbnailURL: string;
+    background: string;
 }
 
 interface Tags {
