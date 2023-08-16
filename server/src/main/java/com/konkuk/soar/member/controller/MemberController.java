@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.security.Principal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,6 +33,8 @@ public class MemberController {
 
   private final MemberService memberService;
 
+
+
   @Operation(summary = "회원 조회", description = "단일 회원 조회를 위한 API입니다.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "정상적으로 조회 성공", content = @Content(schema = @Schema(implementation = MemberResponseDto.class))),
@@ -39,6 +42,13 @@ public class MemberController {
   @GetMapping("/{id}")
   public BaseResponse<MemberResponseDto> getMember(@PathVariable Long id) {
     MemberResponseDto memberResponseDto = memberService.getMemberById(id);
+    return BaseResponse.success(memberResponseDto);
+  }
+
+  @GetMapping()
+  public BaseResponse<MemberResponseDto> getMember(Principal principal) {
+    MemberResponseDto memberResponseDto = memberService.getMemberById(
+        Long.valueOf(principal.getName()));
     return BaseResponse.success(memberResponseDto);
   }
 
