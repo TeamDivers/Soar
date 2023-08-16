@@ -10,15 +10,15 @@ import lombok.NoArgsConstructor;
 @Schema(description = "회원 정보 수정 시 request body dto")
 public class MemberUpdateRequestDto {
 
-  @Schema(name = "회원 id")
+  @Schema(description = "회원 id")
   private Long id;
-  @Schema(name = "회원 이름")
+  @Schema(description = "회원 이름")
   private String name;
-  @Schema(name = "회원 전화번호")
+  @Schema(description = "회원 전화번호")
   private String phoneNumber;
-  @Schema(name = "회원 학력")
+  @Schema(description = "회원 학력")
   private String education;
-  @Schema(name = "회원 경력")
+  @Schema(description = "회원 경력")
   private String career;
 
   @Builder

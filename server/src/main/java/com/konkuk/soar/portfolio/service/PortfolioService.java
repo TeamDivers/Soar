@@ -8,25 +8,32 @@ import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioResponseDto;
 import com.konkuk.soar.portfolio.enums.OptionType;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface PortfolioService {
 
   PortfolioOverviewDto createPortfolio(PortfolioCreateDto dto);
 
   PortfolioOverviewDto createPortfolio(PortfolioCreateLargeDto dto);
+
   PortfolioResponseDto getPortfolioById(Long portfolioId);
 
   Optional<Portfolio> getPortfolioEntityById(Long portfolioId);
-  List<PortfolioResponseDto> getPortfolioListByMember(Long memberId, OptionType optionType,
-      Integer size);
+
+  List<PortfolioResponseDto> getPortfolioListByMember(Long memberId, OptionType optionType);
 
   Integer getRankByPortfolioScore(Long portfolioId);
 
-  @Transactional
+
   Integer getRankByPortfolioScore(Portfolio portfolio);
 
   List<PortfolioResponseDto> getPortfolioListByBookmark(Long memberId);
+
   List<PortfolioResponseDto> getPortfolioListByPopular();
 
+  List<PortfolioOverviewDto> searchByKeyword(String keyword);
+
+  PortfolioOverviewDto createPortfolio(PortfolioCreateDto createDto, MultipartFile thumbnail);
+
+  void deletePortfolio(Long portfolioId);
 }

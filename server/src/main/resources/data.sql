@@ -4,7 +4,8 @@ DELETE
 FROM portfolio_reviews;
 DELETE
 FROM portfolio_tags;
-
+DELETE
+FROM portfolio_files;
 
 DELETE
 FROM project_files;
@@ -34,9 +35,13 @@ FROM members;
 
 
 INSERT INTO members(MEMBER_ID, MEMBER_NAME, MEMBER_EMAIL)
-values (1, 'memberA', "aaaa@gmail.com"),
-       (2, 'memberB', "aaaa@gmail.com"),
-       (3, 'memberC', "aaaa@gmail.com");
+values (1, 'memberA', 'aaaa@gmail.com'),
+       (2, 'memberB', 'aaaa@gmail.com'),
+       (3, 'memberC', 'aaaa@gmail.com'),
+       (4, '김길동', 'aaaa@gmail.com'),
+       (5, '김재민', 'aaaa@gmail.com'),
+       (6, '김진호', 'aaaa@gmail.com'),
+       (7, '김member', 'aaaa@gmail.com');
 
 
 INSERT INTO tags(TAG_ID, NAME)
@@ -127,7 +132,9 @@ VALUES (1, 1, '2023-08-11 13:00', '2023-08-11 14:00', true, '개발 || 백엔드
 
 INSERT INTO study_history_tags(SHT_STUDY_HISTORY_ID, SHT_TAG_ID)
 VALUES (1, 5),
-       (2, 1);
+       (2, 1),
+       (3, 2);
+
 
 
 INSERT INTO study_history_file(SHF_STUDY_HISTORY_ID, SHF_FILE_ID)

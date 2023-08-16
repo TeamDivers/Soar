@@ -1,7 +1,8 @@
 package com.konkuk.soar.portfolio.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.konkuk.soar.common.dto.BaseResponse;
-import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioResponseDto;
 import com.konkuk.soar.portfolio.dto.project.request.ProjectCreateDto;
 import com.konkuk.soar.portfolio.dto.project.response.ProjectOverviewDto;
 import com.konkuk.soar.portfolio.dto.project.response.ProjectResponseDto;
@@ -14,21 +15,25 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/projects")
 @Tag(name = "Project", description = "프로젝트 관련 API Document")
+@CrossOrigin(originPatterns = "*")
 public class ProjectController {
 
   private final ProjectService projectService;
+  private final ObjectMapper objectMapper;
 
   @Operation(summary = "프로젝트 단락 조회", description = "해당 포트폴리오에 있는 프로젝트 리스트를 조회합니다.")
   @ApiResponses(value = {
@@ -59,8 +64,14 @@ public class ProjectController {
   })
   @PostMapping
   public BaseResponse<ProjectOverviewDto> createProject(
-      @RequestBody ProjectCreateDto dto) {
-    ProjectOverviewDto result = projectService.createProject(dto);
-    return BaseResponse.success(result);
+      @RequestParam("project") String project,
+      @RequestPart(name = "files", required = false) List<MultipartFile> files) {
+    try {
+      ProjectCreateDto projectCreateDto = objectMapper.readValue(project, ProjectCreateDto.class);
+      ProjectOverviewDto result = projectService.createProject(projectCreateDto,files);
+      return BaseResponse.success(result);
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

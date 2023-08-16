@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Schema(description = "태그 생성 시 request body dto")
 public class TagCreateDto {
 
-  @Schema(name = "태그명")
+  @Schema(description = "태그명")
   private String name;
 }

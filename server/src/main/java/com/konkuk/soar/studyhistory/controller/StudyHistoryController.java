@@ -1,7 +1,8 @@
 package com.konkuk.soar.studyhistory.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.konkuk.soar.common.dto.BaseResponse;
-import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioResponseDto;
 import com.konkuk.soar.portfolio.enums.OptionType;
 import com.konkuk.soar.studyhistory.dto.request.StudyHistoryCreateDto;
 import com.konkuk.soar.studyhistory.dto.response.StudyHistoryCalendarDto;
@@ -16,21 +17,26 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/studyhistories")
 @Tag(name = "StudyHistory", description = "학습 기록 관련 API Document")
+@CrossOrigin(originPatterns = "*")
 public class StudyHistoryController {
 
   private final StudyHistoryService studyHistoryService;
+  private final ObjectMapper objectMapper;
 
   @Operation(summary = "학습 기록 조회", description = "회원 id 기반 단일 학습 기록 조회.")
   @ApiResponses(value = {
@@ -61,11 +67,11 @@ public class StudyHistoryController {
   @GetMapping
   public BaseResponse<List<StudyHistoryOverviewDto>> getStudyHistoryList(
       @RequestParam Long memberId,
-      @RequestParam String option,
-      @RequestParam(required = false, defaultValue = "5") Integer size) {
+      @RequestParam String option) {
+    System.out.println("member.id=" + memberId);
     OptionType optionType = OptionType.of(option);
-    List<StudyHistoryOverviewDto> result = studyHistoryService.getStudyHistoryListByMember(
-        memberId, optionType, size);
+    List<StudyHistoryOverviewDto> result = studyHistoryService.getStudyHistoryListByMember(memberId,
+        optionType);
     return BaseResponse.success(result);
   }
 
@@ -74,10 +80,27 @@ public class StudyHistoryController {
       @ApiResponse(responseCode = "201", description = "OK", content = @Content(schema = @Schema(implementation = StudyHistoryOverviewDto.class)))
   })
   @PostMapping
-  public BaseResponse<StudyHistoryOverviewDto> createStudyHistory(@RequestBody
-  StudyHistoryCreateDto dto) {
-    StudyHistoryOverviewDto res = studyHistoryService.createStudyHistory(dto);
-    return BaseResponse.success(res);
+  public BaseResponse<StudyHistoryOverviewDto> createStudyHistory(@RequestParam("studyHistory")
+  String studyHistory, @RequestPart(name = "timelapse", required = false) MultipartFile timelapse,
+      @RequestPart(name = "files", required = false) List<MultipartFile> files) {
+    try {
+      StudyHistoryCreateDto dto = objectMapper.readValue(studyHistory,
+          StudyHistoryCreateDto.class);
+      StudyHistoryOverviewDto historyResult = studyHistoryService.createStudyHistory(dto, timelapse,
+          files);
+      return BaseResponse.success(historyResult);
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException(e);
+    }
   }
 
+  @Operation(summary = "학습 기록 삭제", description = "학습 기록을 삭제합니다.")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "정상적으로 삭제되었습니다.")
+  })
+  @DeleteMapping("/{historyId}")
+  public BaseResponse<Void> deleteStudyHistory(@PathVariable Long historyId) {
+    studyHistoryService.deleteStudyHistory(historyId);
+    return BaseResponse.success(null);
+  }
 }

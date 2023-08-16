@@ -10,6 +10,8 @@ public class NotFoundException extends RuntimeException {
       "Invalid ID : Portfolio Not Found");
   public static NotFoundException PROJECT_NOT_FOUND = new NotFoundException(
       "Invalid ID : Project Not Found");
+  public static NotFoundException FILE_NOT_FOUND = new NotFoundException(
+      "Invalid ID : File Not Found");
 
   public NotFoundException(String message) {
     super(message);

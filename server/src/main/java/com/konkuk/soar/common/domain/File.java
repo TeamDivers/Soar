@@ -1,5 +1,6 @@
 package com.konkuk.soar.common.domain;
 
+import com.konkuk.soar.portfolio.domain.portfolio.PortfolioFile;
 import com.konkuk.soar.portfolio.domain.project.ProjectFile;
 import com.konkuk.soar.studyhistory.domain.StudyHistoryFile;
 import jakarta.persistence.Column;
@@ -60,6 +61,10 @@ public class File {
   @OneToMany(mappedBy = "file", fetch = FetchType.LAZY)
   @Setter(AccessLevel.NONE)
   List<StudyHistoryFile> studyHistoryFileList = new ArrayList<>();
+
+  @OneToMany(mappedBy = "file", fetch = FetchType.LAZY)
+  @Setter(AccessLevel.NONE)
+  List<PortfolioFile> portfolioFileList = new ArrayList<>();
 
   @Builder
   public File(String type, String originalName, String savedName, String url) {

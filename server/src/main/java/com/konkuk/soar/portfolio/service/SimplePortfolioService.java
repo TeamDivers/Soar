@@ -1,6 +1,10 @@
 package com.konkuk.soar.portfolio.service;
 
+import com.konkuk.soar.common.domain.File;
 import com.konkuk.soar.common.domain.Tag;
+import com.konkuk.soar.common.dto.file.response.FileResponseDto;
+import com.konkuk.soar.common.service.AwsS3Service;
+import com.konkuk.soar.common.service.FileService;
 import com.konkuk.soar.common.service.TagService;
 import com.konkuk.soar.global.exception.NotFoundException;
 import com.konkuk.soar.member.domain.Member;
@@ -19,15 +23,20 @@ import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioResponseDto;
 import com.konkuk.soar.portfolio.dto.project.request.ProjectCreateDto;
 import com.konkuk.soar.portfolio.dto.project.response.ProjectResponseDto;
 import com.konkuk.soar.portfolio.enums.OptionType;
+import com.konkuk.soar.portfolio.repository.PortfolioBookmarkRepository;
 import com.konkuk.soar.portfolio.repository.PortfolioRepository;
+import com.konkuk.soar.portfolio.repository.PortfolioReviewRepository;
+import com.konkuk.soar.portfolio.repository.PortfolioTagRepository;
+import com.konkuk.soar.portfolio.repository.project.ProjectFileRepository;
+import com.konkuk.soar.portfolio.repository.project.ProjectStudyHistoryRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @Service
@@ -35,10 +44,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class SimplePortfolioService implements PortfolioService {
 
   private final PortfolioRepository portfolioRepository;
+  private final PortfolioReviewRepository portfolioReviewRepository;
+  private final PortfolioBookmarkRepository portfolioBookmarkRepository;
+  private final PortfolioTagRepository portfolioTagRepository;
+
+  private final ProjectStudyHistoryRepository projectStudyHistoryRepository;
+  private final ProjectFileRepository projectFileRepository;
 
   private final ProjectService projectService;
   private final MemberService memberService;
   private final TagService tagService;
+  private final AwsS3Service awsS3Service;
+  private final FileService fileService;
+
+  private final String FILE_BASE_URL = "/portfolio";
 
   @Override
   @Transactional
@@ -83,7 +102,17 @@ public class SimplePortfolioService implements PortfolioService {
         .orElseThrow(() -> NotFoundException.PORTFOLIO_NOT_FOUND);
     Integer rank = getRankByPortfolioScore(portfolio);
     float score = getScore(portfolio);
-    return getResponseDto(portfolio, rank, score);
+    String url = getUrl(portfolio);
+
+    return getResponseDto(portfolio, rank, score, url);
+  }
+
+  private static String getUrl(Portfolio portfolio) {
+    String url = null;
+    if (portfolio.getFileList().size() == 1) {
+      url = portfolio.getFileList().get(0).getFile().getUrl();
+    }
+    return url;
   }
 
   @Override
@@ -93,35 +122,33 @@ public class SimplePortfolioService implements PortfolioService {
 
   @Override
   @Transactional
-  public List<PortfolioResponseDto> getPortfolioListByMember(Long memberId, OptionType optionType,
-      Integer size) {
+  public List<PortfolioResponseDto> getPortfolioListByMember(Long memberId, OptionType optionType) {
 
     List<Portfolio> res;
     switch (optionType) {
       case NEWEST:
-        res = portfolioRepository.findByMemberIdOrderByCreateAtDesc(memberId,
-            Pageable.ofSize(size));
+        res = portfolioRepository.findByMemberIdOrderByCreateAtDesc(memberId);
         break;
       case OLDEST:
-        res = portfolioRepository.findByMemberIdOrderByCreateAtAsc(memberId, Pageable.ofSize(size));
+        res = portfolioRepository.findByMemberIdOrderByCreateAtAsc(memberId);
         break;
       case RANK:
         res = null;
         break;
       case PUBLIC:
-        res = portfolioRepository.findByMemberIdAndIsPublic(memberId, true, Pageable.ofSize(size));
+        res = portfolioRepository.findByMemberIdAndIsPublic(memberId, true);
         break;
       case PRIVATE:
-        res = portfolioRepository.findByMemberIdAndIsPublic(memberId, false, Pageable.ofSize(size));
+        res = portfolioRepository.findByMemberIdAndIsPublic(memberId, false);
         break;
       default:
-        res = portfolioRepository.findByMemberId(memberId, Pageable.ofSize(size));
+        res = portfolioRepository.findByMemberId(memberId);
         break;
     }
 
     if (res != null) {
       return res.stream()
-          .map(pf -> getResponseDto(pf, getRankByPortfolioScore(pf), getScore(pf)))
+          .map(pf -> getResponseDto(pf, getRankByPortfolioScore(pf), getScore(pf), getUrl(pf)))
           .collect(Collectors.toList());
     }
 
@@ -176,13 +203,43 @@ public class SimplePortfolioService implements PortfolioService {
   }
 
   @Override
+  @Transactional
   public List<PortfolioResponseDto> getPortfolioListByBookmark(Long memberId) {
     return null;
   }
 
   @Override
+  @Transactional
   public List<PortfolioResponseDto> getPortfolioListByPopular() {
     return null;
+  }
+
+  @Override
+  @Transactional
+  public List<PortfolioOverviewDto> searchByKeyword(String keyword) {
+    List<Portfolio> list = portfolioRepository.findAllByTitleContainingOrDescriptionContaining(
+        keyword, keyword);
+    return list.stream().map(
+            pf -> getOverview(pf, getRankByPortfolioScore(pf), getScore(pf))
+        )
+        .toList();
+  }
+
+  @Override
+  @Transactional
+  public PortfolioOverviewDto createPortfolio(PortfolioCreateDto createDto,
+      MultipartFile thumbnail) {
+    PortfolioOverviewDto portfolioResult = createPortfolio(createDto);
+    Portfolio portfolio = portfolioRepository.findById(portfolioResult.getPortfolioId())
+        .orElseThrow(() -> NotFoundException.PORTFOLIO_NOT_FOUND);
+    FileResponseDto thumbnailResult = awsS3Service.uploadFile(
+        portfolioResult.getMemberId() + FILE_BASE_URL + portfolioResult.getPortfolioId() + "/files",
+        thumbnail);
+    File file = fileService.findById(thumbnailResult.getFileId())
+        .orElseThrow(() -> NotFoundException.FILE_NOT_FOUND);
+
+    fileService.addFileToPortfolio(file, portfolio);
+    return portfolioResult;
   }
 
   protected PortfolioOverviewDto getOverview(Portfolio portfolio, Integer rank, Float score) {
@@ -201,7 +258,41 @@ public class SimplePortfolioService implements PortfolioService {
         .build();
   }
 
-  protected PortfolioResponseDto getResponseDto(Portfolio portfolio, Integer rank, Float score) {
+
+  /**
+   * @param portfolioId
+   * @진행순서 1. 해당 포트폴리오 안에 있는 프로젝트 삭제 -> (ProjectStudyHistory 삭제, ProjectFile 삭제, Project 삭제) 2.
+   * 포트폴리오 평가 삭제. 3. 포트폴리오 즐겨찾기 삭제. 4. 포트폴리오 태그 삭제. 5. 포트폴리오 삭제.
+   */
+  @Override
+  @Transactional
+  public void deletePortfolio(Long portfolioId) {
+    List<ProjectResponseDto> projects = projectService.getProjectListByPortfolioId(
+        portfolioId);
+    for (ProjectResponseDto project : projects) {
+      projectStudyHistoryRepository.deleteProjectStudyHistoriesByProjectId(project.getProjectId());
+    }
+    for (ProjectResponseDto project : projects) {
+      projectFileRepository.deleteProjectFilesByProjectId(project.getProjectId());
+    }
+    projectService.deleteProjects(portfolioId);
+
+    List<PortfolioReview> prList = portfolioReviewRepository.findAllByPortfolioId(
+        portfolioId);
+    portfolioReviewRepository.deleteAll(prList);
+
+    List<PortfolioBookmark> pbList = portfolioBookmarkRepository.findAllByPortfolioId(
+        portfolioId);
+    portfolioBookmarkRepository.deleteAll(pbList);
+
+    List<PortfolioTag> ptList = portfolioTagRepository.findAllByPortfolioId(portfolioId);
+    portfolioTagRepository.deleteAll(ptList);
+
+    portfolioRepository.deleteById(portfolioId);
+  }
+
+  protected PortfolioResponseDto getResponseDto(Portfolio portfolio, Integer rank, Float score,
+      String thumbnailURL) {
     Member member = portfolio.getMember();
     List<PortfolioBookmark> bookmarkList = portfolio.getBookmarkList();
     List<ProjectResponseDto> projectList = portfolio.getProjectList().stream()
@@ -229,6 +320,7 @@ public class SimplePortfolioService implements PortfolioService {
         .tagList(tagList)
         .reviewList(reviewList)
         .rank(rank)
+        .thumbnailURL(thumbnailURL)
         .score(score)
         .projectList(projectList)
         .bookmark(bookmarkList.size())

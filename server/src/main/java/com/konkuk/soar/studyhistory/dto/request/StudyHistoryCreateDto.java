@@ -14,24 +14,23 @@ import lombok.ToString;
 @Schema(description = "학습기록 생성 시 필요한 request body dto")
 public class StudyHistoryCreateDto {
 
-  @Schema(name = "학습 기록 내용")
+  @Schema(description = "학습 기록 내용")
   private String content;
-  @Schema(name = "학습 기록 공개 여부")
+  @Schema(description = "학습 기록 공개 여부")
   private Boolean isPublic;
-  @Schema(name = "학습 기록 카테고리")
+  @Schema(description = "학습 기록 카테고리")
   private String category;
-  @Schema(name = "학습 시작 기간")
+  @Schema(description = "학습 시작 기간")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
   private LocalDateTime startDate;
-  @Schema(name = "학습 종료 기간")
+  @Schema(description = "학습 종료 기간")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
   private LocalDateTime endDate;
-  @Schema(name = "학습 태그")
+  @Schema(description = "학습 태그")
   private String tagName;
 
-  @Schema(name = "학습한 회원 id")
+  @Schema(description = "학습한 회원 id")
   private Long memberId;
-  // TODO : files
 
   @Builder
   public StudyHistoryCreateDto(String content, Boolean isPublic, String category,

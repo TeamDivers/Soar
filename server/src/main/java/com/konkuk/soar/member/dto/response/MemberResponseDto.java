@@ -1,5 +1,6 @@
 package com.konkuk.soar.member.dto.response;
 
+import com.konkuk.soar.common.domain.File;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
@@ -22,15 +23,18 @@ public class MemberResponseDto {
   private String education;
   @Schema(description = "회원 경력", defaultValue = "")
   private String career;
+  @Schema(description = "프로필 사진", defaultValue = "")
+  private String thumbnail;
 
   @Builder
   public MemberResponseDto(Long id, String email, String name, String phoneNumber, String education,
-      String career) {
+      String career, String thumbnail) {
     this.id = id;
     this.email = email;
     this.name = name;
     this.phoneNumber = phoneNumber;
     this.education = education;
     this.career = career;
+    this.thumbnail = thumbnail;
   }
 }

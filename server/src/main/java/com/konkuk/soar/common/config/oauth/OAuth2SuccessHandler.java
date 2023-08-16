@@ -13,6 +13,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Slf4j
 @Component
@@ -45,8 +46,10 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
           "Response has already been committed. Unable to redirect to "
               + targetUrl);
     }
-
-    redirectStrategy.sendRedirect(request, response, targetUrl+"login/redirect");
+    String redirectUrl = UriComponentsBuilder.fromUriString("https://soar-kr.netlify.app/login/redirect")
+        .queryParam("token", token.getAccessToken())
+        .build().toUriString();
+    redirectStrategy.sendRedirect(request, response, redirectUrl);
   }
 
   private void makeTokenResponse(HttpServletResponse response, Token token) throws IOException {
