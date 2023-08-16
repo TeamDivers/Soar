@@ -1,6 +1,5 @@
 package com.konkuk.soar.member.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.konkuk.soar.common.dto.BaseResponse;
 import com.konkuk.soar.member.dto.request.MemberUpdateRequestDto;
 import com.konkuk.soar.member.dto.response.MemberResponseDto;
@@ -13,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/api/members")
 @Tag(name = "Member", description = "회원 관련 API Document")
+@CrossOrigin(originPatterns = "*")
 public class MemberController {
 
   private final MemberService memberService;
