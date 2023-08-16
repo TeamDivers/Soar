@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 
 import Layout from '@components/layout';
 import PortfolioCard from '@components/PortfolioCard';
+import ProfilePreview from '@components/ProfilePreview';
 import ScrollList from '@components/ScrollList';
 import TabMenu from '@components/TabMenu';
 
@@ -41,7 +42,12 @@ const Search = () => {
     };
 
     const renderUserSearchResult = () => {
-        return <>u</>;
+        return (
+            <div className="flex flex-col gap-5 px-4 py-5">
+                <ProfilePreview id={''} image={''} name={''} desc={''} />
+                <ProfilePreview id={''} image={''} name={''} desc={''} />
+            </div>
+        );
     };
 
     return (
