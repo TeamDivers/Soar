@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @Schema(description = "파일 조회 시 response body dto")
 public class FileResponseDto {
 
-  @Schema(name = "파일 id")
+  @Schema(description = "파일 id")
   private Long fileId;
-  @Schema(name = "파일 타입")
+  @Schema(description = "파일 타입")
   private String type;
-  @Schema(name = "파일명")
+  @Schema(description = "파일명")
   private String fileName;
-  @Schema(name = "파일의 url")
+  @Schema(description = "파일의 url")
   private String url;
 
   @Builder
