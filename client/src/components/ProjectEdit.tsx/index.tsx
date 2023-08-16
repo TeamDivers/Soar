@@ -11,35 +11,58 @@ import RoundButton from '@components/RoundButton';
 import TextArea from '@components/TextArea';
 import TextInput from '@components/TextInput';
 
-import { Plus } from '@images/index';
-
 import useBottomSheet from '@hooks/useBottomSheet';
 import useTextInput from '@hooks/useTextInput';
 
+import { RecordType } from '@interfaces/record';
+
+export interface ProjectType {
+    title: string;
+    startDate: string;
+    endDate: string;
+    content: string;
+    recoredIds: number[];
+    file: File | undefined;
+}
+
 interface ProejctEditProps {
-    onAddProject: (proejct: any) => void;
+    onAddProject: (proejct: ProjectType) => void;
 }
 
 const ProejctEdit = ({ onAddProject }: ProejctEditProps) => {
     const sheet = useBottomSheet();
 
-    const records = useGetRecords({ memberId: 0 });
+    const { data: records } = useGetRecords({ memberId: 1 });
 
     const title = useTextInput();
     const content = useTextInput();
-    const [selectedRecords, setSelectedRecords] = useState<any[]>([]);
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [selectedRecords, setSelectedRecords] = useState<RecordType[]>([]);
+    const [file, setFile] = useState<File>();
 
-    const selectRecord = (newRecord: any) => {
+    const selectRecord = (newRecord: RecordType) => {
         setSelectedRecords((prev) => [...prev, newRecord]);
+        sheet.close();
     };
 
     const handleOnClickAddRecord = () => {
-        /** TODO: open bottomsheet for add record */
         sheet.toggle();
     };
 
     const handleOnClickAddProject = () => {
-        onAddProject({ title });
+        onAddProject({
+            title: title.value,
+            startDate,
+            endDate,
+            content: content.value,
+            recoredIds: selectedRecords.map((record) => record.id),
+            file
+        });
+    };
+
+    const handleOnChangeFileInput = (file: File) => {
+        setFile(file);
     };
 
     return (
@@ -48,40 +71,39 @@ const ProejctEdit = ({ onAddProject }: ProejctEditProps) => {
                 <Title title={'공부명'} />
                 <TextInput
                     size="sm"
-                    value={''}
+                    value={title.value}
                     placeholder="공부명을 입력해주세요"
-                    onChange={function (value: string): void {
-                        throw new Error('Function not implemented.');
-                    }}
+                    onChange={title.onChange}
                 />
             </div>
             <div className="mb-5">
                 <Title title={'날짜 및 시간'} />
                 <div className="flex justify-between gap-[6px] items-center">
-                    <DateTimePicker value={undefined} onChange={undefined} />
+                    <DateTimePicker value={startDate} onChange={setStartDate} />
                     <span className="text-base font-medium text-neutral-500">
                         ~
                     </span>
-                    <DateTimePicker value={undefined} onChange={undefined} />
+                    <DateTimePicker value={endDate} onChange={setEndDate} />
                 </div>
             </div>
             <div className="mb-5">
                 <Title title={'설명'} />
                 <TextArea
-                    value={''}
+                    value={content.value}
                     placeholder="공부에 대한 내용을 입력해주세요."
-                    onChange={function (value: string): void {
-                        throw new Error('Function not implemented.');
-                    }}
+                    onChange={content.onChange}
                 />
             </div>
             <div className="mb-5">
                 <Title title={'학습기록 가져오기'} />
                 <div className="flex flex-col gap-2 mb-2">
-                    <RecordCard />
-                    <RecordCard />
                     {selectedRecords.map((selectedRecord) => {
-                        return <RecordCard key={selectedRecord.id} />;
+                        return (
+                            <RecordCard
+                                key={selectedRecord.id}
+                                record={selectedRecord}
+                            />
+                        );
                     })}
                 </div>
                 <PlusButton onClick={handleOnClickAddRecord} />
@@ -89,7 +111,10 @@ const ProejctEdit = ({ onAddProject }: ProejctEditProps) => {
             <div className="mb-5">
                 <Title title={'공부 기록'} />
                 <div className="flex flex-col gap-2 mb-2">
-                    <FileInput label={'파일'} />
+                    <FileInput
+                        label={'파일'}
+                        onChange={handleOnChangeFileInput}
+                    />
                 </div>
             </div>
             <RoundButton onClick={handleOnClickAddProject}>
@@ -103,20 +128,16 @@ const ProejctEdit = ({ onAddProject }: ProejctEditProps) => {
             >
                 <div className="h-full">
                     <div className="flex flex-col h-full px-4 py-2 overflow-y-scroll gap-[10px]">
-                        {records.data?.map((record) => {
+                        {records?.map((record) => {
                             return (
                                 <button
                                     key={record.id}
                                     onClick={() => selectRecord(record)}
                                 >
-                                    <RecordCard />
+                                    <RecordCard record={record} />
                                 </button>
                             );
                         })}
-                        <RecordCard />
-                        <RecordCard />
-                        <RecordCard />
-                        <RecordCard />
                     </div>
                 </div>
             </BottomSheet>
