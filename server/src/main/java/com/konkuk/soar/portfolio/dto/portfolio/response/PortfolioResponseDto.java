@@ -34,6 +34,10 @@ public class PortfolioResponseDto {
   private String category;
   @Schema(description = "해당 포트폴리오 북마크 수")
   private Integer bookmark;
+  @Schema(name = "해당 포트폴리오의 등수")
+  private Integer rank;
+  @Schema(name = "해당 포트폴리오의 별점 평균")
+  private Float score;
 
   @Schema(description = "해당 포트폴리오에 들어있는 프로젝트 리스트")
   private List<ProjectResponseDto> projects = new ArrayList<>();
@@ -45,14 +49,17 @@ public class PortfolioResponseDto {
   // TODO : projects 만 dto로 받는 상황 해결
   @Builder
   public PortfolioResponseDto(Portfolio portfolio, Member member,
-      List<ProjectResponseDto> projectList,
+      List<ProjectResponseDto> projectList, Integer rank, Float score,
       List<PortfolioReview> reviewList, List<Tag> tagList, Integer bookmark) {
+
     this.portfolioId = portfolio.getId();
     this.memberId = member.getId();
     this.title = portfolio.getTitle();
     this.description = portfolio.getDescription();
     this.category = portfolio.getCategory();
     this.bookmark = bookmark;
+    this.rank = rank;
+    this.score = score;
 
     if (reviewList != null) {
       this.reviews = reviewList.stream()

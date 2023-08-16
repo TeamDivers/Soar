@@ -8,6 +8,7 @@ import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioResponseDto;
 import com.konkuk.soar.portfolio.enums.OptionType;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface PortfolioService {
 
@@ -19,6 +20,11 @@ public interface PortfolioService {
   Optional<Portfolio> getPortfolioEntityById(Long portfolioId);
   List<PortfolioResponseDto> getPortfolioListByMember(Long memberId, OptionType optionType,
       Integer size);
+
+  Integer getRankByPortfolioScore(Long portfolioId);
+
+  @Transactional
+  Integer getRankByPortfolioScore(Portfolio portfolio);
 
   List<PortfolioResponseDto> getPortfolioListByBookmark(Long memberId);
   List<PortfolioResponseDto> getPortfolioListByPopular();
