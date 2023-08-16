@@ -8,7 +8,7 @@ interface DotProps {
 const Dot = ({ color, size }: DotProps) => {
     return (
         <div
-            className="w-2 h-2 rounded-full"
+            className="rounded-full"
             style={{ backgroundColor: color, width: size, height: size }}
         ></div>
     );
