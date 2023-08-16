@@ -1,6 +1,8 @@
 /* eslint-disable import/named */
 import axios, { AxiosRequestConfig } from 'axios';
 
+import { getAccessToken } from '@utils/auth';
+
 export interface Response<T> {
     success: boolean;
     status: number;
@@ -14,6 +16,12 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
+    const accessToken = getAccessToken();
+
+    if (accessToken) {
+        config.headers.authorization = `Bearer ${accessToken}`;
+    }
+
     return config;
 });
 
