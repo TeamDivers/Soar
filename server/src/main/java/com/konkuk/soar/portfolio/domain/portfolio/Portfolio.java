@@ -55,6 +55,10 @@ public class Portfolio extends BaseTime {
   @Column(name = "portfolio_is_public")
   private boolean isPublic;
 
+  @Length(max = 20)
+  @Column(name = "portfolio_design_background")
+  private String background;
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "portfolio_member_id")
   @Setter(AccessLevel.NONE)
@@ -83,12 +87,14 @@ public class Portfolio extends BaseTime {
 
   @Builder
   public Portfolio(String title, String description, String category, boolean isPublic,
+      String background,
       Member member) {
 
     this.title = title;
     this.description = description;
     this.category = category;
     this.isPublic = isPublic;
+    this.background = background;
 
     this.member = member;
     if (!member.getPortfolioList().contains(this)) {

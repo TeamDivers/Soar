@@ -24,6 +24,8 @@ public class PortfolioCreateDto {
   private String category;
   @Schema(description = "포트폴리오 공개 여부")
   private boolean isPublic;
+  @Schema(description = "포트폴리오 배경 색")
+  private String background;
 
   @Schema(description = "포트폴리오 작성 회원 id")
   private Long memberId;
@@ -36,6 +38,7 @@ public class PortfolioCreateDto {
     this.description = portfolio.getDescription();
     this.category = portfolio.getCategory();
     this.isPublic = portfolio.isPublic();
+    this.background = portfolio.getBackground();
     this.memberId = member.getId();
   }
 }

@@ -65,14 +65,19 @@ VALUES (1, 'normal', 'memberAFile.zip', 'userId1/memberAFile.zip',
 
 
 INSERT INTO portfolios(PORTFOLIO_ID, PORTFOLIO_MEMBER_ID, PORTFOLIO_IS_PUBLIC, PORTFOLIO_TITLE,
-                       PORTFOLIO_CATEGORY, PORTFOLIO_DESCRIPTION, create_at, update_at)
-VALUES (1, 1, true, 'portfolio of A 1', '개발 || 백엔드 || 스프링', '스프링 고수가 되보자', '2023-01-01 17:00',
+                       PORTFOLIO_CATEGORY, PORTFOLIO_DESCRIPTION, PORTFOLIO_DESIGN_BACKGROUND,
+                       create_at, update_at)
+VALUES (1, 1, true, 'portfolio of A 1', '개발 || 백엔드 || 스프링', '스프링 고수가 되보자', '#eeeeee',
+        '2023-01-01 17:00',
         '2023-01-01 17:00'),
-       (2, 1, true, 'portfolio of A 2', '개발 || 백엔드 || 스프링', '스프링 중수가 되보자', '2023-02-01 17:00',
+       (2, 1, true, 'portfolio of A 2', '개발 || 백엔드 || 스프링', '스프링 중수가 되보자', '#ffffff',
+        '2023-02-01 17:00',
         '2023-02-01 17:00'),
-       (3, 1, true, 'portfolio of A 3', '개발 || 프론트엔드 || 리액트', '리액트 고수가 되보자', '2023-03-01 17:00',
+       (3, 1, true, 'portfolio of A 3', '개발 || 프론트엔드 || 리액트', '리액트 고수가 되보자', '#ffffff',
+        '2023-03-01 17:00',
         '2023-03-01 17:00'),
-       (4, 1, false, 'portfolio of A 4', '개발 || 프론트엔드 || Vue', 'Vue 고수가 되보자', '2023-05-01 18:00',
+       (4, 1, false, 'portfolio of A 4', '개발 || 프론트엔드 || Vue', 'Vue 고수가 되보자', '#ffffff',
+        '2023-05-01 18:00',
         '2023-05-01 17:00');
 
 
@@ -104,11 +109,11 @@ VALUES (1, 2, 4.0, 3.5, 4.5, '재밌게 잘 봤읍니다'),
 
 
 INSERT INTO projects (PROJECT_ID, PROJECT_PORTFOLIO_ID, PROJECT_START_DATE, PROJECT_END_DATE,
-                      PROJECT_CATEGORY, PROJECT_DESIGN_BACKGROUND, PROJECT_ROLE, PROJECT_TITLE,
+                      PROJECT_CATEGORY, PROJECT_ROLE, PROJECT_TITLE,
                       PROJECT_DESCRIPTION)
-VALUES (1, 1, '2023-08-10 12:00', '2023-08-12 12:00', '스프링', '#eeeeee', '팀장', '스프링 부수기',
+VALUES (1, 1, '2023-08-10 12:00', '2023-08-12 12:00', '스프링', '팀장', '스프링 부수기',
         '스프링을 부수는 프로젝트'),
-       (2, 1, '2023-08-14 12:00', '2023-08-16 12:00', 'JPA', '#ffffff', '팀원', 'JPA 부수기',
+       (2, 1, '2023-08-14 12:00', '2023-08-16 12:00', 'JPA', '팀원', 'JPA 부수기',
         'JPA를 부수는 프로젝트');
 
 

@@ -29,8 +29,6 @@ public class ProjectCreateDto {
   @Schema(description = "프로젝트 종료 날짜")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
   private LocalDateTime endDate;
-  @Schema(description = "해당 프로젝트에 넣을 배경 색")
-  private String background;
 
   @Setter
   private Long portfolioId;

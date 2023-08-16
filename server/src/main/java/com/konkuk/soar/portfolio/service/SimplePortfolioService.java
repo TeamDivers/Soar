@@ -70,6 +70,7 @@ public class SimplePortfolioService implements PortfolioService {
         .description(dto.getDescription())
         .category(dto.getCategory())
         .isPublic(dto.isPublic())
+        .background(dto.getBackground())
         .member(member)
         .build();
 
