@@ -14,7 +14,7 @@ const Chip: React.FC<ChipProps> = ({ label, isSelected = false, onClick }) => {
     return (
         <button
             onClick={onClick}
-            className={`chip inline-flex items-center px-3 py-1 m-1 rounded-full ${chipClasses} min-w-fit `}
+            className={`chip inline-flex items-center px-3 py-1 rounded-full ${chipClasses} min-w-fit `}
         >
             {label}
         </button>

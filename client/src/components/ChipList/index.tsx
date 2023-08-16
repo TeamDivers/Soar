@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Chip from '@components/Chip';
+import ScrollList from '@components/ScrollList';
 
 interface ChipListProps {
     chips: string[];
@@ -16,8 +17,8 @@ const ChipList: React.FC<ChipListProps> = ({ chips, onClick }) => {
     };
 
     return (
-        <div className="flex overflow-x-auto hide-scrollbar">
-            <div className="flex">
+        <ScrollList>
+            <div className="flex gap-2">
                 <div className="p-2" />
                 {chips.map((chip, index) => (
                     <Chip
@@ -29,7 +30,7 @@ const ChipList: React.FC<ChipListProps> = ({ chips, onClick }) => {
                 ))}
                 <div className="p-2" />
             </div>
-        </div>
+        </ScrollList>
     );
 };
 
