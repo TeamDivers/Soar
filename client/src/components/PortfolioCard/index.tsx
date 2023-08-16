@@ -19,12 +19,7 @@ const PortfolioCard = ({
     ranking,
     size = 'lg'
 }: PortfolioCardProps) => {
-    const [height, setHeight] = useState(0);
-    const ref = useRef<HTMLDivElement | null>(null);
-
-    useEffect(() => {
-        setHeight(ref.current?.clientHeight || 0);
-    }, [ref]);
+    const imageSize = size === 'lg' ? 160 : 100;
 
     return (
         <div className="relative">
@@ -35,28 +30,22 @@ const PortfolioCard = ({
                 </div>
             )}
             <div className="flex shadow-md rounded-[10px]">
-                <div className="aspect-square">
-                    <img
-                        src="https://placehold.co/400"
-                        className="rounded-l-[10px] w-full h-full aspect-square"
-                        style={{
-                            width: height,
-                            height
-                        }}
-                    />
-                </div>
+                <img
+                    src="https://placehold.co/400"
+                    className="rounded-l-[10px]"
+                    style={{ width: imageSize, height: imageSize }}
+                />
                 <div
-                    ref={ref}
                     className={`${
                         size === 'lg' ? 'p-4 h-[160px]' : 'py-[10px] px-3'
-                    } flex flex-col flex-1 h-fit`}
+                    } flex flex-col`}
                 >
                     <div className="flex items-center justify-between">
                         <div
                             className={`${
                                 size === 'lg'
-                                    ? 'text-xl mb-[10px]'
-                                    : 'text-base mb-[6px]'
+                                    ? 'text-xl mb-[10px] leading-[23.87px]'
+                                    : 'text-base mb-[6px] leading-[19px]'
                             } font-bold text-black`}
                         >
                             iOS 개발자입다
@@ -73,14 +62,14 @@ const PortfolioCard = ({
                             size === 'lg'
                                 ? 'mb-[12px] truncate-4'
                                 : 'mb-[7px] truncate-2'
-                        } text-sm font-normal text-zinc-800`}
+                        } text-sm font-normal text-zinc-800 leading-[16.5px]`}
                     >
                         안녕하세요 개발을 사랑..하는 학생 전!! 지노예요~~
                         안녕하세요 개발을 사랑..하는 학생 전!! 지노예요~~ ...
                         안녕하세요 개발을 사랑..하는 학생 전!! 지노예요~~
                         안녕하세요 개발을 사랑..하는 학생 전!! 지노예요~~ ...
                     </div>
-                    <div className="text-xs font-normal text-neutral-400">
+                    <div className="text-xs font-normal text-neutral-400 leading-[14.32px]">
                         만든 날짜: 2023.08.12
                     </div>
                 </div>
