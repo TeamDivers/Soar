@@ -5,6 +5,7 @@ import { useGetRecords } from '@apis/record/getRecords';
 import BottomSheet from '@components/BottomSheet';
 import DateTimePicker from '@components/DateTimePicker';
 import FileInput from '@components/FileInput';
+import PlusButton from '@components/PlustButton';
 import RecordCard from '@components/RecordCard';
 import RoundButton from '@components/RoundButton';
 import TextArea from '@components/TextArea';
@@ -130,14 +131,3 @@ const Title = ({ title }: { title: string }) => {
 };
 
 export default ProejctEdit;
-
-const PlusButton = ({ onClick }: { onClick: () => void }) => {
-    return (
-        <button
-            className="w-full h-10 bg-stone-300 rounded-[10px] flex justify-center items-center"
-            onClick={onClick}
-        >
-            <Plus style={{ width: 18, height: 18 }} />
-        </button>
-    );
-};
