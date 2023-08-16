@@ -108,12 +108,12 @@ public class PortfolioController {
 
   @Operation(summary = "포트폴리오 키워드로 검색", description = "포트폴리오 검색 API")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "정상적으로 성공", content = @Content(schema = @Schema(implementation = PortfolioOverviewDto.class)))
+      @ApiResponse(responseCode = "200", description = "정상적으로 성공", content = @Content(schema = @Schema(implementation = PortfolioResponseDto.class)))
   })
   @GetMapping("/search")
-  public BaseResponse<List<PortfolioOverviewDto>> updateMember(
+  public BaseResponse<List<PortfolioResponseDto>> updateMember(
       @RequestParam String keyword, @RequestParam Integer size) {
-    List<PortfolioOverviewDto> result = portfolioService.searchByKeyword(keyword);
+    List<PortfolioResponseDto> result = portfolioService.searchByKeyword(keyword);
     return BaseResponse.success(result);
   }
 

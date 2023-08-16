@@ -217,11 +217,11 @@ public class SimplePortfolioService implements PortfolioService {
 
   @Override
   @Transactional
-  public List<PortfolioOverviewDto> searchByKeyword(String keyword) {
+  public List<PortfolioResponseDto> searchByKeyword(String keyword) {
     List<Portfolio> list = portfolioRepository.findAllByTitleContainingOrDescriptionContaining(
         keyword, keyword);
     return list.stream().map(
-            pf -> getOverview(pf, getRankByPortfolioScore(pf), getScore(pf))
+            pf -> getResponseDto(pf, getRankByPortfolioScore(pf), getScore(pf), getUrl(pf))
         )
         .toList();
   }
