@@ -7,7 +7,7 @@ import { request } from '../axios';
 
 interface RecordRequestParams {
     memberId: number;
-    option: OPTION;
+    option?: OPTION;
 }
 
 const getRecord = (historyId: number) => {
