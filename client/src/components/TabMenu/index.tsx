@@ -1,51 +1,49 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import React, { useState } from 'react';
 
+import './index.css';
+
 interface TabProps {
     labels: string[];
+    value: number;
+    onTabChange: (tabIndex: number) => void;
+    children: React.ReactNode;
 }
 
-const TabMenu = ({ labels }: TabProps) => {
-    const [currentTab, setCurrentTab] = useState(0);
-
+const TabMenu = ({ labels, value, onTabChange, children }: TabProps) => {
     const handleChange = (
         event: React.SyntheticEvent<Element, Event>,
         value: any
     ) => {
-        setCurrentTab(value);
-        console.log('🚀 ~ file: index.tsx:12 ~ handleChange ~ value:', value);
-        console.log('🚀 ~ file: index.tsx:12 ~ handleChange ~ event:', event);
+        onTabChange(value);
     };
 
     return (
         <div>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs
-                    value={currentTab}
+                    value={value}
                     onChange={handleChange}
                     aria-label="basic tabs example"
                 >
-                    <Tab label="Item One" />
-                    <Tab label="Item Two" />
+                    {labels.map((label, index) => {
+                        return (
+                            <Tab
+                                key={label}
+                                label={label}
+                                className={`py-2 ${
+                                    index === value
+                                        ? 'text-black text-base font-semibold leading-[21px]'
+                                        : 'text-neutral-400 text-base font-semibold leading-[21px]'
+                                }`}
+                            />
+                        );
+                    })}
                 </Tabs>
             </Box>
-            <TabItem visible={currentTab === 0}>Item One</TabItem>
-            <TabItem visible={currentTab === 1}>Item Two</TabItem>
+            {children}
         </div>
     );
-};
-
-interface TabItemProps {
-    visible: boolean;
-    children: React.ReactNode;
-}
-
-const TabItem = ({ visible, children }: TabItemProps) => {
-    if (!visible) {
-        return <></>;
-    }
-
-    return <div>{children}</div>;
 };
 
 export default TabMenu;

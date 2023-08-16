@@ -1,6 +1,7 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 import Layout from '@components/layout';
+import PortfolioCard from '@components/PortfolioCard';
 import ScrollList from '@components/ScrollList';
 import TabMenu from '@components/TabMenu';
 
@@ -9,8 +10,13 @@ import { Left, Search as SearchIcon } from '@images/index';
 import useTextInput from '@hooks/useTextInput';
 
 const Search = () => {
+    const [tabIndex, setTabIndex] = useState(0);
     const { value: searchKeyword, onChange: onChangeSearchKeyword } =
         useTextInput();
+
+    const portfolioSearchResults = [{ id: 1 }, { id: 2 }];
+
+    const userSearchResults = [{ id: 1 }, { id: 2 }];
 
     /** TODO: retrieve recentlySearchedKeywords from localStorage */
     const recentlySearchedKeywords = [
@@ -25,9 +31,26 @@ const Search = () => {
         '영어4'
     ];
 
+    const renderPortfolioSearchResult = () => {
+        return (
+            <div className="flex flex-col gap-3 p-4">
+                <PortfolioCard ranking={12} size="sm" />
+                <PortfolioCard ranking={88} size="sm" />
+            </div>
+        );
+    };
+
+    const renderUserSearchResult = () => {
+        return <>u</>;
+    };
+
     return (
         <Layout hasHeader={false}>
-            <div className="flex items-center justify-between gap-4 px-4 pt-4 mb-6">
+            <div
+                className={`flex items-center justify-between gap-4 px-4 pt-4 ${
+                    searchKeyword.length > 0 ? 'mb-[8px]' : 'mb-6'
+                }`}
+            >
                 <button>
                     <Left style={{ width: 8 }} />
                 </button>
@@ -37,7 +60,15 @@ const Search = () => {
                 />
             </div>
             {searchKeyword.length > 0 ? (
-                <TabMenu labels={['a', 'b']}></TabMenu>
+                <TabMenu
+                    labels={['포트폴리오', '유저 프로필']}
+                    value={tabIndex}
+                    onTabChange={setTabIndex}
+                >
+                    {tabIndex === 0
+                        ? renderPortfolioSearchResult()
+                        : renderUserSearchResult()}
+                </TabMenu>
             ) : (
                 <Section title={'최근 검색어'}>
                     <ScrollList>
