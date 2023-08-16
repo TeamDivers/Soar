@@ -63,7 +63,11 @@ const SignUp = () => {
             </h1>
             {contentRenderer()}
             <div className="fixed max-w-md mx-auto bottom-[40px] w-full px-4">
-                <RoundButton onClick={handleOnClickButton}>다음</RoundButton>
+                <RoundButton onClick={handleOnClickButton}>
+                    <div className="py-[13px] text-white text-xl font-bold leading-[24px]">
+                        다음
+                    </div>
+                </RoundButton>
             </div>
         </div>
     );

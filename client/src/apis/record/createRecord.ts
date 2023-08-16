@@ -6,17 +6,29 @@ import { request } from '../axios';
 
 import { RecordType } from './getRecords';
 
-queryClient.invalidateQueries({ queryKey: ['todos'] });
+export interface CreateRecordType {
+    content: string;
+    isPublic: boolean;
+    category: string;
+    startDate: string;
+    endDate: string;
+    tagName: string;
+    memberId: number;
+}
 
-const createRecord = () => {
-    return request<RecordType[]>({
+const createRecord = (params: CreateRecordType) => {
+    return request<RecordType>({
         method: 'POST',
-        url: '/studyhistories'
+        url: '/studyhistories',
+        data: params
     });
 };
 
 export const useCreateRecord = () => {
     return useMutation({
-        mutationFn: () => createRecord()
+        mutationFn: createRecord,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['records'] });
+        }
     });
 };
