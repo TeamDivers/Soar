@@ -35,25 +35,28 @@ const Search = () => {
                     onChange={onChangeSearchKeyword}
                 />
             </div>
-            <Section title={'최근 검색어'}>
-                <ScrollList>
-                    <div className="flex gap-2">
-                        <div className="p-0" />
-                        {recentlySearchedKeywords.map((keyword) => {
-                            return (
-                                <div
-                                    key={keyword}
-                                    className="min-w-fit px-3 py-1 text-sm font-medium text-black bg-gray-200 rounded-[20px] justify-center items-center"
-                                >
-                                    {keyword}
-                                </div>
-                            );
-                        })}
-                        <div className="p-2" />
-                    </div>
-                </ScrollList>
-            </Section>
-            <Section title={'최근 본 포트폴리오'}>hi</Section>
+            {searchKeyword.length > 0 ? (
+                <></>
+            ) : (
+                <Section title={'최근 검색어'}>
+                    <ScrollList>
+                        <div className="flex gap-2">
+                            <div className="p-0" />
+                            {recentlySearchedKeywords.map((keyword) => {
+                                return (
+                                    <div
+                                        key={keyword}
+                                        className="min-w-fit px-3 py-1 text-sm font-medium text-black bg-gray-200 rounded-[20px] justify-center items-center"
+                                    >
+                                        {keyword}
+                                    </div>
+                                );
+                            })}
+                            <div className="p-2" />
+                        </div>
+                    </ScrollList>
+                </Section>
+            )}
         </Layout>
     );
 };
