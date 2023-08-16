@@ -116,22 +116,24 @@ const ListView = ({ data }: { data: any }) => {
                 <SortSelector onChange={(v: string) => console.log(v)} />
             </div>
             <div>
-                {[
-                    ...new Set(data.map((item: RecordType) => item.category))
-                ].map((v: any) => {
-                    return (
-                        <SlideToDelete
-                            key={v.id}
-                            onDelete={function (): void {
-                                throw new Error('Function not implemented.');
-                            }}
-                        >
-                            <div className="px-4 py-2">
-                                <RecordCard />
-                            </div>
-                        </SlideToDelete>
-                    );
-                })}
+                {[...new Set(data.map((item: RecordType) => item.tagName))].map(
+                    (v: any) => {
+                        return (
+                            <SlideToDelete
+                                key={v.id}
+                                onDelete={function (): void {
+                                    throw new Error(
+                                        'Function not implemented.'
+                                    );
+                                }}
+                            >
+                                <div className="px-4 py-2">
+                                    {/* <RecordCard record={undefined} /> */}
+                                </div>
+                            </SlideToDelete>
+                        );
+                    }
+                )}
             </div>
         </div>
     );
