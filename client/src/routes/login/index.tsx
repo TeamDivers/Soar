@@ -7,7 +7,7 @@ import { Google, Kakao, Logo } from '@images/index';
 
 const Login = () => {
     const handleKakaoLogin = () => {
-        axios.get('http://117.16.137.205:8080/oauth2/authorization/kakao');
+        window.location.href = `${process.env.REACT_APP_KAKAO_BASE_URI}?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
     };
 
     return (
