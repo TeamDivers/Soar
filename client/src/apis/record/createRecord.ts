@@ -14,13 +14,31 @@ export interface CreateRecordType {
     endDate: string;
     tagName: string;
     memberId: number;
+    files: File[];
 }
 
 const createRecord = (params: CreateRecordType) => {
-    return request<RecordType>({
+    const formData = new FormData();
+    const { files, ...recordInfo } = params;
+
+    params.files.map((file) => {
+        formData.append('files', file);
+    });
+
+    formData.append(
+        'recordInfo',
+        new Blob([JSON.stringify(recordInfo, null, 2)], {
+            type: 'application/json'
+        })
+    );
+
+    return request<Response>({
         method: 'POST',
         url: '/studyhistories',
-        data: params
+        data: formData,
+        headers: {
+            'Content-Type': 'multipart/form-data;'
+        }
     });
 };
 
