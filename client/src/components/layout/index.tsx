@@ -39,7 +39,7 @@ const Layout = ({
                     )}
                 </div>
             )}
-            <div className={`${hasNavigation ? 'mb-[94px]' : ''}`}>
+            <div className={`${hasNavigation ? 'mb-[100px]' : ''}`}>
                 {children || <Outlet />}
             </div>
 
