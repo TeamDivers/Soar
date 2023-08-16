@@ -44,18 +44,6 @@ public class Member {
   @Column(name = "member_email")
   private String email;
 
-  @Length(max = 20)
-  @Column(name = "phone_number")
-  private String phoneNumber;
-
-  @Length(max = 100)
-  @Column(name = "education")
-  private String education;
-
-  @Length(max = 200)
-  @Column(name = "career")
-  private String career;
-
   @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
   @Setter(AccessLevel.NONE)
   private List<Portfolio> portfolioList = new ArrayList<>();

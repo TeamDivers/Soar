@@ -3,18 +3,12 @@ package com.konkuk.soar.studyhistory.service;
 import com.konkuk.soar.common.domain.File;
 import com.konkuk.soar.common.domain.Tag;
 import com.konkuk.soar.common.enums.FileType;
-import com.konkuk.soar.common.service.TagService;
 import com.konkuk.soar.global.exception.NotFoundException;
 import com.konkuk.soar.member.domain.Member;
-import com.konkuk.soar.member.service.MemberService;
-import com.konkuk.soar.portfolio.domain.project.Project;
-import com.konkuk.soar.portfolio.domain.project.ProjectStudyHistory;
 import com.konkuk.soar.portfolio.enums.OptionType;
-import com.konkuk.soar.portfolio.repository.project.ProjectStudyHistoryRepository;
 import com.konkuk.soar.studyhistory.domain.StudyHistory;
 import com.konkuk.soar.studyhistory.domain.StudyHistoryFile;
 import com.konkuk.soar.studyhistory.domain.StudyHistoryTag;
-import com.konkuk.soar.studyhistory.dto.request.StudyHistoryCreateDto;
 import com.konkuk.soar.studyhistory.dto.response.StudyHistoryCalendarDto;
 import com.konkuk.soar.studyhistory.dto.response.StudyHistoryOverviewDto;
 import com.konkuk.soar.studyhistory.dto.response.StudyHistoryResponseDto;
@@ -36,37 +30,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class SimpleStudyHistoryService implements StudyHistoryService {
 
   private final StudyHistoryRepository studyHistoryRepository;
-  private final ProjectStudyHistoryRepository projectStudyHistoryRepository;
-  private final MemberService memberService;
-  private final TagService tagService;
-  @Override
-  @Transactional
-  public StudyHistoryOverviewDto createStudyHistory(StudyHistoryCreateDto dto) {
-    Member member = memberService.findById(dto.getMemberId())
-        .orElseThrow(() -> NotFoundException.MEMBER_NOT_FOUND);
-
-    StudyHistory studyHistory = StudyHistory.builder()
-        .category(dto.getCategory())
-        .isPublic(dto.getIsPublic())
-        .content(dto.getContent())
-        .startDate(dto.getStartDate())
-        .endDate(dto.getEndDate())
-        .member(member)
-        .build();
-
-    studyHistoryRepository.save(studyHistory);
-
-    Tag tag = tagService.addTagToStudyHistory(studyHistory, dto.getTagName());
-    // TODO : files
-    return getOverview(studyHistory, tag);
-  }
 
   @Override
   @Transactional
   public StudyHistoryResponseDto getStudyHistoryById(Long historyId) {
     StudyHistory studyHistory = studyHistoryRepository.findById(historyId)
         .orElseThrow(() -> NotFoundException.STUDY_HISTORY_NOT_FOUND);
-    return getResponseDto(studyHistory);
+    return getDto(studyHistory);
   }
 
   @Override
@@ -81,7 +51,7 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
         end, memberId);
 
     List<StudyHistoryOverviewDto> dtoList = historyList.stream()
-        .map(history -> getOverview(history, history.getTagList().get(0).getTag()))
+        .map(this::getOverview)
         .toList();
 
     return StudyHistoryCalendarDto.builder()
@@ -92,7 +62,6 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
   }
 
   @Override
-  @Transactional
   public List<StudyHistoryOverviewDto> getStudyHistoryListByMember(Long memberId, OptionType option,
       Integer size) {
 
@@ -123,36 +92,21 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
 
     if (res != null) {
       return res.stream()
-          .map(history -> getOverview(history, unwrapTag(history)))
+          .map(this::getOverview)
           .toList();
     }
 
     throw new RuntimeException();
   }
 
-  @Override
-  @Transactional
-  public StudyHistory addHistoryToProject(Long historyId, Project project) {
-    StudyHistory studyHistory = studyHistoryRepository.findById(historyId)
-        .orElseThrow(() -> NotFoundException.STUDY_HISTORY_NOT_FOUND);
-
-    projectStudyHistoryRepository.save(ProjectStudyHistory.builder()
-        .project(project)
-        .studyHistory(studyHistory)
-        .build());
-
-    return studyHistory;
-  }
-
-  protected StudyHistoryOverviewDto getOverview(StudyHistory history, Tag tag) {
+  private StudyHistoryOverviewDto getOverview(StudyHistory history) {
     Member member = history.getMember();
     return StudyHistoryOverviewDto.builder()
         .member(member)
         .history(history)
-        .tag(tag)
         .build();
   }
-  protected StudyHistoryResponseDto getResponseDto(StudyHistory studyHistory) {
+  private StudyHistoryResponseDto getDto(StudyHistory studyHistory) {
 
     Member member = studyHistory.getMember();
     List<Tag> tagList = studyHistory.getTagList().stream()
@@ -172,19 +126,10 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
     return StudyHistoryResponseDto.builder()
         .history(studyHistory)
         .member(member)
-        .tag(tagList.get(0))
+        .tagList(tagList)
         .fileList(fileList)
         .timelapseFile(timelapse)
         .build();
-  }
-
-  protected Tag unwrapTag(StudyHistory history) {
-    List<StudyHistoryTag> tagList = history.getTagList();
-    if (tagList.isEmpty()) {
-      // TODO : Custom Exception
-      throw new IllegalStateException("history doesn't have tag");
-    }
-    return tagList.get(0).getTag();
   }
 
 }
