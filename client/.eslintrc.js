@@ -5,7 +5,11 @@ module.exports = {
         browser: true,
         es2021: true
     },
-    extends: ['plugin:react/recommended', 'prettier', 'plugin:import/recommended'],
+    extends: [
+        'plugin:react/recommended',
+        'prettier',
+        'plugin:import/recommended'
+    ],
     overrides: [],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -29,7 +33,16 @@ module.exports = {
             'error',
             {
                 'newlines-between': 'always',
-                groups: ['type', 'builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'unknown'],
+                groups: [
+                    'type',
+                    'builtin',
+                    'external',
+                    'internal',
+                    'parent',
+                    'sibling',
+                    'index',
+                    'unknown'
+                ],
                 pathGroups: [
                     {
                         pattern: 'react*',

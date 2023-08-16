@@ -5,11 +5,7 @@ public class NotFoundException extends RuntimeException {
   public static NotFoundException MEMBER_NOT_FOUND = new NotFoundException(
       "Invalid ID : Member Not Found");
   public static NotFoundException STUDY_HISTORY_NOT_FOUND = new NotFoundException(
-      "Invalid ID : StudyHistory Not Found");
-  public static NotFoundException PORTFOLIO_NOT_FOUND = new NotFoundException(
-      "Invalid ID : Portfolio Not Found");
-  public static NotFoundException PROJECT_NOT_FOUND = new NotFoundException(
-      "Invalid ID : Project Not Found");
+      "Invalid ID : StudyHistoy Not Found");
 
   public NotFoundException(String message) {
     super(message);
