@@ -76,6 +76,7 @@ public class TestEntityFactory {
         .content("con")
         .category("ct")
         .isPublic(true)
+        .type("type")
         .build();
   }
 

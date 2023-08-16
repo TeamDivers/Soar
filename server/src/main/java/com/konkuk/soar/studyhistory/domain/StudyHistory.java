@@ -39,6 +39,11 @@ public class StudyHistory extends BaseTime {
   private Long id;
 
   @NotBlank
+  @Length(max = 20)
+  @Column(name = "study_history_type")
+  private String type;
+
+  @NotBlank
   @Length(max = 1000)
   @Column(name = "study_history_content")
   private String content;
@@ -67,11 +72,6 @@ public class StudyHistory extends BaseTime {
   @Setter(AccessLevel.NONE)
   private Member member;
 
-  @OneToMany(mappedBy = "studyHistory", fetch = FetchType.EAGER)
-  @Setter(AccessLevel.NONE)
-  private List<StudyHistoryTag> tagList = new ArrayList<>();
-
-
   @OneToMany(mappedBy = "studyHistory", fetch = FetchType.LAZY)
   @Setter(AccessLevel.NONE)
   private List<ProjectStudyHistory> projectStudyHistoryList = new ArrayList<>();
@@ -80,11 +80,15 @@ public class StudyHistory extends BaseTime {
   @Setter(AccessLevel.NONE)
   private List<StudyHistoryFile> fileList = new ArrayList<>();
 
+  @OneToMany(mappedBy = "studyHistory", fetch = FetchType.EAGER)
+  @Setter(AccessLevel.NONE)
+  private List<StudyHistoryTag> tagList = new ArrayList<>();
 
   @Builder
-  public StudyHistory(String content, Boolean isPublic, String category,
+  public StudyHistory(String type, String content, Boolean isPublic, String category,
       LocalDateTime startDate,
       LocalDateTime endDate, Member member) {
+    this.type = type;
     this.content = content;
     this.isPublic = isPublic;
     this.category = category;

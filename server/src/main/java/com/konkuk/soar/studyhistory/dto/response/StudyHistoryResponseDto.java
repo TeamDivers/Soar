@@ -5,7 +5,6 @@ import com.konkuk.soar.common.domain.File;
 import com.konkuk.soar.common.domain.Tag;
 import com.konkuk.soar.member.domain.Member;
 import com.konkuk.soar.studyhistory.domain.StudyHistory;
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,44 +15,35 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@Schema(description = "학습 기록 상세 조회 시 response body dto")
 public class StudyHistoryResponseDto {
 
-  @Schema(description = "학습 기록 id")
   private Long id;
-  @Schema(description = "학습한 내용")
+  private String type;
   private String content;
-  @Schema(description = "학습 기록 공개 여부")
   private boolean isPublic;
-  @Schema(description = "학습 기록 카테고리")
   private String category;
-  @Schema(description = "학습 태그")
-  private String tagName;
-  @Schema(description = "학습 시작 기간")
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
   private LocalDateTime startDate;
-  @Schema(description = "학습 종료 기간")
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
   private LocalDateTime endDate;
-  @Schema(description = "학습 기록을 작성한 회원 id")
   private Long memberId;
-  @Schema(description = "학습 기록 타임랩스")
   private String timelapseURL;
-  @Schema(description = "학습 기록에 첨부한 파일 리스트")
   private List<String> files = new ArrayList<>();
+  private List<String> tags = new ArrayList<>();
 
   @Builder
   public StudyHistoryResponseDto(StudyHistory history, Member member, File timelapseFile,
       List<File> fileList,
-      Tag tag) {
+      List<Tag> tagList) {
     this.id = history.getId();
+    this.type = history.getType();
     this.content = history.getContent();
     this.isPublic = history.getIsPublic();
     this.category = history.getCategory();
     this.startDate = history.getStartDate();
     this.endDate = history.getEndDate();
     this.memberId = member.getId();
-    this.tagName = tag.getName();
+
     timelapseURL = null;
     if (timelapseFile != null) {
       timelapseURL = timelapseFile.getUrl();
@@ -61,6 +51,9 @@ public class StudyHistoryResponseDto {
 
     files = fileList.stream()
         .map(f -> f.getUrl())
+        .collect(Collectors.toList());
+    tags = tagList.stream()
+        .map(tag -> tag.getName())
         .collect(Collectors.toList());
   }
 }
