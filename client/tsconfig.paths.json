@@ -6,7 +6,10 @@
             "@components/*": ["src/components/*"],
             "@configs/*": ["src/configs/*"],
             "@styles/*": ["src/assets/styles/*"],
-            "@images/*": ["src/assets/images/*"]
+            "@images/*": ["src/assets/images/*"],
+            "@constants/*": ["src/constants/*"],
+            "@utils/*": ["src/utils/*"],
+            "@hooks/*": ["src/hooks/*"]
         }
     }
 }
