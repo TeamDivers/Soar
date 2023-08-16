@@ -1,5 +1,9 @@
 package com.konkuk.soar.member.service;
 
+import com.konkuk.soar.common.domain.File;
+import com.konkuk.soar.common.dto.file.response.FileResponseDto;
+import com.konkuk.soar.common.service.AwsS3Service;
+import com.konkuk.soar.common.service.FileService;
 import com.konkuk.soar.global.exception.NotFoundException;
 import com.konkuk.soar.member.domain.Member;
 import com.konkuk.soar.member.dto.request.MemberUpdateRequestDto;
@@ -11,12 +15,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
 public class SimpleMemberService implements MemberService {
 
   private final MemberRepository memberRepository;
+  private final AwsS3Service awsS3Service;
+  private final FileService fileService;
 
   @Override
   @Transactional
@@ -40,13 +47,21 @@ public class SimpleMemberService implements MemberService {
   public MemberResponseDto getMemberById(Long id) {
     Member member = memberRepository.findById(id)
         .orElseThrow(() -> NotFoundException.MEMBER_NOT_FOUND);
+    String thumbnail;
+    if (member.getThumbnail() == null){
+      thumbnail = null;
+    } else {
+      thumbnail = member.getThumbnail().getUrl();
+    }
 
     return MemberResponseDto.builder()
+        .id(member.getId())
         .name(member.getName())
         .email(member.getEmail())
         .phoneNumber(member.getPhoneNumber())
         .education(member.getEducation())
         .career(member.getCareer())
+        .thumbnail(thumbnail)
         .build();
   }
 
@@ -66,6 +81,27 @@ public class SimpleMemberService implements MemberService {
         .phoneNumber(member.getPhoneNumber())
         .education(member.getEducation())
         .career(member.getCareer())
+        .build();
+  }
+
+  @Override
+  @Transactional
+  public MemberResponseDto uploadProfile(Long memberId, MultipartFile multipartFile){
+    FileResponseDto uploadResponse = awsS3Service.uploadFile(memberId+"/profile", multipartFile);
+    Member member = memberRepository.findById(memberId)
+        .orElseThrow(() -> NotFoundException.MEMBER_NOT_FOUND);
+    File file = fileService.findById(uploadResponse.getFileId())
+        .orElseThrow(()->NotFoundException.FILE_NOT_FOUND);
+    member.setThumbnail(file);
+
+    return MemberResponseDto.builder()
+        .id(member.getId())
+        .name(member.getName())
+        .email(member.getEmail())
+        .phoneNumber(member.getPhoneNumber())
+        .education(member.getEducation())
+        .career(member.getCareer())
+        .thumbnail(file.getUrl())
         .build();
   }
 

@@ -1,5 +1,6 @@
 package com.konkuk.soar.member.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.konkuk.soar.common.dto.BaseResponse;
 import com.konkuk.soar.member.dto.request.MemberUpdateRequestDto;
 import com.konkuk.soar.member.dto.response.MemberResponseDto;
@@ -14,11 +15,13 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @RestController
@@ -60,4 +63,14 @@ public class MemberController {
     return BaseResponse.success(memberResponseDtos);
   }
 
+  @Operation(summary = "프로필 사진 변경", description = "프로필 사진을 변경하는 api")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "정상적으로 수정 성공", content = @Content(schema = @Schema(implementation = MemberResponseDto.class)))
+  })
+  @PostMapping("/thumbnail")
+  public BaseResponse<MemberResponseDto> updateThumbnail(
+      @RequestParam("member") String memberId, @RequestParam(value = "file", required=false) MultipartFile file) {
+    MemberResponseDto memberResponseDto = memberService.uploadProfile(Long.valueOf(memberId), file);
+    return BaseResponse.success(memberResponseDto);
+  }
 }

@@ -1,5 +1,6 @@
 package com.konkuk.soar.member.domain;
 
+import com.konkuk.soar.common.domain.File;
 import com.konkuk.soar.portfolio.domain.portfolio.Portfolio;
 import com.konkuk.soar.portfolio.domain.portfolio.PortfolioBookmark;
 import com.konkuk.soar.portfolio.domain.portfolio.PortfolioReview;
@@ -10,7 +11,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import java.util.ArrayList;
@@ -55,6 +58,10 @@ public class Member {
   @Length(max = 200)
   @Column(name = "career")
   private String career;
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "file_id", referencedColumnName = "file_id")
+  private File thumbnail;
 
   @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
   @Setter(AccessLevel.NONE)
