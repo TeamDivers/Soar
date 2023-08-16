@@ -78,8 +78,8 @@ public class PortfolioController {
   public BaseResponse<PortfolioOverviewDto> createPortfolio(
       @RequestParam String portfolio,
       @RequestParam String projectList,
-      @RequestPart List<MultipartFile> files,
-      @RequestPart MultipartFile thumbnail,
+      @RequestPart(required = false) List<MultipartFile> files,
+      @RequestPart(required = false) MultipartFile thumbnail,
       @RequestParam String fileNumbers) {
     try {
       objectMapper.readValue(portfolio, PortfolioCreateDto.class);

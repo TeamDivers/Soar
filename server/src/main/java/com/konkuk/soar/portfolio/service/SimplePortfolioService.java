@@ -233,13 +233,16 @@ public class SimplePortfolioService implements PortfolioService {
     PortfolioOverviewDto portfolioResult = createPortfolio(createDto);
     Portfolio portfolio = portfolioRepository.findById(portfolioResult.getPortfolioId())
         .orElseThrow(() -> NotFoundException.PORTFOLIO_NOT_FOUND);
-    FileResponseDto thumbnailResult = awsS3Service.uploadFile(
-        portfolioResult.getMemberId() + FILE_BASE_URL + portfolioResult.getPortfolioId() + "/files",
-        thumbnail);
-    File file = fileService.findById(thumbnailResult.getFileId())
-        .orElseThrow(() -> NotFoundException.FILE_NOT_FOUND);
+    if (thumbnail != null) {
+      FileResponseDto thumbnailResult = awsS3Service.uploadFile(
+          portfolioResult.getMemberId() + FILE_BASE_URL + portfolioResult.getPortfolioId()
+              + "/files",
+          thumbnail);
+      File file = fileService.findById(thumbnailResult.getFileId())
+          .orElseThrow(() -> NotFoundException.FILE_NOT_FOUND);
 
-    fileService.addFileToPortfolio(file, portfolio);
+      fileService.addFileToPortfolio(file, portfolio);
+    }
     return portfolioResult;
   }
 
