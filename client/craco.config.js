@@ -17,7 +17,7 @@ module.exports = {
         alias,
         configure: {
             optimization: {
-                minimizer: []
+                minimize: false
             }
         }
     }
