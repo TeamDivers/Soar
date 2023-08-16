@@ -25,6 +25,22 @@ const getRecords = ({ memberId, option }: RecordRequestParams) => {
     });
 };
 
+const getRecordCalendar = ({
+    memberId,
+    year,
+    month
+}: {
+    memberId: number;
+    year: number;
+    month: number;
+}) => {
+    return request<any>({
+        method: 'GET',
+        url: `/studyhistories/calendar/${memberId}`,
+        params: { year, month }
+    });
+};
+
 export const useGetRecords = ({
     memberId,
     option = 'newest'
@@ -34,4 +50,18 @@ export const useGetRecords = ({
 
 export const useGetRecord = ({ historyId }: { historyId: number }) => {
     return useQuery(['record', historyId], () => getRecord(historyId));
+};
+
+export const useGetRecordCalendar = ({
+    memberId,
+    year,
+    month
+}: {
+    memberId: number;
+    year: number;
+    month: number;
+}) => {
+    return useQuery(['record', memberId, year, month], () =>
+        getRecordCalendar({ memberId, year, month })
+    );
 };
