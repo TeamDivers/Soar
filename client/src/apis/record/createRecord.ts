@@ -21,12 +21,14 @@ const createRecord = (params: CreateRecordType) => {
     const formData = new FormData();
     const { files, ...recordInfo } = params;
 
+    // timelaps
+
     params.files.map((file) => {
         formData.append('files', file);
     });
 
     formData.append(
-        'recordInfo',
+        'studyhistory',
         new Blob([JSON.stringify(recordInfo, null, 2)], {
             type: 'application/json'
         })
