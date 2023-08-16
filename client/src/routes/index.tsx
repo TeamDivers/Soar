@@ -40,11 +40,7 @@ const Router = () => {
                 },
                 {
                     path: ':portfolioId',
-                    element: (
-                        <Layout hasHeader={false} hasNavigation={false}>
-                            <PortfolioDetail />
-                        </Layout>
-                    )
+                    element: <PortfolioDetail />
                 },
                 {
                     path: 'create',
