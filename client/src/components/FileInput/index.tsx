@@ -31,7 +31,9 @@ const FileInput = ({ label }: FileInputProps) => {
                             : 'border-neutral-300'
                     } text-sm font-semibold`}
                 >
-                    {label} 추가 +
+                    <span className="text-base font-semibold text-neutral-400">
+                        {label} 추가 +
+                    </span>
                 </button>
             )}
 
