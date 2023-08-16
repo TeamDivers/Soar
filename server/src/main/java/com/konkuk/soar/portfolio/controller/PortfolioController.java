@@ -61,12 +61,18 @@ public class PortfolioController {
       @ApiResponse(responseCode = "200", description = "정상적으로 리스트 조회 성공", content = @Content(schema = @Schema(implementation = PortfolioResponseDto.class)))
   })
   @GetMapping
-  public BaseResponse<List<PortfolioResponseDto>> getPortfolioList(@RequestParam Long memberId,
-      @RequestParam String option,
+  public BaseResponse<List<PortfolioResponseDto>> getPortfolioList(
+      @RequestParam(required = false) Long memberId,
+      @RequestParam(required = false) String option,
       @RequestParam(required = false, defaultValue = "5") Integer size) {
-    OptionType optionType = OptionType.of(option);
-    List<PortfolioResponseDto> result = portfolioService.getPortfolioListByMember(
-        memberId, optionType);
+    List<PortfolioResponseDto> result;
+    if (memberId != null) {
+      OptionType optionType = OptionType.of(option);
+      result = portfolioService.getPortfolioListByMember(
+          memberId, optionType);
+    } else {
+      result = portfolioService.getPortfolioList();
+    }
     return BaseResponse.success(result);
   }
 
@@ -78,8 +84,8 @@ public class PortfolioController {
   public BaseResponse<PortfolioOverviewDto> createPortfolio(
       @RequestParam String portfolio,
       @RequestParam String projectList,
-      @RequestPart List<MultipartFile> files,
-      @RequestPart MultipartFile thumbnail,
+      @RequestPart(required = false) List<MultipartFile> files,
+      @RequestPart(required = false) MultipartFile thumbnail,
       @RequestParam String fileNumbers) {
     try {
       objectMapper.readValue(portfolio, PortfolioCreateDto.class);
@@ -108,12 +114,12 @@ public class PortfolioController {
 
   @Operation(summary = "포트폴리오 키워드로 검색", description = "포트폴리오 검색 API")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "정상적으로 성공", content = @Content(schema = @Schema(implementation = PortfolioOverviewDto.class)))
+      @ApiResponse(responseCode = "200", description = "정상적으로 성공", content = @Content(schema = @Schema(implementation = PortfolioResponseDto.class)))
   })
   @GetMapping("/search")
-  public BaseResponse<List<PortfolioOverviewDto>> updateMember(
+  public BaseResponse<List<PortfolioResponseDto>> updateMember(
       @RequestParam String keyword, @RequestParam Integer size) {
-    List<PortfolioOverviewDto> result = portfolioService.searchByKeyword(keyword);
+    List<PortfolioResponseDto> result = portfolioService.searchByKeyword(keyword);
     return BaseResponse.success(result);
   }
 

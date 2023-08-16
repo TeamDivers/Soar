@@ -22,6 +22,8 @@ public interface PortfolioService {
 
   List<PortfolioResponseDto> getPortfolioListByMember(Long memberId, OptionType optionType);
 
+  List<PortfolioResponseDto> getPortfolioList();
+
   Integer getRankByPortfolioScore(Long portfolioId);
 
 
@@ -31,7 +33,7 @@ public interface PortfolioService {
 
   List<PortfolioResponseDto> getPortfolioListByPopular();
 
-  List<PortfolioOverviewDto> searchByKeyword(String keyword);
+  List<PortfolioResponseDto> searchByKeyword(String keyword);
 
   PortfolioOverviewDto createPortfolio(PortfolioCreateDto createDto, MultipartFile thumbnail);
 

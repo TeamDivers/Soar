@@ -34,7 +34,7 @@ public class OAuth2LoginSecurityConfig {
         .formLogin(FormLoginConfigurer::disable)
         .addFilterAfter(jwtAuthFilter, LogoutFilter.class)
         .authorizeHttpRequests(authorize -> authorize
-            .anyRequest().authenticated()
+            .anyRequest().permitAll()
         )
         .oauth2Login(oauth2 -> oauth2.
             userInfoEndpoint(userInfo ->

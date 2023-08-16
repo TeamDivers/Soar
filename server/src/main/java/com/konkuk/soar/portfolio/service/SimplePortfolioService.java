@@ -70,6 +70,7 @@ public class SimplePortfolioService implements PortfolioService {
         .description(dto.getDescription())
         .category(dto.getCategory())
         .isPublic(dto.isPublic())
+        .background(dto.getBackground())
         .member(member)
         .build();
 
@@ -132,15 +133,13 @@ public class SimplePortfolioService implements PortfolioService {
       case OLDEST:
         res = portfolioRepository.findByMemberIdOrderByCreateAtAsc(memberId);
         break;
-      case RANK:
-        res = null;
-        break;
       case PUBLIC:
         res = portfolioRepository.findByMemberIdAndIsPublic(memberId, true);
         break;
       case PRIVATE:
         res = portfolioRepository.findByMemberIdAndIsPublic(memberId, false);
         break;
+      case RANK:
       default:
         res = portfolioRepository.findByMemberId(memberId);
         break;
@@ -153,6 +152,15 @@ public class SimplePortfolioService implements PortfolioService {
     }
 
     throw new RuntimeException();
+  }
+
+  @Override
+  @Transactional
+  public List<PortfolioResponseDto> getPortfolioList() {
+    return portfolioRepository.findAll().stream()
+        .map(pf -> getResponseDto(pf, getRankByPortfolioScore(pf), getScore(pf), getUrl(pf)))
+        .toList();
+
   }
 
   @Override
@@ -216,11 +224,11 @@ public class SimplePortfolioService implements PortfolioService {
 
   @Override
   @Transactional
-  public List<PortfolioOverviewDto> searchByKeyword(String keyword) {
+  public List<PortfolioResponseDto> searchByKeyword(String keyword) {
     List<Portfolio> list = portfolioRepository.findAllByTitleContainingOrDescriptionContaining(
         keyword, keyword);
     return list.stream().map(
-            pf -> getOverview(pf, getRankByPortfolioScore(pf), getScore(pf))
+            pf -> getResponseDto(pf, getRankByPortfolioScore(pf), getScore(pf), getUrl(pf))
         )
         .toList();
   }
@@ -232,13 +240,16 @@ public class SimplePortfolioService implements PortfolioService {
     PortfolioOverviewDto portfolioResult = createPortfolio(createDto);
     Portfolio portfolio = portfolioRepository.findById(portfolioResult.getPortfolioId())
         .orElseThrow(() -> NotFoundException.PORTFOLIO_NOT_FOUND);
-    FileResponseDto thumbnailResult = awsS3Service.uploadFile(
-        portfolioResult.getMemberId() + FILE_BASE_URL + portfolioResult.getPortfolioId() + "/files",
-        thumbnail);
-    File file = fileService.findById(thumbnailResult.getFileId())
-        .orElseThrow(() -> NotFoundException.FILE_NOT_FOUND);
+    if (thumbnail != null) {
+      FileResponseDto thumbnailResult = awsS3Service.uploadFile(
+          portfolioResult.getMemberId() + FILE_BASE_URL + portfolioResult.getPortfolioId()
+              + "/files",
+          thumbnail);
+      File file = fileService.findById(thumbnailResult.getFileId())
+          .orElseThrow(() -> NotFoundException.FILE_NOT_FOUND);
 
-    fileService.addFileToPortfolio(file, portfolio);
+      fileService.addFileToPortfolio(file, portfolio);
+    }
     return portfolioResult;
   }
 
