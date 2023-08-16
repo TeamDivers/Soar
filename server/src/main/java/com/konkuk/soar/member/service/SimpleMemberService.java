@@ -5,8 +5,10 @@ import com.konkuk.soar.member.domain.Member;
 import com.konkuk.soar.member.dto.request.MemberUpdateRequestDto;
 import com.konkuk.soar.member.dto.response.MemberResponseDto;
 import com.konkuk.soar.member.repository.MemberRepository;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,5 +72,19 @@ public class SimpleMemberService implements MemberService {
   @Override
   public Optional<Member> findById(Long id) {
     return memberRepository.findById(id);
+  }
+
+  @Override
+  public List<MemberResponseDto> searchByKeyword(String keyword, int size) {
+    List<Member> list = memberRepository.findAllByNameContains(keyword, Pageable.ofSize(size));
+    return list.stream()
+        .map(member -> MemberResponseDto.builder()
+            .name(member.getName())
+            .email(member.getEmail())
+            .phoneNumber(member.getPhoneNumber())
+            .education(member.getEducation())
+            .career(member.getCareer())
+            .build())
+        .toList();
   }
 }

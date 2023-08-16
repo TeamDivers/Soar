@@ -10,12 +10,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -45,6 +47,17 @@ public class MemberController {
       @RequestBody MemberUpdateRequestDto updateMember) {
     MemberResponseDto memberResponseDto = memberService.updateMember(updateMember);
     return BaseResponse.success(memberResponseDto);
+  }
+
+  @Operation(summary = "회원 이름으로 검색", description = "회원 이름 검색 API")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "정상적으로 수정 성공", content = @Content(schema = @Schema(implementation = MemberResponseDto.class)))
+  })
+  @GetMapping("/search")
+  public BaseResponse<List<MemberResponseDto>> updateMember(
+      @RequestParam String keyword, @RequestParam Integer size) {
+    List<MemberResponseDto> memberResponseDtos = memberService.searchByKeyword(keyword,size);
+    return BaseResponse.success(memberResponseDtos);
   }
 
 }

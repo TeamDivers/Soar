@@ -34,9 +34,13 @@ FROM members;
 
 
 INSERT INTO members(MEMBER_ID, MEMBER_NAME, MEMBER_EMAIL)
-values (1, 'memberA', "aaaa@gmail.com"),
-       (2, 'memberB', "aaaa@gmail.com"),
-       (3, 'memberC', "aaaa@gmail.com");
+values (1, 'memberA', 'aaaa@gmail.com'),
+       (2, 'memberB', 'aaaa@gmail.com'),
+       (3, 'memberC', 'aaaa@gmail.com'),
+       (4, '김길동', 'aaaa@gmail.com'),
+       (5, '김재민', 'aaaa@gmail.com'),
+       (6, '김진호', 'aaaa@gmail.com'),
+       (7, '김member', 'aaaa@gmail.com');
 
 
 INSERT INTO tags(TAG_ID, NAME)
