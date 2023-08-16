@@ -14,6 +14,11 @@ const alias = Object.entries(aliases).reduce(
 
 module.exports = {
     webpack: {
-        alias
+        alias,
+        configure: {
+            optimization: {
+                minimizer: []
+            }
+        }
     }
 };
