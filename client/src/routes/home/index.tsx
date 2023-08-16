@@ -5,6 +5,7 @@ import { useGetPortfolios } from '@apis/portfolio/getPortfolio';
 import { useGetRecords } from '@apis/record/getRecords';
 
 import Divider from '@components/Divider';
+import PortfolioCard from '@components/PortfolioCard';
 import RoundButton from '@components/RoundButton';
 
 import { Pencil } from '@images/index';
@@ -20,10 +21,13 @@ const Home = () => {
     const { data: portfolios } = useGetPortfolios({
         memberId: parseInt(getMemberId())
     });
+    const { data: ranks } = useGetPortfolios({
+        option: 'rank'
+    });
 
     return (
         <div className="flex flex-col px-4 pt-5">
-            <div className="bg-white rounded-[20px] pt-10 px-[26px] shadow-md pb-4">
+            <div className="mb-[40px] bg-white rounded-[20px] pt-10 px-[26px] shadow-md pb-4">
                 <div className="flex justify-between pb-[22px]">
                     <div>
                         <div className="pb-[17px] text-lg font-normal text-black aggro leading-[21.58px]">
@@ -64,6 +68,19 @@ const Home = () => {
                         </span>
                     </div>
                 </div>
+            </div>
+            <div className="mb-4 text-xl font-bold text-black">
+                오늘의 인기 포트폴리오 Top5
+            </div>
+            <div className="flex flex-col gap-3">
+                {ranks?.map((portfolio) => {
+                    return (
+                        <PortfolioCard
+                            key={portfolio.portfolioId}
+                            portfolio={portfolio}
+                        />
+                    );
+                })}
             </div>
         </div>
     );

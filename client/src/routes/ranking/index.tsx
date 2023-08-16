@@ -71,11 +71,11 @@ const Ranking = () => {
                         size="md"
                         rank={2}
                         color="#1D5CFF"
-                        img={portfolios[1].thumbnailURL}
+                        img={portfolios[1]?.thumbnailURL}
                     />
                     <PortfolioInfo
-                        title={portfolios[1].title}
-                        desc={`${portfolios[1].description}`}
+                        title={portfolios[1]?.title}
+                        desc={`${portfolios[1]?.description}`}
                     />
                 </div>
                 <div
@@ -88,11 +88,11 @@ const Ranking = () => {
                         size="lg"
                         rank={1}
                         color="#FFC01D"
-                        img={portfolios[0].thumbnailURL}
+                        img={portfolios[0]?.thumbnailURL}
                     />
                     <PortfolioInfo
-                        title={portfolios[0].title}
-                        desc={`${portfolios[0].description}`}
+                        title={portfolios[0]?.title}
+                        desc={`${portfolios[0]?.description}`}
                         // desc={'김민지 / 학생'}
                     />
                 </div>
@@ -106,11 +106,11 @@ const Ranking = () => {
                         size="md"
                         rank={3}
                         color="#1D5CFF"
-                        img={portfolios[2].thumbnailURL}
+                        img={portfolios[2]?.thumbnailURL}
                     />
                     <PortfolioInfo
-                        title={portfolios[2].title}
-                        desc={`${portfolios[2].description}`}
+                        title={portfolios[2]?.title}
+                        desc={`${portfolios[2]?.description}`}
                     />
                 </div>
             </div>
@@ -128,9 +128,9 @@ const Ranking = () => {
                             key={portfolio.portfolioId}
                             rank={portfolio.rank}
                             isAscending={Math.random() < 0.5}
-                            thumbnail={portfolio.thumbnailURL}
+                            thumbnail={portfolio?.thumbnailURL}
                             title={portfolio.title}
-                            desc={portfolio.description}
+                            desc={portfolio?.description}
                             rating={portfolio.score}
                         />
                     );

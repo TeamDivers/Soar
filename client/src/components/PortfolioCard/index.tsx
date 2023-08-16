@@ -36,7 +36,7 @@ const PortfolioCard = ({
             )}
             <div className="flex shadow-md rounded-[10px]">
                 <img
-                    src={portfolio.thumbnailURL}
+                    src={portfolio?.thumbnailURL}
                     className="rounded-l-[10px]"
                     style={{ width: imageSize, height: imageSize }}
                 />
