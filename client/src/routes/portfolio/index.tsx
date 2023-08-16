@@ -36,7 +36,7 @@ const Portfolio = () => {
                             key={portfolio.portfolioId}
                         >
                             <div className="px-4 py-2">
-                                <PortfolioCard />
+                                <PortfolioCard portfolio={portfolio} />
                             </div>
                         </SlideToDelete>
                     );

@@ -176,26 +176,12 @@ const Ranking = () => {
                             </button>
                         </div>
                         <div className="flex flex-col gap-2 px-5 py-2 overflow-x-visible overflow-y-scroll">
-                            <PortfolioCard
+                            {/* <PortfolioCard
                                 size="sm"
                                 ranking={24}
                                 rating={3.5}
-                            />
-                            <PortfolioCard
-                                size="sm"
-                                ranking={58}
-                                rating={3.0}
-                            />
-                            <PortfolioCard
-                                size="sm"
-                                ranking={58}
-                                rating={3.0}
-                            />
-                            <PortfolioCard
-                                size="sm"
-                                ranking={58}
-                                rating={3.0}
-                            />
+                                portfolio={undefined}
+                            /> */}
                         </div>
                     </div>
                 </div>
