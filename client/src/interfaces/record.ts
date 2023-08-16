@@ -1,9 +1,12 @@
 export interface RecordType {
     id: number;
-    type: string;
     content: string;
-    memberId: number;
     category: string;
+    tagName: string;
     startDate: string;
     endDate: string;
+    memberId: number;
+    timelapseURL: string;
+    files: string[];
+    public: boolean;
 }
