@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class SimpleProjectService implements ProjectService{
+public class SimpleProjectService implements ProjectService {
 
   private final ProjectRepository projectRepository;
 
@@ -79,6 +79,17 @@ public class SimpleProjectService implements ProjectService{
 
     return getOverview(project);
     // TODO : file save
+  }
+
+  @Override
+  public void deleteProject(Long projectId) {
+
+  }
+
+  @Override
+  @Transactional
+  public void deleteProjects(Long portfolioId) {
+    projectRepository.deleteProjectsByPortfolioId(portfolioId);
   }
 
   protected ProjectResponseDto getResponseDto(Project project) {

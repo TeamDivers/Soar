@@ -20,4 +20,6 @@ public interface StudyHistoryService {
       Integer size);
 
   StudyHistory addHistoryToProject(Long historyId, Project project);
+
+  void deleteStudyHistory(Long historyId);
 }

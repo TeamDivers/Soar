@@ -7,4 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ProjectStudyHistoryRepository extends
     JpaRepository<ProjectStudyHistory, ProjectAndStudyHistoryId> {
 
+  void deleteProjectStudyHistoriesByProjectId(Long projectId);
+  void deleteAllByProjectId(Long projectId);
+  void deleteAllByStudyHistoryId(Long studyHistoryId);
 }

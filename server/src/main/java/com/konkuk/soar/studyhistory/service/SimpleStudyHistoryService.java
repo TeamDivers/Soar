@@ -18,7 +18,9 @@ import com.konkuk.soar.studyhistory.dto.request.StudyHistoryCreateDto;
 import com.konkuk.soar.studyhistory.dto.response.StudyHistoryCalendarDto;
 import com.konkuk.soar.studyhistory.dto.response.StudyHistoryOverviewDto;
 import com.konkuk.soar.studyhistory.dto.response.StudyHistoryResponseDto;
+import com.konkuk.soar.studyhistory.repository.StudyHistoryFileRepository;
 import com.konkuk.soar.studyhistory.repository.StudyHistoryRepository;
+import com.konkuk.soar.studyhistory.repository.StudyHistoryTagRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -36,9 +38,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class SimpleStudyHistoryService implements StudyHistoryService {
 
   private final StudyHistoryRepository studyHistoryRepository;
+  private final StudyHistoryFileRepository studyHistoryFileRepository;
+  private final StudyHistoryTagRepository studyHistoryTagRepository;
+
   private final ProjectStudyHistoryRepository projectStudyHistoryRepository;
+
   private final MemberService memberService;
   private final TagService tagService;
+
   @Override
   @Transactional
   public StudyHistoryOverviewDto createStudyHistory(StudyHistoryCreateDto dto) {
@@ -144,6 +151,19 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
     return studyHistory;
   }
 
+  /**
+   * @param historyId
+   * @진행순서 StudyHistoryTag -> StudyHistoryFile -> ProjectStudyHistory -> StudyHistory 순으로 삭제 진행
+   */
+  @Override
+  @Transactional
+  public void deleteStudyHistory(Long historyId) {
+    studyHistoryTagRepository.deleteAllByStudyHistoryId(historyId);
+    studyHistoryFileRepository.deleteAllByStudyHistoryId(historyId);
+    projectStudyHistoryRepository.deleteAllByStudyHistoryId(historyId);
+    studyHistoryRepository.deleteById(historyId);
+  }
+
   protected StudyHistoryOverviewDto getOverview(StudyHistory history, Tag tag) {
     Member member = history.getMember();
     return StudyHistoryOverviewDto.builder()
@@ -152,6 +172,7 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
         .tag(tag)
         .build();
   }
+
   protected StudyHistoryResponseDto getResponseDto(StudyHistory studyHistory) {
 
     Member member = studyHistory.getMember();

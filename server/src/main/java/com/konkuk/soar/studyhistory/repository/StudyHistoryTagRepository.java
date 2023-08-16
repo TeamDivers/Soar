@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface StudyHistoryTagRepository extends
     JpaRepository<StudyHistoryTag, StudyHistoryAndTagId> {
 
+    void deleteAllByStudyHistoryId(Long studyHistoryId);
 }

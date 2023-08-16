@@ -12,4 +12,7 @@ public interface ProjectService {
   List<ProjectOverviewDto> getProjectOverviewListByPortfolioId(Long portfolioId);
 
   ProjectOverviewDto createProject(ProjectCreateDto dto);
+
+  void deleteProject(Long projectId);
+  void deleteProjects(Long portfolioId);
 }

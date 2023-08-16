@@ -30,4 +30,6 @@ public interface PortfolioService {
   List<PortfolioResponseDto> getPortfolioListByPopular();
 
   List<PortfolioOverviewDto> searchByKeyword(String keyword, int size);
+
+  void deletePortfolio(Long portfolioId);
 }

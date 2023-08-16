@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -78,6 +79,16 @@ public class StudyHistoryController {
   StudyHistoryCreateDto dto) {
     StudyHistoryOverviewDto res = studyHistoryService.createStudyHistory(dto);
     return BaseResponse.success(res);
+  }
+
+  @Operation(summary = "학습 기록 삭제", description = "학습 기록을 삭제합니다.")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "정상적으로 삭제되었습니다.")
+  })
+  @DeleteMapping("/{historyId}")
+  public BaseResponse<Void> deleteStudyHistory(@PathVariable Long historyId) {
+    studyHistoryService.deleteStudyHistory(historyId);
+    return BaseResponse.success(null);
   }
 
 }

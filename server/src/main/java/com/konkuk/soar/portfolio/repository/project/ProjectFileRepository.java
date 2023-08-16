@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProjectFileRepository extends JpaRepository<ProjectFile, ProjectAndFileId> {
 
+  void deleteProjectFilesByProjectId(Long projectId);
+
 }
