@@ -31,7 +31,6 @@ public class StudyHistoryCreateDto {
 
   @Schema(name = "학습한 회원 id")
   private Long memberId;
-  // TODO : files
 
   @Builder
   public StudyHistoryCreateDto(String content, Boolean isPublic, String category,
