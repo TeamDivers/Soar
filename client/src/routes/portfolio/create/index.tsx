@@ -1,18 +1,46 @@
 import React, { useState } from 'react';
+import { CompactPicker } from 'react-color';
 
 import Divider from '@components/Divider';
+import FileInput from '@components/FileInput';
+import IOSSwitch from '@components/IOSSwitch';
+import PlusButton from '@components/PlustButton';
 import Project from '@components/Project';
 import ProejctEdit from '@components/ProjectEdit.tsx';
 import TextInput from '@components/TextInput';
 
 import useTextInput from '@hooks/useTextInput';
 
+import './index.css';
+
 const PortfolioCreate = () => {
     const { value: title, onChange: onChangeTitle } = useTextInput();
+
     const [projects, setProjects] = useState([]);
+    const [isAddingPeoject, setIsAddingProject] = useState(true);
+    /**
+     * disabled when new empty projected is added
+     * - setIsAddingProject(false) in onAddProject
+     * enble this state when addEmptyProjectEdit is called
+     */
+    const [color, setColor] = useState('');
+    const [isPublic, setIsPublic] = useState(true);
+
+    const addEmptyProjectEdit = () => {
+        setIsAddingProject(true);
+    };
+
+    const handleOnAddProject = () => {
+        setIsAddingProject(false);
+    };
+
+    const handleColorChange = ({ hex }: { hex: string }) => {
+        setColor(hex);
+    };
 
     return (
         <div className="flex flex-col justify-between px-4 pt-[34px] mb-2 overflow-y-scroll h-screen">
+            {/* user info section */}
             <div className="flex items-center gap-[22px] mb-[30px]">
                 <img
                     src="https://placehold.co/400/000000/FFF"
@@ -44,6 +72,7 @@ const PortfolioCreate = () => {
                 정보 수정
             </button>
             <Divider />
+            {/* portfolio title section */}
             <div className="my-[40px]">
                 <Title text="포트폴리오 제목" />
                 <TextInput
@@ -53,22 +82,66 @@ const PortfolioCreate = () => {
                 />
             </div>
             <Divider />
-            <div className="my-[40px]">
-                <Title text="프로젝트" />
-                <div className="flex flex-col gap-[10px]">
-                    <Project
-                        title={'title'}
-                        category={'category'}
-                        startDate={new Date().toString()}
-                        endDate={new Date().toString()}
-                    />
-                    <ProejctEdit
-                        onAddProject={function (proejct: any): void {
-                            throw new Error('Function not implemented.');
-                        }}
-                    />
+            {/* project section */}
+            <section>
+                <div className="my-[40px]">
+                    <Title text="프로젝트" />
+                    <div className="flex flex-col gap-[10px]">
+                        {/* TODO: replace any type to CreateProjectDtoType */}
+                        {projects.map((project: any) => {
+                            return (
+                                <Project
+                                    key={project?.id || 0}
+                                    title={'title'}
+                                    category={'category'}
+                                    startDate={new Date().toString()}
+                                    endDate={new Date().toString()}
+                                />
+                            );
+                        })}
+                        {isAddingPeoject && (
+                            <ProejctEdit onAddProject={handleOnAddProject} />
+                        )}
+                        <PlusButton onClick={addEmptyProjectEdit} />
+                    </div>
                 </div>
-            </div>
+            </section>
+            <Divider />
+            {/* color selection section */}
+            <section>
+                <div className="my-[40px]">
+                    <Title text="컬러 선택" />
+                    <div className="bg-white rounded-[10px] shadow-md picker-container">
+                        <CompactPicker
+                            className="w-full"
+                            onChangeComplete={handleColorChange}
+                        />
+                    </div>
+                </div>
+            </section>
+            <Divider />
+            {/* 썸네일 추가 */}
+            <section>
+                <div className="my-[40px]">
+                    <Title text="썸네일 추가" isRequired={false} />
+                    <div className="flex flex-col gap-2 mb-2">
+                        <FileInput label={'파일'} />
+                    </div>
+                </div>
+            </section>
+            <Divider />
+            {/* 공개여부 */}
+            <section>
+                <div className="my-[40px]">
+                    <Title text="공개 여부" />
+                    <div className="flex rounded-[10px] border border-gray-200 py-4 px-[14px] justify-between">
+                        <span>비공개</span>
+                        <IOSSwitch
+                            toggle={() => setIsPublic((prev) => !prev)}
+                        />
+                    </div>
+                </div>
+            </section>
         </div>
     );
 };
