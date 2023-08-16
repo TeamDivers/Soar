@@ -8,7 +8,6 @@ import com.konkuk.soar.portfolio.dto.portfolio.response.PortfolioResponseDto;
 import com.konkuk.soar.portfolio.enums.OptionType;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface PortfolioService {
