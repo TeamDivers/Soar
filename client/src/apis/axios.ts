@@ -9,7 +9,7 @@ export interface Response<T> {
 }
 
 const instance = axios.create({
-    baseURL: `${process.env.API_BASE_URI}`,
+    baseURL: `${process.env.REACT_APP_API_BASE_URI}`,
     timeout: 3000
 });
 
