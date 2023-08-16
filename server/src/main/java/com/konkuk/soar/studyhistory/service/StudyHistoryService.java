@@ -22,8 +22,7 @@ public interface StudyHistoryService {
 
   StudyHistoryCalendarDto getStudyHistoryCalendar(Long memberId, Integer year, Integer month);
 
-  List<StudyHistoryOverviewDto> getStudyHistoryListByMember(Long memberId, OptionType option,
-      Integer size);
+  List<StudyHistoryOverviewDto> getStudyHistoryListByMember(Long memberId, OptionType option);
 
   StudyHistory addHistoryToProject(Long historyId, Project project);
 

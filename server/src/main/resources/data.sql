@@ -131,7 +131,9 @@ VALUES (1, 1, '2023-08-11 13:00', '2023-08-11 14:00', true, '개발 || 백엔드
 
 INSERT INTO study_history_tags(SHT_STUDY_HISTORY_ID, SHT_TAG_ID)
 VALUES (1, 5),
-       (2, 1);
+       (2, 1),
+       (3, 2);
+
 
 
 INSERT INTO study_history_file(SHF_STUDY_HISTORY_ID, SHF_FILE_ID)
