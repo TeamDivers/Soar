@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react';
 
 import Layout from '@components/layout';
 import ScrollList from '@components/ScrollList';
+import TabMenu from '@components/TabMenu';
 
 import { Left, Search as SearchIcon } from '@images/index';
 
@@ -36,7 +37,7 @@ const Search = () => {
                 />
             </div>
             {searchKeyword.length > 0 ? (
-                <></>
+                <TabMenu labels={['a', 'b']}></TabMenu>
             ) : (
                 <Section title={'최근 검색어'}>
                     <ScrollList>

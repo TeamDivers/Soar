@@ -6,12 +6,13 @@ interface TabProps {
 }
 
 const TabMenu = ({ labels }: TabProps) => {
-    const [currentTab, setCurrentTab] = useState(labels[0]);
+    const [currentTab, setCurrentTab] = useState(0);
 
     const handleChange = (
         event: React.SyntheticEvent<Element, Event>,
         value: any
     ) => {
+        setCurrentTab(value);
         console.log('🚀 ~ file: index.tsx:12 ~ handleChange ~ value:', value);
         console.log('🚀 ~ file: index.tsx:12 ~ handleChange ~ event:', event);
     };
@@ -26,20 +27,25 @@ const TabMenu = ({ labels }: TabProps) => {
                 >
                     <Tab label="Item One" />
                     <Tab label="Item Two" />
-                    <Tab label="Item Three" />
                 </Tabs>
             </Box>
-            {/* <CustomTabPanel value={value} index={0}>
-                Item One
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
-                Item Two
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
-                Item Three
-            </CustomTabPanel> */}
+            <TabItem visible={currentTab === 0}>Item One</TabItem>
+            <TabItem visible={currentTab === 1}>Item Two</TabItem>
         </div>
     );
+};
+
+interface TabItemProps {
+    visible: boolean;
+    children: React.ReactNode;
+}
+
+const TabItem = ({ visible, children }: TabItemProps) => {
+    if (!visible) {
+        return <></>;
+    }
+
+    return <div>{children}</div>;
 };
 
 export default TabMenu;
