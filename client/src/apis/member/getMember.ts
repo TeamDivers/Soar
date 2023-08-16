@@ -11,6 +11,17 @@ const getMember = (memberId: number) => {
     });
 };
 
+const getMemeberId = () => {
+    return request<MemberType>({
+        method: 'GET',
+        url: `/members`
+    });
+};
+
 export const useGetMember = ({ memberId }: { memberId: number }) => {
     return useQuery(['member', memberId], () => getMember(memberId));
+};
+
+export const useGetMemberId = () => {
+    return useQuery(['member'], () => getMemeberId());
 };

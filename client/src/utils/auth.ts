@@ -2,6 +2,14 @@ import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@constants/index';
 
 let inMemoryAccessToken: string | undefined;
 
+export const setMemberId = (memberId: string) => {
+    localStorage.setItem('MEMBER_ID', memberId);
+};
+
+export const getMemberId = (): string | null => {
+    return localStorage.getItem('MEMBER_ID');
+};
+
 export const setAccessToken = (accessToken: string) => {
     localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
 };
