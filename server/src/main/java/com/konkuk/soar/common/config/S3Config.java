@@ -40,10 +40,4 @@ public class S3Config {
         )
         .build();
   }
-
-//  @Bean
-//  public S3Template s3Template(){
-//    return new S3Template(s3Client(), new InMemoryBufferingS3OutputStreamProvider(s3Client(), null),
-//        new Jackson2JsonS3ObjectConverter(new ObjectMapper()), S3Presigner.create());
-//  }
 }
