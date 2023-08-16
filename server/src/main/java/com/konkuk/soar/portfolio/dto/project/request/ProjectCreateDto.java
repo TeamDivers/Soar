@@ -1,7 +1,6 @@
 package com.konkuk.soar.portfolio.dto.project.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.konkuk.soar.common.dto.file.request.FileCreateDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,8 +32,6 @@ public class ProjectCreateDto {
 
   @Setter
   private Long portfolioId;
-  @Schema(name = "해당 프로젝트에 첨부할 파일 리스트")
-  private List<FileCreateDto> files;
   @Schema(name = "해당 프로젝트에 첨부할 학습 기록 리스트")
   private List<Long> histories;
 

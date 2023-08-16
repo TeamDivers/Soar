@@ -8,10 +8,15 @@ import com.konkuk.soar.studyhistory.dto.response.StudyHistoryCalendarDto;
 import com.konkuk.soar.studyhistory.dto.response.StudyHistoryOverviewDto;
 import com.konkuk.soar.studyhistory.dto.response.StudyHistoryResponseDto;
 import java.util.List;
+import java.util.Optional;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface StudyHistoryService {
 
   StudyHistoryOverviewDto createStudyHistory(StudyHistoryCreateDto dto);
+
+  StudyHistoryOverviewDto createStudyHistory(StudyHistoryCreateDto dto, MultipartFile timelapse,
+      List<MultipartFile> files);
   StudyHistoryResponseDto getStudyHistoryById(Long historyId);
 
   StudyHistoryCalendarDto getStudyHistoryCalendar(Long memberId, Integer year, Integer month);
@@ -22,4 +27,5 @@ public interface StudyHistoryService {
   StudyHistory addHistoryToProject(Long historyId, Project project);
 
   void deleteStudyHistory(Long historyId);
+  Optional<StudyHistory> findById(Long historyId);
 }

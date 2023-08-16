@@ -2,7 +2,9 @@ package com.konkuk.soar.studyhistory.service;
 
 import com.konkuk.soar.common.domain.File;
 import com.konkuk.soar.common.domain.Tag;
-import com.konkuk.soar.common.enums.FileType;
+import com.konkuk.soar.common.dto.file.response.FileResponseDto;
+import com.konkuk.soar.common.service.AwsS3Service;
+import com.konkuk.soar.common.service.FileService;
 import com.konkuk.soar.common.service.TagService;
 import com.konkuk.soar.global.exception.NotFoundException;
 import com.konkuk.soar.member.domain.Member;
@@ -26,11 +28,13 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @Service
@@ -45,6 +49,9 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
 
   private final MemberService memberService;
   private final TagService tagService;
+  private final FileService fileService;
+  private final AwsS3Service awsS3Service;
+  private final String FILE_BASE_URL = "/study/";
 
   @Override
   @Transactional
@@ -64,8 +71,39 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
     studyHistoryRepository.save(studyHistory);
 
     Tag tag = tagService.addTagToStudyHistory(studyHistory, dto.getTagName());
-    // TODO : files
+
     return getOverview(studyHistory, tag);
+  }
+
+  @Override
+  @Transactional
+  public StudyHistoryOverviewDto createStudyHistory(StudyHistoryCreateDto dto,
+      MultipartFile timelapse, List<MultipartFile> files) {
+    StudyHistoryOverviewDto historyResult = this.createStudyHistory(dto);
+
+    FileResponseDto timelapseResult = awsS3Service.uploadFile(
+        historyResult.getMemberId() + FILE_BASE_URL + historyResult.getId() + "/timelapse",
+        timelapse);
+
+    File timelapseFile = fileService.findById(timelapseResult.getFileId())
+        .orElseThrow(() -> NotFoundException.FILE_NOT_FOUND);
+
+    StudyHistory history = this.findById(historyResult.getId())
+        .orElseThrow(() -> NotFoundException.STUDY_HISTORY_NOT_FOUND);
+    fileService.addFileToStudyHistory(timelapseFile, history);
+
+    for (MultipartFile file : files) {
+      FileResponseDto fileResult = awsS3Service.uploadFile(
+          historyResult.getMemberId() + FILE_BASE_URL + historyResult.getMemberId() + "/files",
+          file);
+      File f = fileService.findById(fileResult.getFileId())
+          .orElseThrow(() -> NotFoundException.FILE_NOT_FOUND);
+
+      StudyHistory h = this.findById(historyResult.getId())
+          .orElseThrow(() -> NotFoundException.STUDY_HISTORY_NOT_FOUND);
+      fileService.addFileToStudyHistory(f, h);
+    }
+    return historyResult;
   }
 
   @Override
@@ -162,6 +200,9 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
     studyHistoryFileRepository.deleteAllByStudyHistoryId(historyId);
     projectStudyHistoryRepository.deleteAllByStudyHistoryId(historyId);
     studyHistoryRepository.deleteById(historyId);
+  @Override
+  public Optional<StudyHistory> findById(Long historyId) {
+    return studyHistoryRepository.findById(historyId);
   }
 
   protected StudyHistoryOverviewDto getOverview(StudyHistory history, Tag tag) {
@@ -181,12 +222,12 @@ public class SimpleStudyHistoryService implements StudyHistoryService {
         .toList();
     List<File> fileList = studyHistory.getFileList().stream()
         .map(StudyHistoryFile::getFile)
-        .filter(file -> !FileType.of(file.getType()).equals(FileType.TIMELAPSE))
+        .filter(file -> !file.getUrl().contains("timelapse"))
         .toList();
 
     File timelapse = studyHistory.getFileList().stream()
         .map(StudyHistoryFile::getFile)
-        .filter(file -> FileType.of(file.getType()).equals(FileType.TIMELAPSE))
+        .filter(file -> file.getUrl().contains("timelapse"))
         .findFirst()
         .orElse(null);
 
