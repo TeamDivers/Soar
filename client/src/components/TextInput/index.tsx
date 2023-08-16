@@ -4,12 +4,14 @@ interface TextInputProps {
     value: string;
     onChange: (value: string) => void;
     placeholder?: string;
+    size?: 'lg' | 'sm';
 }
 
 const TextInput: React.FC<TextInputProps> = ({
     value,
     onChange,
-    placeholder
+    placeholder,
+    size = 'lg'
 }) => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         onChange(event.target.value);
@@ -21,7 +23,9 @@ const TextInput: React.FC<TextInputProps> = ({
             value={value}
             onChange={handleChange}
             placeholder={placeholder}
-            className="w-full rounded-[10px] border border-neutral-300 py-5 px-6 focus:outline-primary focus:border-primary"
+            className={`w-full font-normal rounded-[10px] border border-neutral-300 focus:outline-primary focus:border-primary ${
+                size === 'lg' ? 'py-5 px-6 text-base' : 'p-4 text-sm'
+            }`}
         />
     );
 };
