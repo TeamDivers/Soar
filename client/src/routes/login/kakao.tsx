@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@constants/index';
@@ -9,36 +9,29 @@ import { setAccessToken, setCookie, setRefreshToken } from '@utils/auth';
 const Kakao = () => {
     const navigate = useNavigate();
 
+    const [token, setToken] = useState<string | undefined>();
+
+    useEffect(() => {
+        if (token) {
+            setAccessToken(token);
+            navigate('/');
+        }
+    }, [token]);
+
     useEffect(() => {
         const params = new URL(document.location.toString()).searchParams;
-        const code = params.get('code');
-        console.log('🚀 ~ file: kakao.tsx:15 ~ useEffect ~ code:', code);
+        const token = params.get('token');
+        console.log('🚀 ~ file: kakao.tsx:15 ~ useEffect ~ token:', token);
 
         /** in case of user has problem with kakao auth server */
-        if (!code) {
+        if (token === null) {
             navigate('/login');
+            return;
         }
 
         try {
             /** send code to server and retrieve tokens */
-            // axios
-            //     .get(
-            //         `${process.env.API_BASE_URI}/login/oauth2/code/kakao?code=${code}`
-            //     )
-            //     .then((response) => {
-            //         const {
-            //             [ACCESS_TOKEN_KEY]: accessToken,
-            //             [REFRESH_TOKEN_KEY]: refreshToken
-            //         } = response.headers;
-            //         setAccessToken(accessToken);
-            //         setRefreshToken(refreshToken);
-            //         if (refreshToken) {
-            //             setCookie(REFRESH_TOKEN_KEY, refreshToken);
-            //             // `${REFRESH_TOKEN_KEY}=${refreshToken}; path=/; samesite=lax; httponly;`;
-            //         }
-            //
-            //     });
-            navigate('/');
+            setToken(token);
         } catch (err) {
             console.error(err);
             navigate('/login');

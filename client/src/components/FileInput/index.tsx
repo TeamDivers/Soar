@@ -2,9 +2,10 @@ import React, { useRef, useState } from 'react';
 
 interface FileInputProps {
     label: string;
+    onChange: (file: File) => void;
 }
 
-const FileInput = ({ label }: FileInputProps) => {
+const FileInput = ({ label, onChange }: FileInputProps) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -17,7 +18,10 @@ const FileInput = ({ label }: FileInputProps) => {
     const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
 
-        if (file) setSelectedFile(file);
+        if (file) {
+            setSelectedFile(file);
+            onChange(file);
+        }
     };
 
     return (
@@ -31,7 +35,9 @@ const FileInput = ({ label }: FileInputProps) => {
                             : 'border-neutral-300'
                     } text-sm font-semibold`}
                 >
-                    {label} 추가 +
+                    <span className="text-base font-semibold text-neutral-400">
+                        {label} 추가 +
+                    </span>
                 </button>
             )}
 

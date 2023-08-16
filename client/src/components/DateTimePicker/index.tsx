@@ -6,7 +6,7 @@ interface DateTimePickerProps {
     onChange: any;
 }
 
-const DateTimePicker = ({}: DateTimePickerProps) => {
+const DateTimePicker = ({ value, onChange }: DateTimePickerProps) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [selectedDate, setSelectedDate] = useState<string>(''); // Store selected date here
 
@@ -18,6 +18,7 @@ const DateTimePicker = ({}: DateTimePickerProps) => {
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedDate(event.target.value); // Update selected date
+        onChange(event.target.value);
     };
 
     return (
