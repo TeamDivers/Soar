@@ -1,0 +1,37 @@
+.picker-container div {
+    width: 100%;
+}
+
+.picker-container > div > div:first-child {
+    box-shadow: none !important;
+    border-radius: 20px !important;
+}
+
+.compact-picker {
+    width: 100% !important;
+    padding: 0px !important;
+}
+
+.compact-picker > div {
+    padding: 14px !important;
+    padding-right: 0px !important;
+    grid-template-rows: repeat(3, minmax(0, 1fr)) !important;
+    row-gap: 8px;
+    display: grid !important;
+    width: 100% !important;
+    grid-auto-flow: column !important;
+}
+
+.compact-picker > div > span {
+    width: fit-content !important;
+}
+
+.compact-picker > div > span > div {
+    width: 22px !important;
+    height: 22px !important;
+    margin: 0px !important;
+}
+
+.compact-picker .flexbox-fix {
+    display: none !important;
+}
