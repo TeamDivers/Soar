@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 
 import RoundButton from '@components/RoundButton';
@@ -5,6 +6,10 @@ import RoundButton from '@components/RoundButton';
 import { Google, Kakao, Logo } from '@images/index';
 
 const Login = () => {
+    const handleKakaoLogin = () => {
+        axios.get('http://117.16.137.205:8080/oauth2/authorization/kakao');
+    };
+
     return (
         <div className="flex items-center justify-center min-h-screen bg-white">
             <div className="flex flex-col items-center justify-center">
@@ -16,11 +21,7 @@ const Login = () => {
             <div className="fixed max-w-md mx-auto bottom-[80px] w-full px-4 flex flex-col gap-[10px]">
                 <RoundButton
                     backgroundColor="#FEE500"
-                    onClick={() => {
-                        const CLIENT_ID = process.env.REACT_APP_REST_API_KEY;
-                        const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URL;
-                        location.href = `${process.env.KAKAO_BASE_URI}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-                    }}
+                    onClick={handleKakaoLogin}
                 >
                     <div className="relative flex justify-center w-full">
                         <Kakao className="absolute left-[18px]" />
