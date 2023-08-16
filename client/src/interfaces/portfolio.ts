@@ -33,6 +33,7 @@ interface PortfolioType {
     projects: Project[];
     reviews: Review[];
     tags: Tags;
+    thumbnailURL: string;
 }
 
 interface Tags {
