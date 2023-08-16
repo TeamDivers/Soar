@@ -13,4 +13,6 @@ public interface PortfolioRepository extends JpaRepository<Portfolio, Long> {
 
   List<Portfolio> findByMemberId(Long memberId, Pageable pageable);
 
+  List<Portfolio> findAllByTitleContainingOrDescriptionContaining(String titleKeyword,
+      String descriptionKeyword, Pageable pageable);
 }

@@ -69,4 +69,17 @@ public class PortfolioController {
     PortfolioOverviewDto result = portfolioService.createPortfolio(dto);
     return BaseResponse.success(result);
   }
+
+  @Operation(summary = "포트폴리오 키워드로 검색", description = "포트폴리오 검색 API")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "정상적으로 성공", content = @Content(schema = @Schema(implementation = PortfolioOverviewDto.class)))
+  })
+  @GetMapping("/search")
+  public BaseResponse<List<PortfolioOverviewDto>> updateMember(
+      @RequestParam String keyword, @RequestParam Integer size) {
+    List<PortfolioOverviewDto> result = portfolioService.searchByKeyword(keyword,
+        size);
+    return BaseResponse.success(result);
+  }
+
 }

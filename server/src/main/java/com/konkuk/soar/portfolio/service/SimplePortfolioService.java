@@ -176,13 +176,26 @@ public class SimplePortfolioService implements PortfolioService {
   }
 
   @Override
+  @Transactional
   public List<PortfolioResponseDto> getPortfolioListByBookmark(Long memberId) {
     return null;
   }
 
   @Override
+  @Transactional
   public List<PortfolioResponseDto> getPortfolioListByPopular() {
     return null;
+  }
+
+  @Override
+  @Transactional
+  public List<PortfolioOverviewDto> searchByKeyword(String keyword, int size) {
+    List<Portfolio> list = portfolioRepository.findAllByTitleContainingOrDescriptionContaining(
+        keyword, keyword, Pageable.ofSize(size));
+    return list.stream().map(
+            pf -> getOverview(pf, getRankByPortfolioScore(pf), getScore(pf))
+        )
+        .toList();
   }
 
   protected PortfolioOverviewDto getOverview(Portfolio portfolio, Integer rank, Float score) {
