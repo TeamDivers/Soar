@@ -1,10 +1,9 @@
 import { useQuery } from 'react-query';
 
-import { PortfolioType } from 'src/types/portfolio';
+import { OPTION } from '@interfaces/option';
+import { PortfolioType } from '@interfaces/portfolio';
 
 import { request } from '../axios';
-
-import { OPTION } from './../../types/option';
 
 interface PortfolioRequestParams {
     memberId: number;

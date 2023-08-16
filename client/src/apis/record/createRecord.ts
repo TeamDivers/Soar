@@ -4,8 +4,6 @@ import { queryClient } from '@configs/reactQuery';
 
 import { request } from '../axios';
 
-import { RecordType } from './getRecords';
-
 export interface CreateRecordType {
     content: string;
     isPublic: boolean;

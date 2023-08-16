@@ -1,15 +1,13 @@
 import { useQuery } from 'react-query';
 
+import { OPTION } from '@interfaces/option';
+import { RecordType } from '@interfaces/record';
+
 import { request } from '../axios';
 
-export interface RecordType {
-    id: number;
-    type: string;
-    content: string;
+interface RecordRequestParams {
     memberId: number;
-    category: string;
-    startDate: string;
-    endDate: string;
+    option: OPTION;
 }
 
 const getRecord = (historyId: number) => {
@@ -19,15 +17,19 @@ const getRecord = (historyId: number) => {
     });
 };
 
-const getRecords = () => {
+const getRecords = ({ memberId, option }: RecordRequestParams) => {
     return request<RecordType[]>({
         method: 'GET',
-        url: '/studyhistories'
+        url: '/studyhistories',
+        params: { memberId, option }
     });
 };
 
-export const useGetRecords = () => {
-    return useQuery(['records'], () => getRecords());
+export const useGetRecords = ({
+    memberId,
+    option = 'newest'
+}: RecordRequestParams) => {
+    return useQuery(['records'], () => getRecords({ memberId, option }));
 };
 
 export const useGetRecord = ({ historyId }: { historyId: number }) => {
