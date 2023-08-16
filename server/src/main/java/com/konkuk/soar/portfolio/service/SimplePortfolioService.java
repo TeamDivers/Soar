@@ -133,15 +133,13 @@ public class SimplePortfolioService implements PortfolioService {
       case OLDEST:
         res = portfolioRepository.findByMemberIdOrderByCreateAtAsc(memberId);
         break;
-      case RANK:
-        res = null;
-        break;
       case PUBLIC:
         res = portfolioRepository.findByMemberIdAndIsPublic(memberId, true);
         break;
       case PRIVATE:
         res = portfolioRepository.findByMemberIdAndIsPublic(memberId, false);
         break;
+      case RANK:
       default:
         res = portfolioRepository.findByMemberId(memberId);
         break;
@@ -154,6 +152,15 @@ public class SimplePortfolioService implements PortfolioService {
     }
 
     throw new RuntimeException();
+  }
+
+  @Override
+  @Transactional
+  public List<PortfolioResponseDto> getPortfolioList() {
+    return portfolioRepository.findAll().stream()
+        .map(pf -> getResponseDto(pf, getRankByPortfolioScore(pf), getScore(pf), getUrl(pf)))
+        .toList();
+
   }
 
   @Override

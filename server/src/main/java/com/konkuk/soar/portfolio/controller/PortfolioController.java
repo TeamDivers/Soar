@@ -61,12 +61,18 @@ public class PortfolioController {
       @ApiResponse(responseCode = "200", description = "정상적으로 리스트 조회 성공", content = @Content(schema = @Schema(implementation = PortfolioResponseDto.class)))
   })
   @GetMapping
-  public BaseResponse<List<PortfolioResponseDto>> getPortfolioList(@RequestParam Long memberId,
-      @RequestParam String option,
+  public BaseResponse<List<PortfolioResponseDto>> getPortfolioList(
+      @RequestParam(required = false) Long memberId,
+      @RequestParam(required = false) String option,
       @RequestParam(required = false, defaultValue = "5") Integer size) {
-    OptionType optionType = OptionType.of(option);
-    List<PortfolioResponseDto> result = portfolioService.getPortfolioListByMember(
-        memberId, optionType);
+    List<PortfolioResponseDto> result;
+    if (memberId != null) {
+      OptionType optionType = OptionType.of(option);
+      result = portfolioService.getPortfolioListByMember(
+          memberId, optionType);
+    } else {
+      result = portfolioService.getPortfolioList();
+    }
     return BaseResponse.success(result);
   }
 

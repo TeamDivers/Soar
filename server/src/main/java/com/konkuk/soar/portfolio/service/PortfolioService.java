@@ -22,6 +22,8 @@ public interface PortfolioService {
 
   List<PortfolioResponseDto> getPortfolioListByMember(Long memberId, OptionType optionType);
 
+  List<PortfolioResponseDto> getPortfolioList();
+
   Integer getRankByPortfolioScore(Long portfolioId);
 
 
