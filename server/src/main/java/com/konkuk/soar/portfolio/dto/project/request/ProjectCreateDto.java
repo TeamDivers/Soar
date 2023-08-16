@@ -7,10 +7,12 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @NoArgsConstructor
 @Schema(description = "프로젝트를 생성할 때 필요한 request body dto")
+@ToString
 public class ProjectCreateDto {
 
   @Schema(name = "프로젝트 제목")

@@ -4,8 +4,11 @@ import com.konkuk.soar.common.domain.File;
 import com.konkuk.soar.common.dto.file.request.FileCreateDto;
 import com.konkuk.soar.common.dto.file.response.FileResponseDto;
 import com.konkuk.soar.common.repository.FileRepository;
+import com.konkuk.soar.portfolio.domain.portfolio.Portfolio;
+import com.konkuk.soar.portfolio.domain.portfolio.PortfolioFile;
 import com.konkuk.soar.portfolio.domain.project.Project;
 import com.konkuk.soar.portfolio.domain.project.ProjectFile;
+import com.konkuk.soar.portfolio.repository.PortfolioFileRepository;
 import com.konkuk.soar.portfolio.repository.project.ProjectFileRepository;
 import com.konkuk.soar.studyhistory.domain.StudyHistory;
 import com.konkuk.soar.studyhistory.domain.StudyHistoryFile;
@@ -22,6 +25,7 @@ public class SimpleFileService implements FileService {
   private final FileRepository fileRepository;
   private final StudyHistoryFileRepository studyHistoryFileRepository;
   private final ProjectFileRepository projectFileRepository;
+  private final PortfolioFileRepository portfolioFileRepository;
 
   @Override
   @Transactional
@@ -58,6 +62,18 @@ public class SimpleFileService implements FileService {
   public FileResponseDto addFileToProject(File file, Project project) {
     ProjectFile saved = projectFileRepository.save(ProjectFile.builder()
         .project(project)
+        .file(file)
+        .build());
+    return FileResponseDto.builder()
+        .file(saved.getFile())
+        .build();
+  }
+
+  @Override
+  @Transactional
+  public FileResponseDto addFileToPortfolio(File file, Portfolio portfolio) {
+    PortfolioFile saved = portfolioFileRepository.save(PortfolioFile.builder()
+        .portfolio(portfolio)
         .file(file)
         .build());
     return FileResponseDto.builder()

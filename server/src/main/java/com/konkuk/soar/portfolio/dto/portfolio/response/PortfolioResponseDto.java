@@ -38,6 +38,8 @@ public class PortfolioResponseDto {
   private Integer rank;
   @Schema(name = "해당 포트폴리오의 별점 평균")
   private Float score;
+  @Schema(name = "썸네일 주소")
+  private String thumbnailURL;
 
   @Schema(name = "해당 포트폴리오에 들어있는 프로젝트 리스트")
   private List<ProjectResponseDto> projects = new ArrayList<>();
@@ -50,7 +52,7 @@ public class PortfolioResponseDto {
   @Builder
   public PortfolioResponseDto(Portfolio portfolio, Member member,
       List<ProjectResponseDto> projectList, Integer rank, Float score,
-      List<PortfolioReview> reviewList, List<Tag> tagList, Integer bookmark) {
+      List<PortfolioReview> reviewList, String thumbnailURL, List<Tag> tagList, Integer bookmark) {
 
     this.portfolioId = portfolio.getId();
     this.memberId = member.getId();
@@ -60,6 +62,7 @@ public class PortfolioResponseDto {
     this.bookmark = bookmark;
     this.rank = rank;
     this.score = score;
+    this.thumbnailURL = thumbnailURL;
 
     if (reviewList != null) {
       this.reviews = reviewList.stream()

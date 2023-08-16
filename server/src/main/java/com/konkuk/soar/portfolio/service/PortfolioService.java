@@ -9,6 +9,7 @@ import com.konkuk.soar.portfolio.enums.OptionType;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface PortfolioService {
 
@@ -30,4 +31,6 @@ public interface PortfolioService {
   List<PortfolioResponseDto> getPortfolioListByPopular();
 
   List<PortfolioOverviewDto> searchByKeyword(String keyword, int size);
+
+  PortfolioOverviewDto createPortfolio(PortfolioCreateDto createDto, MultipartFile thumbnail);
 }

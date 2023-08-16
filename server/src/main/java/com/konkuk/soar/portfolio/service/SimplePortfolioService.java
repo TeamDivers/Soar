@@ -1,6 +1,10 @@
 package com.konkuk.soar.portfolio.service;
 
+import com.konkuk.soar.common.domain.File;
 import com.konkuk.soar.common.domain.Tag;
+import com.konkuk.soar.common.dto.file.response.FileResponseDto;
+import com.konkuk.soar.common.service.AwsS3Service;
+import com.konkuk.soar.common.service.FileService;
 import com.konkuk.soar.common.service.TagService;
 import com.konkuk.soar.global.exception.NotFoundException;
 import com.konkuk.soar.member.domain.Member;
@@ -28,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @Service
@@ -39,6 +44,10 @@ public class SimplePortfolioService implements PortfolioService {
   private final ProjectService projectService;
   private final MemberService memberService;
   private final TagService tagService;
+  private final AwsS3Service awsS3Service;
+  private final FileService fileService;
+
+  private final String FILE_BASE_URL = "/portfolio";
 
   @Override
   @Transactional
@@ -83,7 +92,17 @@ public class SimplePortfolioService implements PortfolioService {
         .orElseThrow(() -> NotFoundException.PORTFOLIO_NOT_FOUND);
     Integer rank = getRankByPortfolioScore(portfolio);
     float score = getScore(portfolio);
-    return getResponseDto(portfolio, rank, score);
+    String url = getUrl(portfolio);
+
+    return getResponseDto(portfolio, rank, score, url);
+  }
+
+  private static String getUrl(Portfolio portfolio) {
+    String url = null;
+    if (portfolio.getFileList().size() == 1) {
+      url = portfolio.getFileList().get(0).getFile().getUrl();
+    }
+    return url;
   }
 
   @Override
@@ -121,7 +140,7 @@ public class SimplePortfolioService implements PortfolioService {
 
     if (res != null) {
       return res.stream()
-          .map(pf -> getResponseDto(pf, getRankByPortfolioScore(pf), getScore(pf)))
+          .map(pf -> getResponseDto(pf, getRankByPortfolioScore(pf), getScore(pf), getUrl(pf)))
           .collect(Collectors.toList());
     }
 
@@ -198,6 +217,23 @@ public class SimplePortfolioService implements PortfolioService {
         .toList();
   }
 
+  @Override
+  @Transactional
+  public PortfolioOverviewDto createPortfolio(PortfolioCreateDto createDto,
+      MultipartFile thumbnail) {
+    PortfolioOverviewDto portfolioResult = createPortfolio(createDto);
+    Portfolio portfolio = portfolioRepository.findById(portfolioResult.getPortfolioId())
+        .orElseThrow(() -> NotFoundException.PORTFOLIO_NOT_FOUND);
+    FileResponseDto thumbnailResult = awsS3Service.uploadFile(
+        portfolioResult.getMemberId() + FILE_BASE_URL + portfolioResult.getPortfolioId() + "/files",
+        thumbnail);
+    File file = fileService.findById(thumbnailResult.getFileId())
+        .orElseThrow(() -> NotFoundException.FILE_NOT_FOUND);
+
+    fileService.addFileToPortfolio(file, portfolio);
+    return portfolioResult;
+  }
+
   protected PortfolioOverviewDto getOverview(Portfolio portfolio, Integer rank, Float score) {
     List<PortfolioBookmark> bookmarkList = portfolio.getBookmarkList();
     List<Tag> tagList = portfolio.getTagList().stream()
@@ -214,7 +250,8 @@ public class SimplePortfolioService implements PortfolioService {
         .build();
   }
 
-  protected PortfolioResponseDto getResponseDto(Portfolio portfolio, Integer rank, Float score) {
+  protected PortfolioResponseDto getResponseDto(Portfolio portfolio, Integer rank, Float score,
+      String thumbnailURL) {
     Member member = portfolio.getMember();
     List<PortfolioBookmark> bookmarkList = portfolio.getBookmarkList();
     List<ProjectResponseDto> projectList = portfolio.getProjectList().stream()
@@ -242,6 +279,7 @@ public class SimplePortfolioService implements PortfolioService {
         .tagList(tagList)
         .reviewList(reviewList)
         .rank(rank)
+        .thumbnailURL(thumbnailURL)
         .score(score)
         .projectList(projectList)
         .bookmark(bookmarkList.size())
