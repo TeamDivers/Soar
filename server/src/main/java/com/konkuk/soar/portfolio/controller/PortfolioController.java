@@ -63,7 +63,7 @@ public class PortfolioController {
       @RequestParam(required = false, defaultValue = "5") Integer size) {
     OptionType optionType = OptionType.of(option);
     List<PortfolioResponseDto> result = portfolioService.getPortfolioListByMember(
-        memberId, optionType, size);
+        memberId, optionType);
     return BaseResponse.success(result);
   }
 
@@ -110,8 +110,7 @@ public class PortfolioController {
   @GetMapping("/search")
   public BaseResponse<List<PortfolioOverviewDto>> updateMember(
       @RequestParam String keyword, @RequestParam Integer size) {
-    List<PortfolioOverviewDto> result = portfolioService.searchByKeyword(keyword,
-        size);
+    List<PortfolioOverviewDto> result = portfolioService.searchByKeyword(keyword);
     return BaseResponse.success(result);
   }
 

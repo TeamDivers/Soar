@@ -29,7 +29,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -112,29 +111,27 @@ public class SimplePortfolioService implements PortfolioService {
 
   @Override
   @Transactional
-  public List<PortfolioResponseDto> getPortfolioListByMember(Long memberId, OptionType optionType,
-      Integer size) {
+  public List<PortfolioResponseDto> getPortfolioListByMember(Long memberId, OptionType optionType) {
 
     List<Portfolio> res;
     switch (optionType) {
       case NEWEST:
-        res = portfolioRepository.findByMemberIdOrderByCreateAtDesc(memberId,
-            Pageable.ofSize(size));
+        res = portfolioRepository.findByMemberIdOrderByCreateAtDesc(memberId);
         break;
       case OLDEST:
-        res = portfolioRepository.findByMemberIdOrderByCreateAtAsc(memberId, Pageable.ofSize(size));
+        res = portfolioRepository.findByMemberIdOrderByCreateAtAsc(memberId);
         break;
       case RANK:
         res = null;
         break;
       case PUBLIC:
-        res = portfolioRepository.findByMemberIdAndIsPublic(memberId, true, Pageable.ofSize(size));
+        res = portfolioRepository.findByMemberIdAndIsPublic(memberId, true);
         break;
       case PRIVATE:
-        res = portfolioRepository.findByMemberIdAndIsPublic(memberId, false, Pageable.ofSize(size));
+        res = portfolioRepository.findByMemberIdAndIsPublic(memberId, false);
         break;
       default:
-        res = portfolioRepository.findByMemberId(memberId, Pageable.ofSize(size));
+        res = portfolioRepository.findByMemberId(memberId);
         break;
     }
 
@@ -208,9 +205,9 @@ public class SimplePortfolioService implements PortfolioService {
 
   @Override
   @Transactional
-  public List<PortfolioOverviewDto> searchByKeyword(String keyword, int size) {
+  public List<PortfolioOverviewDto> searchByKeyword(String keyword) {
     List<Portfolio> list = portfolioRepository.findAllByTitleContainingOrDescriptionContaining(
-        keyword, keyword, Pageable.ofSize(size));
+        keyword, keyword);
     return list.stream().map(
             pf -> getOverview(pf, getRankByPortfolioScore(pf), getScore(pf))
         )
