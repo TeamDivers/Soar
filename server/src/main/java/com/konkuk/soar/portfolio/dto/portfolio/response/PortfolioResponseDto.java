@@ -34,9 +34,9 @@ public class PortfolioResponseDto {
   private String category;
   @Schema(description = "해당 포트폴리오 북마크 수")
   private Integer bookmark;
-  @Schema(name = "해당 포트폴리오의 등수")
+  @Schema(description = "해당 포트폴리오의 등수")
   private Integer rank;
-  @Schema(name = "해당 포트폴리오의 별점 평균")
+  @Schema(description = "해당 포트폴리오의 별점 평균")
   private Float score;
 
   @Schema(description = "해당 포트폴리오에 들어있는 프로젝트 리스트")
