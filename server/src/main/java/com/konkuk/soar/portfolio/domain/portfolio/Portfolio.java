@@ -62,6 +62,10 @@ public class Portfolio extends BaseTime {
 
   @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY)
   @Setter(AccessLevel.NONE)
+  private List<PortfolioFile> fileList = new ArrayList<>();
+
+  @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY)
+  @Setter(AccessLevel.NONE)
   private List<Project> projectList = new ArrayList<>();
 
   @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY)
@@ -80,6 +84,7 @@ public class Portfolio extends BaseTime {
   @Builder
   public Portfolio(String title, String description, String category, boolean isPublic,
       Member member) {
+
     this.title = title;
     this.description = description;
     this.category = category;
