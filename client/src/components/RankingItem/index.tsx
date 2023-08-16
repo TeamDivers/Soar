@@ -16,7 +16,7 @@ const RankingItem = (props: RankingItem) => {
         <div className="flex items-center justify-between w-full">
             <div className="flex items-center">
                 {/* SB AggroOTF */}
-                <span className="text-xs font-normal leading-snug text-neutral-600 mr-[6px]">
+                <span className="text-xs font-normal leading-snug text-neutral-600 mr-[6px] aggro">
                     {props.rank}
                 </span>
                 <div className="mr-6">

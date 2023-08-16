@@ -1,7 +1,11 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
+import { useGetMember } from '@apis/member/getMember';
+
 import BottomNavigation from '@components/BottomNavigation';
+
+import { getMemberId } from '@utils/auth';
 
 import { Logo } from '../../assets/images';
 
@@ -22,6 +26,10 @@ const Layout = ({
     right = () => <></>,
     children
 }: LayoutProps) => {
+    const { data: member } = useGetMember({
+        memberId: parseInt(getMemberId())
+    });
+
     return (
         <main
             className={`container relative h-screen max-w-md mx-auto bg-white overflow-y-scroll hide-scrollbar`}
@@ -31,7 +39,7 @@ const Layout = ({
                     {title || <Logo className="w-16" />}
                     {hasProfile ? (
                         <img
-                            src="https://placehold.co/400"
+                            src={member?.thumbnail}
                             className="w-10 h-10 rounded-full"
                         />
                     ) : (

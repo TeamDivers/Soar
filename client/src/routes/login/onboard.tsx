@@ -15,7 +15,7 @@ const OnBoard = () => {
     return (
         <div className="flex flex-col pt-5">
             <img src={OnBoardImg} className="max-h-[463px] object-fit" />
-            <h1 className="text-neutral-700 text-[26px] font-normal mx-auto text-center mt-10 mb-[10px] leading-[31px]">
+            <h1 className="text-neutral-700 text-[26px] font-normal mx-auto text-center mt-10 mb-[10px] leading-[31px] aggro">
                 {/* SB AggroOTF */}
                 단순 공부 뿐만 아닌, <br />
                 포트폴리오까지! <br />

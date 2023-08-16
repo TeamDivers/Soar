@@ -29,7 +29,7 @@ const PortfolioCard = ({
     return (
         <div className="relative">
             {ranking && (
-                <div className="absolute left-2 top-2 bg-blue-600 rounded-[11px] text-white text-xs font-normal pt-[5px] px-2 pb-[3px] z-10">
+                <div className="aggro absolute left-2 top-2 bg-blue-600 rounded-[11px] text-white text-xs font-normal pt-[5px] px-2 pb-[3px] z-10">
                     {/* SB AggroOTF */}
                     {ranking}위
                 </div>

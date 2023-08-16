@@ -69,7 +69,7 @@ const PortfolioDetail = () => {
                     </button>
                     <div className="flex flex-col items-center gap-1 text-xl font-bold text-white">
                         <h1>{portfolio?.title}</h1>
-                        <div className="flex items-baseline gap-1 text-xs font-normal text-white">
+                        <div className="flex items-baseline gap-1 text-xs font-normal text-white aggro">
                             {/* SB AggroOTF */}
                             <Star fill="#FFA800" /> 4.5
                         </div>

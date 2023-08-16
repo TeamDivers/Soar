@@ -146,7 +146,7 @@ const Ranking = () => {
                                     className="w-10 h-10 rounded-full"
                                 />
                                 <div className="flex flex-col">
-                                    <span className="text-base font-normal text-black mb-[2px]">
+                                    <span className="text-base font-normal text-black mb-[2px] aggro">
                                         {/* SB AggroOTF */}
                                         전진호님의 랭킹
                                     </span>
