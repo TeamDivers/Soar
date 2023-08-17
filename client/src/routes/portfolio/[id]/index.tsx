@@ -78,8 +78,17 @@ const PortfolioDetail = () => {
                             <Star fill="#FFA800" /> 4.5
                         </div>
                     </div>
-                    <button>
-                        <Setting style={{ marginTop: 6 }} />
+                    <button
+                        onClick={handleBookmark}
+                        className="flex items-center justify-center pt-1"
+                    >
+                        <Star
+                            fill={hasRated ? '#FFA800' : '#ffffff'}
+                            style={{
+                                width: 18,
+                                height: 'auto'
+                            }}
+                        />
                     </button>
                 </div>
                 {/* Profile */}
@@ -138,23 +147,6 @@ const PortfolioDetail = () => {
                                         {project.description}
                                     </div>
                                     <div className="relative">
-                                        <button
-                                            onClick={handleBookmark}
-                                            style={{
-                                                backgroundColor: hasRated
-                                                    ? '#FFA800'
-                                                    : '#BABABA'
-                                            }}
-                                            className="flex justify-center items-center absolute w-[60px] h-[60px] rounded-full shadow-md right-0 top-[-8px]"
-                                        >
-                                            <Star
-                                                fill="#ffffff"
-                                                style={{
-                                                    width: 30,
-                                                    height: 'auto'
-                                                }}
-                                            />
-                                        </button>
                                         <RoundButton
                                             backgroundColor={color}
                                             onClick={function (): void {
