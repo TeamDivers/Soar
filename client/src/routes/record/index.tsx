@@ -74,7 +74,7 @@ const Record = () => {
                 <ListView data={data} />
             )}
             <div
-                className="fixed bottom-[120px] px-4 max-w-md"
+                className="fixed bottom-[120px] px-4 max-w-md z-50"
                 style={{ width: '-webkit-fill-available' }}
             >
                 <RoundButton onClick={handleOnClickCreateRecord}>
