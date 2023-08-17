@@ -9,10 +9,14 @@ import SortSelector from '@components/SortSelector';
 
 import { Plus } from '@images/index';
 
+import { getMemberId } from '@utils/auth';
+
 const Portfolio = () => {
     const navigate = useNavigate();
 
-    const { data: portfolios } = useGetPortfolios({ memberId: 1 });
+    const { data: portfolios } = useGetPortfolios({
+        memberId: parseInt(getMemberId())
+    });
 
     const onDeletePortfolio = () => {};
 

@@ -78,9 +78,9 @@ const PortfolioCard = ({
                         {portfolio.description}
                     </div>
                     <div className="text-xs font-normal text-neutral-400 leading-[14.32px]">
-                        {moment(portfolio.projects[0]?.startDate || '').format(
-                            'YYYY.MM.DD'
-                        )}
+                        {moment(
+                            portfolio.projects[0]?.startDate || new Date()
+                        ).format('YYYY.MM.DD')}
                     </div>
                 </div>
             </div>
