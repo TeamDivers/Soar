@@ -13,8 +13,10 @@ import { WEEKDAY } from '@constants/calendar';
 
 import { text2Color } from '@utils/color';
 
+import { RecordType } from '@interfaces/record';
+
 interface CalendarViewProps {
-    data: any[];
+    data: RecordType[];
     value: any;
     setValue: any;
 }
@@ -23,7 +25,7 @@ const CalendarView = ({ data, value, setValue }: CalendarViewProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState<{
         date: Date | undefined;
-        data: any[];
+        data: RecordType[];
     }>({ date: undefined, data: [] });
 
     const close = () => setIsOpen(false);
@@ -86,7 +88,7 @@ const CalendarView = ({ data, value, setValue }: CalendarViewProps) => {
                         <div className="flex items-center justify-center h-3 gap-[2px]">
                             {data.map((v) => {
                                 if (moment(v.startDate).isSame(date, 'day')) {
-                                    const color = text2Color(v.category);
+                                    const color = text2Color(v.tagName);
                                     return (
                                         <div
                                             key={v.id}
@@ -110,12 +112,12 @@ const CalendarView = ({ data, value, setValue }: CalendarViewProps) => {
                             return (
                                 <div key={v.id} className="flex gap-3">
                                     <Dot
-                                        color={text2Color(v.category)}
+                                        color={text2Color(v.tagName)}
                                         size={24}
                                     />
                                     <div className="flex flex-col">
                                         <span className="text-base font-semibold text-black">
-                                            {v.category}
+                                            {v.tagName}
                                         </span>
                                         <span className="text-xs font-medium text-neutral-400">
                                             {moment(v.startDate).format(
