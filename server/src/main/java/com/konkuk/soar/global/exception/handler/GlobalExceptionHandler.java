@@ -16,11 +16,10 @@ public class GlobalExceptionHandler {
     return BaseResponse.fail(status, new ExceptionResult(e.getMessage()));
   }
 
-  @ExceptionHandler({RuntimeException.class})
-  protected BaseResponse<ExceptionResult> handleDefaultException(RuntimeException e) {
-    BaseResponseStatus status = BaseResponseStatus.INTERNAL_SERVER_ERROR;
-    return BaseResponse.fail(status, new ExceptionResult(e.getMessage()));
-  }
-
+//  @ExceptionHandler({RuntimeException.class})
+//  protected BaseResponse<ExceptionResult> handleDefaultException(RuntimeException e) {
+//    BaseResponseStatus status = BaseResponseStatus.INTERNAL_SERVER_ERROR;
+//    return BaseResponse.fail(status, new ExceptionResult(e.getMessage()));
+//  }
 
 }

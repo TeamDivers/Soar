@@ -8,6 +8,7 @@ import com.konkuk.soar.common.service.FileService;
 import com.konkuk.soar.common.service.TagService;
 import com.konkuk.soar.global.exception.NotFoundException;
 import com.konkuk.soar.member.domain.Member;
+import com.konkuk.soar.member.repository.MemberRepository;
 import com.konkuk.soar.member.service.MemberService;
 import com.konkuk.soar.portfolio.domain.portfolio.Portfolio;
 import com.konkuk.soar.portfolio.domain.portfolio.PortfolioBookmark;
@@ -30,6 +31,7 @@ import com.konkuk.soar.portfolio.repository.PortfolioReviewRepository;
 import com.konkuk.soar.portfolio.repository.PortfolioTagRepository;
 import com.konkuk.soar.portfolio.repository.project.ProjectFileRepository;
 import com.konkuk.soar.portfolio.repository.project.ProjectStudyHistoryRepository;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -51,6 +53,7 @@ public class SimplePortfolioService implements PortfolioService {
 
   private final ProjectStudyHistoryRepository projectStudyHistoryRepository;
   private final ProjectFileRepository projectFileRepository;
+  private final MemberRepository memberRepository;
 
   private final ProjectService projectService;
   private final MemberService memberService;
@@ -324,6 +327,23 @@ public class SimplePortfolioService implements PortfolioService {
     portfolioTagRepository.deleteAll(ptList);
 
     portfolioRepository.deleteById(portfolioId);
+  }
+
+  @Override
+  @Transactional
+  public List<PortfolioResponseDto> getPortfolioRank() {
+    List<Portfolio> list = portfolioRepository.findAll()
+        .stream().sorted(new Comparator<Portfolio>() {
+          @Override
+          public int compare(Portfolio o1, Portfolio o2) {
+            return (getScore(o1) > getScore(o2)) ? -1 : 1;
+          }
+        })
+        .toList();
+    return list.subList(0, 4)
+        .stream()
+        .map(pf -> getResponseDto(pf, getRankByPortfolioScore(pf), getScore(pf), getUrl(pf)))
+        .toList();
   }
 
   protected PortfolioResponseDto getResponseDto(Portfolio portfolio, Integer rank, Float score,

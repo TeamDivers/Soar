@@ -40,4 +40,6 @@ public interface PortfolioService {
   PortfolioOverviewDto createPortfolio(PortfolioCreateDto createDto, MultipartFile thumbnail);
 
   void deletePortfolio(Long portfolioId);
+
+  List<PortfolioResponseDto> getPortfolioRank();
 }

@@ -72,8 +72,10 @@ public class PortfolioController {
       OptionType optionType = OptionType.of(option);
       result = portfolioService.getPortfolioListByMember(
           memberId, optionType);
-    } else {
+    } else if(option == null){
       result = portfolioService.getPortfolioList();
+    } else {
+      result = portfolioService.getPortfolioRank();
     }
     return BaseResponse.success(result);
   }
