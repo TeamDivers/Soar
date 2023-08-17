@@ -1,4 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { useSearchPortfolios } from '@apis/portfolio/getPortfolio';
 
 import Layout from '@components/layout';
 import PortfolioCard from '@components/PortfolioCard';
@@ -11,9 +14,14 @@ import { Left, Search as SearchIcon } from '@images/index';
 import useTextInput from '@hooks/useTextInput';
 
 const Search = () => {
+    const navigate = useNavigate();
     const [tabIndex, setTabIndex] = useState(0);
     const { value: searchKeyword, onChange: onChangeSearchKeyword } =
         useTextInput();
+
+    const { data: result, refetch } = useSearchPortfolios({
+        keyword: searchKeyword
+    });
 
     const portfolioSearchResults = [{ id: 1 }, { id: 2 }];
 
@@ -35,7 +43,16 @@ const Search = () => {
     const renderPortfolioSearchResult = () => {
         return (
             <div className="flex flex-col gap-3 p-4">
-                {/* <PortfolioCard ranking={12} size="sm" /> */}
+                {result?.map((v) => {
+                    return (
+                        <PortfolioCard
+                            key={v.portfolioId}
+                            ranking={12}
+                            size="sm"
+                            portfolio={v}
+                        />
+                    );
+                })}
             </div>
         );
     };
@@ -56,8 +73,8 @@ const Search = () => {
                     searchKeyword.length > 0 ? 'mb-[8px]' : 'mb-6'
                 }`}
             >
-                <button>
-                    <Left style={{ width: 8 }} />
+                <button onClick={() => navigate(-1)}>
+                    <Left style={{ width: 8 }} stroke="#A0A0A0" />
                 </button>
                 <SearchInput
                     value={searchKeyword}

@@ -13,6 +13,8 @@ import RoundButton from '@components/RoundButton';
 
 import { Search } from '@images/index';
 
+import { getMemberId } from '@utils/auth';
+
 const SearchButton = () => {
     const navigate = useNavigate();
 
@@ -26,6 +28,9 @@ const SearchButton = () => {
 const Ranking = () => {
     const navigate = useNavigate();
     const { data: portfolios } = useGetPortfolios({ option: 'rank' });
+    const { data: myPortfolios } = useGetPortfolios({
+        memberId: parseInt(getMemberId())
+    });
 
     const categories = Array.from(
         new Set(
@@ -60,7 +65,7 @@ const Ranking = () => {
             <div className="mt-4">
                 <ChipList chips={categories} onClick={onClickChip} />
             </div>
-            <div className="flex items-end justify-center gap-6 mt-10">
+            <div className="flex items-end justify-center gap-6 px-2 mt-10">
                 <div
                     className="flex flex-col items-center gap-5"
                     onClick={() => {
@@ -128,7 +133,10 @@ const Ranking = () => {
                             key={portfolio.portfolioId}
                             rank={portfolio.rank}
                             isAscending={Math.random() < 0.5}
-                            thumbnail={portfolio?.thumbnailURL}
+                            thumbnail={
+                                portfolio?.thumbnailURL ||
+                                'http://placehold.co/200'
+                            }
                             title={portfolio.title}
                             desc={portfolio?.description}
                             rating={portfolio.score}
@@ -142,7 +150,7 @@ const Ranking = () => {
                         <div className="flex items-start justify-between px-5 mb-2">
                             <div className="flex gap-[10px] items-center">
                                 <img
-                                    src="https://placehold.co/200"
+                                    src="https://placehold.co/200?text=jjh"
                                     className="w-10 h-10 rounded-full"
                                 />
                                 <div className="flex flex-col">
@@ -151,7 +159,7 @@ const Ranking = () => {
                                         전진호님의 랭킹
                                     </span>
                                     <span className="text-sm font-normal text-neutral-400">
-                                        총 4개의 포트폴리오
+                                        총 {myPortfolios?.length}개의 포트폴리오
                                     </span>
                                 </div>
                             </div>
@@ -164,12 +172,16 @@ const Ranking = () => {
                             </button>
                         </div>
                         <div className="flex flex-col gap-2 px-5 py-2 overflow-x-visible overflow-y-scroll">
-                            {/* <PortfolioCard
-                                size="sm"
-                                ranking={24}
-                                rating={3.5}
-                                portfolio={undefined}
-                            /> */}
+                            {myPortfolios?.map((portfolio) => {
+                                return (
+                                    <PortfolioCard
+                                        key={portfolio.portfolioId}
+                                        size="sm"
+                                        rating={portfolio.score}
+                                        portfolio={portfolio}
+                                    />
+                                );
+                            })}
                         </div>
                     </div>
                 </div>

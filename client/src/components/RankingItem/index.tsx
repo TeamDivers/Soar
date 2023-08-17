@@ -36,7 +36,7 @@ const RankingItem = (props: RankingItem) => {
                 </div>
             </div>
             <div className="flex gap-1 mb-1 text-xs font-medium text-neutral-500">
-                <Star />
+                <Star fill="#FFA800" />
                 {props.rating}
             </div>
         </div>

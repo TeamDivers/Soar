@@ -63,7 +63,7 @@ const PortfolioCard = ({
                         </div>
                         {rating && (
                             <div className="flex gap-1 mb-1 text-xs font-medium text-neutral-500">
-                                <Star />
+                                <Star fill="#FFA800" />
                                 {rating}
                             </div>
                         )}

@@ -39,7 +39,10 @@ const Layout = ({
                     {title || <Logo className="w-16" />}
                     {hasProfile ? (
                         <img
-                            src={member?.thumbnail}
+                            src={
+                                member?.thumbnail ||
+                                'https://placehold.co/200?text=jjh'
+                            }
                             className="w-10 h-10 rounded-full"
                         />
                     ) : (
@@ -47,7 +50,7 @@ const Layout = ({
                     )}
                 </div>
             )}
-            <div className={`${hasNavigation ? 'mb-[90px]' : ''}`}>
+            <div className={`${hasNavigation ? 'mb-[100px]' : ''}`}>
                 {children || <Outlet />}
             </div>
 

@@ -10,6 +10,14 @@ interface PortfolioRequestParams {
     option?: OPTION;
 }
 
+const searchPortfolios = (keyword: string) => {
+    return request<PortfolioType[]>({
+        method: 'GET',
+        url: `/portfolios/search`,
+        params: { keyword, size: 100 }
+    });
+};
+
 const getPortfolio = (portfolioId: number) => {
     return request<PortfolioType>({
         method: 'GET',
@@ -51,5 +59,11 @@ export const useGetPortfolio = ({ portfolioId }: { portfolioId: number }) => {
 export const usePortfolioRank = ({ portfolioId }: { portfolioId: number }) => {
     return useQuery(['portfolio', 'rank', portfolioId], () =>
         getPortfolioRank(portfolioId)
+    );
+};
+
+export const useSearchPortfolios = ({ keyword }: { keyword: string }) => {
+    return useQuery(['portfolio', 'search', keyword], () =>
+        searchPortfolios(keyword)
     );
 };

@@ -34,7 +34,11 @@ const PortfolioDetail = () => {
     const { data: portfolio } = useGetPortfolio({
         portfolioId: parseInt(params.portfolioId || '0')
     });
-    const { data: user } = useGetMember({ memberId: parseInt(getMemberId()) });
+
+    const { data: user } = useGetMember({
+        memberId: portfolio?.memberId || 0
+    });
+
     const rateMutation = useRatePortfolio();
 
     const color = portfolio?.background;
@@ -81,11 +85,11 @@ const PortfolioDetail = () => {
                 {/* Profile */}
                 <div className="flex flex-col items-center gap-[10px] justify-center mt-2">
                     <img
-                        src={user?.thumbnail}
+                        src={portfolio?.thumbnailURL}
                         className="w-[93px] h-[93px] rounded-[76px]"
                     />
                     <div className="text-base font-bold text-black">
-                        {user?.thumbnail}
+                        {user?.name}
                     </div>
                 </div>
                 {/* Projects */}
