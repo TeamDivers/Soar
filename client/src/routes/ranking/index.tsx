@@ -76,7 +76,10 @@ const Ranking = () => {
                         size="md"
                         rank={2}
                         color="#1D5CFF"
-                        img={portfolios[1]?.thumbnailURL}
+                        img={
+                            portfolios[1]?.thumbnailURL ||
+                            'https://placehold.co/200?text=soar'
+                        }
                     />
                     <PortfolioInfo
                         title={portfolios[1]?.title}
@@ -93,7 +96,10 @@ const Ranking = () => {
                         size="lg"
                         rank={1}
                         color="#FFC01D"
-                        img={portfolios[0]?.thumbnailURL}
+                        img={
+                            portfolios[0]?.thumbnailURL ||
+                            'https://placehold.co/200?text=soar'
+                        }
                     />
                     <PortfolioInfo
                         title={portfolios[0]?.title}
@@ -111,7 +117,10 @@ const Ranking = () => {
                         size="md"
                         rank={3}
                         color="#1D5CFF"
-                        img={portfolios[2]?.thumbnailURL}
+                        img={
+                            portfolios[2]?.thumbnailURL ||
+                            'https://placehold.co/200?text=soar'
+                        }
                     />
                     <PortfolioInfo
                         title={portfolios[2]?.title}
@@ -135,6 +144,7 @@ const Ranking = () => {
                             isAscending={Math.random() < 0.5}
                             thumbnail={
                                 portfolio?.thumbnailURL ||
+                                'https://placehold.co/200?text=soar' ||
                                 'http://placehold.co/200'
                             }
                             title={portfolio.title}
