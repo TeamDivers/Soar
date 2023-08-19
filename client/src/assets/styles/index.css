@@ -67,6 +67,10 @@ body,
     font-family: 'Pretendard', sans-serif;
 }
 
+main {
+    padding-top: calc(env(safe-area-inset-top) + 40px);
+}
+
 .aggro {
     font-family: 'SBAggro';
 }
