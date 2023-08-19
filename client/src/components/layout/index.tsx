@@ -33,6 +33,7 @@ const Layout = ({
     return (
         <main
             className={`container relative h-screen max-w-md mx-auto bg-white overflow-y-scroll hide-scrollbar`}
+            // style={{ paddingTop: 'env(safe-area-inset-top)' }}
         >
             {hasHeader && (
                 <div className="flex items-center justify-between h-10 px-5 pt-3 text-xl font-bold text-black">
